@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@+id/nav_home">
+
+    <fragment
+        android:id="@+id/nav_home"
+        android:name="com.example.foodemerge.ui.home.HomeFragment"
+        android:label="@string/menu_home_menu"
+        tools:layout="@layout/fragment_home" />
+
+    <fragment
+        android:id="@+id/nav_shopping_list"
+        android:name="com.example.foodemerge.ui.shopping_list.ShoppingListFragment"
+        android:label="@string/menu_shopping_list"
+        tools:layout="@layout/fragment_shopping_list" />
+
+    <fragment
+        android:id="@+id/nav_food_info"
+        android:name="com.example.foodemerge.ui.food_info.FoodInfoFragment"
+        android:label="@string/menu_food_info"
+        tools:layout="@layout/fragment_food_info" />
+
+    <fragment
+        android:id="@+id/nav_food"
+        android:name="com.example.foodemerge.ui.food.FoodFragment"
+        android:label="@string/menu_home_food"
+        tools:layout="@layout/fragment_food" />
+
+    <fragment
+        android:id="@+id/nav_instructions"
+        android:name="com.example.foodemerge.ui.instructions.InstructionFragment"
+        android:label="@string/menu_instructions"
+        tools:layout="@layout/fragment_instructions" />
+
+    <fragment
+        android:id="@+id/nav_setting"
+        android:name="com.example.foodemerge.ui.setting.SettingFragment"
+        android:label="@string/menu_setting"
+        tools:layout="@layout/fragment_setting" />
+</navigation>

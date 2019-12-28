@@ -1,0 +1,24 @@
+<resources>
+    <string name="app_name">test1</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Android Studio</string>
+    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">Settings</string>
+
+    <!--前面是"字串名稱"，後面是"實際字串"-->
+    <!--清單的全部-->
+    <string name="menu_home_menu">Home</string>
+    <string name="menu_home_food">Food</string>
+    <string name="menu_shopping_list">Shopping List</string>
+    <string name="menu_food_info">Food Info</string>
+    <string name="menu_setting">Setting</string>
+    <string name="menu_instructions">Instructions</string>
+    <!--清單的全部-->
+
+    <!--主畫面的彩色圖-->
+
+    <!--主畫面的彩色圖-->
+
+</resources>

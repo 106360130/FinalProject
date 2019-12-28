@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_home"
+            android:icon="@drawable/home"
+            android:title="@string/menu_home_menu" />
+
+        <item
+            android:id="@+id/nav_food"
+            android:icon="@drawable/tomato"
+            android:title="@string/menu_home_food" />
+
+
+        <item
+            android:id="@+id/nav_shopping_list"
+            android:icon="@drawable/shopping"
+            android:title="@string/menu_shopping_list" />
+        <item
+            android:id="@+id/nav_food_info"
+            android:icon="@drawable/foodlist"
+            android:title="@string/menu_food_info" />
+        <item
+            android:id="@+id/nav_setting"
+            android:icon="@drawable/setting"
+            android:title="@string/menu_setting" />
+        <item
+            android:id="@+id/nav_instructions"
+            android:icon="@drawable/question"
+            android:title="@string/menu_instructions" />
+    </group>
+
+</menu>
+<!--左滑的頁面的menu-->
