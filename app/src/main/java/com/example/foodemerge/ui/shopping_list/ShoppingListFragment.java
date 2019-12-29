@@ -60,7 +60,7 @@ public class ShoppingListFragment extends Fragment {
         });
 
         //taking care of the list view
-        listView = getView().findViewById(R.id.listView);
+        listView = root.findViewById(R.id.listView);
         //adapter for handling the database
         adapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_list_item_1, items);
         listView.setAdapter(adapter);
@@ -96,7 +96,7 @@ public class ShoppingListFragment extends Fragment {
         // DataBind ListView with items from ArrayAdapter
         listView.setAdapter(colorAdapter);
 
-        FloatingActionButton add_shopping_item = getView().findViewById(R.id.add_shopping_item);
+        FloatingActionButton add_shopping_item = root.findViewById(R.id.add_shopping_item);
         add_shopping_item.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
