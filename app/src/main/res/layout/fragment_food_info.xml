@@ -46,14 +46,15 @@
         android:id="@+id/serch_food"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
-        android:hint="搜尋食品"
-        android:ems="10"
-        android:inputType="textPersonName"
         android:layout_marginTop="30dp"
-        android:layout_marginStart="20dp"
+        android:backgroundTint="#00E7DFDF"
+        android:drawableTint="#00ECE8E8"
+        android:ems="10"
+        android:foregroundTint="#00F0E7E7"
+        android:hint="搜尋食品"
+        android:inputType="textPersonName"
         app:layout_constraintLeft_toRightOf="@id/search_image"
-        app:layout_constraintTop_toTopOf="parent"
-        />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ListView
         android:id="@+id/search_list"
