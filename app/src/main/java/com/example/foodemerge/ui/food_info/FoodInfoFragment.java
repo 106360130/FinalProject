@@ -7,6 +7,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -28,6 +30,9 @@ public class FoodInfoFragment extends Fragment {
 
     private FoodInfoViewModel foodInfoViewModel;
     private FloatingActionButton add;
+    private Button btn_asve;
+    private EditText foodName,caloriesAmount,proteinAmount,fatAmount;
+    private TextView foodName_show,caloriesAmount_show,proteinAmount_show,fatAmount_show;
     private TextView text_food_info;
     private ListView search_list;
     private ArrayAdapter<String> adapter;
@@ -53,6 +58,16 @@ public class FoodInfoFragment extends Fragment {
 
         add = root.findViewById(R.id.add);
         search_list = root.findViewById(R.id.search_list);
+        btn_asve=root.findViewById(R.id.btn_save);
+        foodName=root.findViewById(R.id.foodName_show);
+        caloriesAmount=root.findViewById(R.id.caloriesAmount_show);
+        proteinAmount=root.findViewById(R.id.proteinAmount_show);
+        fatAmount=root.findViewById(R.id.fatAmount);
+        foodName_show=root.findViewById(R.id.foodName_show);
+        caloriesAmount_show=root.findViewById(R.id.caloriesAmount_show);
+        proteinAmount_show=root.findViewById(R.id.proteinAmount_show);
+        fatAmount_show=root.findViewById(R.id.fatAmount_show);
+
 
         adapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_list_item_1, items);
         search_list.setAdapter(adapter);
@@ -91,9 +106,24 @@ public class FoodInfoFragment extends Fragment {
         add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //新增資料庫,切換到Food_data_toast.layout
+                //切換到Food_data_toast.layout
+
+
+
             }
-        });
+        });//新增資料庫,
+
+        btn_asve.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String food_name = foodName.getText().toString();
+
+
+
+
+
+            }
+        });//儲存資料
 
         return root;
     }
