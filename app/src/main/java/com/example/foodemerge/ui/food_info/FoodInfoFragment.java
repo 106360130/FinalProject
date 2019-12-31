@@ -1,5 +1,10 @@
+<<<<<<< HEAD
 
 //123
+=======
+//有在Jeff的電腦檢查過了，專案是可以run的
+
+>>>>>>> 8736d1c6112b9963a44aae25a681cb6e98d3fc66
 package com.example.foodemerge.ui.food_info;
 
 import android.content.Context;
