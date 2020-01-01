@@ -2,20 +2,21 @@ package com.example.foodemerge.ui.shopping_list;
 
 import android.content.Context;
 import android.content.DialogInterface;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.text.InputType;
 import android.util.Log;
 import android.util.TypedValue;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
-import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -28,13 +29,10 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.example.foodemerge.Database.DatabaseForm;
-import com.example.foodemerge.Database.DatabaseFunction;
 import com.example.foodemerge.R;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
-
-import static android.graphics.Color.BLACK;
 
 public class ShoppingListFragment extends Fragment {
 
@@ -43,6 +41,8 @@ public class ShoppingListFragment extends Fragment {
     private ListView listView;
     private ArrayAdapter<String > adapter;
     private ArrayList<String> items = new ArrayList<>();
+    private EditText ed_name, ed_price;
+    private Button create, cancel, change, cancel_delete, delete;
 
 
     @Override
@@ -57,7 +57,10 @@ public class ShoppingListFragment extends Fragment {
                              ViewGroup container, Bundle savedInstanceState) {
         shoppingListViewModel =
                 ViewModelProviders.of(this).get(ShoppingListViewModel.class);
-        View root = inflater.inflate(R.layout.fragment_shopping_list, container, false);
+
+
+        final View root = inflater.inflate(R.layout.fragment_shopping_list, container, false);
+
         final TextView textView = root.findViewById(R.id.text_shopping_list);
         shoppingListViewModel.getText().observe(this, new Observer<String>() {
             @Override
@@ -71,11 +74,52 @@ public class ShoppingListFragment extends Fragment {
         adapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_list_item_1, items);//adapter for handling the database
         listView.setAdapter(adapter);
 
+        /*
         //creating the editText for the different  AlertDialog's
         final EditText ed_food = new EditText(getActivity());//新EDIT TEXT讓使用者寫新食物的名字
         ed_food.setInputType(InputType.TYPE_CLASS_TEXT);//輸入是TEXT
+
         final EditText ed_price = new EditText(getActivity());//新EDIT TEXT讓使用者寫新食物的價格
         ed_price.setInputType(InputType.TYPE_CLASS_NUMBER);//輸入是個數字*/
+
+        // Set an item click listener for ListView
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                // Get the selected item text from ListView
+                String selectedItem = (String) parent.getItemAtPosition(position);
+                final AlertDialog delete_dialog = new AlertDialog.Builder(getActivity()).create();
+                delete_dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+                delete_dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+                delete_dialog.show();
+
+                View toast2 = View.inflate(getActivity(),R.layout.delete_food_toast,null);
+                if (toast2.getParent()!=null) {
+                    ((ViewGroup)toast2.getParent()).removeView(toast2);
+                }
+
+                delete_dialog.setContentView(toast2);
+
+                cancel_delete = delete_dialog.findViewById(R.id.cancel_delete);
+                delete = delete_dialog.findViewById(R.id.delete);
+
+                //lo del database
+                /*delete.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+
+                    }
+                });*/
+
+                cancel_delete.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        delete_dialog.dismiss();
+                    }
+                });
+
+            }
+        });
 
         //adapter for changing the text color
         ArrayAdapter<String> colorAdapter = new ArrayAdapter<String>(getActivity(),android.R.layout.simple_list_item_1, items){
@@ -85,11 +129,11 @@ public class ShoppingListFragment extends Fragment {
                 View view = super.getView(position, convertView, parent);
 
                 // Initialize a TextView for ListView each Item
-                TextView tv = (TextView) view.findViewById(android.R.id.text1);
+                final TextView tv = (TextView) view.findViewById(android.R.id.text1);
 
                 // Set the text color of TextView (ListView Item)
                 tv.setTextColor(Color.WHITE);
-                tv.setTextSize(TypedValue.COMPLEX_UNIT_SP, 30.0F);
+                tv.setTextSize(TypedValue.COMPLEX_UNIT_SP, 25.0F);
 
                 // Generate ListView Item using TextView
                 return view;
@@ -103,65 +147,96 @@ public class ShoppingListFragment extends Fragment {
         add_shopping_item.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                final AlertDialog.Builder dialog = new AlertDialog.Builder(getActivity());
-                dialog.setTitle("新增食物");
+                final AlertDialog dialog = new AlertDialog.Builder(getActivity()).create();
+                dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+                dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+                dialog.show();
 
-                //Creating a linear layout for the dialog
-                LinearLayout layout = new LinearLayout(getActivity());
-                layout.setOrientation(LinearLayout.VERTICAL);
-                layout.addView(ed_food);
-                layout.addView(ed_price);
+                View toast1 = View.inflate(getActivity(),R.layout.newfood_toast,null);
+                if (toast1.getParent()!=null) {
+                    ((ViewGroup)toast1.getParent()).removeView(toast1);
+                }
 
-                dialog.setView(layout);
 
-                //新增的button.新增之後,listview會直接更新
+                dialog.setContentView(toast1);
 
-                dialog.setPositiveButton("新增", new DialogInterface.OnClickListener() {
+                dialog.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE|WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM);
+
+                ed_name = toast1.findViewById(R.id.ed_name);
+                ed_price = toast1.findViewById(R.id.ed_price);
+                create = toast1.findViewById(R.id.create);
+                cancel = toast1.findViewById(R.id.cancel);
+                change = toast1.findViewById(R.id.change);
+
+                final DatabaseForm shopping_list1 = new DatabaseForm();
+                create.setOnClickListener(new View.OnClickListener() {
                     @Override
-                    public void onClick(DialogInterface dialog, int which) {
-
-                        //btn_insert的東西 //price不一定要填
-                        //en el list 點食物時,也會有個alertdialog para escribir el price
-                        if (ed_food.length() < 1 /*|| ed_price.length() < 1*/)
+                    public void onClick(View v) {
+                        if (ed_name.length() < 1 /*|| ed_price.length() < 1*/)
                             Toast.makeText(getActivity(), "欄位請勿留空", Toast.LENGTH_SHORT).show();
                         else {
                             try {
                                 //增加食物的功能
-                                DatabaseForm shopping_list1 = new DatabaseForm();
-                                shopping_list1.food_name = ed_food.getText().toString();
-                                Log.e("FOOD_NAME : ", shopping_list1.food_name);
-                                items.add("名字: "+ shopping_list1.food_name);
-                                Toast.makeText(getActivity(), "新增食物" + ed_food.getText().toString(), /*+ "      價格" + ed_price.getText().toString(),*/ Toast.LENGTH_SHORT).show();
 
-                                ed_food.setText("");
-                                /*ed_price.setText("");*/
+
+                                if (ed_price.length()>0){
+                                    shopping_list1.food_name = ed_name.getText().toString();
+                                    shopping_list1.food_price = ed_price.getText().toString();
+                                    items.add("名字: "+ shopping_list1.food_name+"   價格: "+ shopping_list1.food_price+ "元");
+                                }else{
+                                    shopping_list1.food_name = ed_name.getText().toString();
+                                    items.add("名字: "+ shopping_list1.food_name);
+                                }
+
+
+                                dialog.dismiss();
+                                Toast.makeText(getActivity(), "新增食物" + ed_name.getText().toString(), /*+ "      價格" + ed_price.getText().toString(),*/ Toast.LENGTH_SHORT).show();
+
+                                ed_name.setText("");
+                                ed_price.setText("");
                             } catch (Exception e) {
                                 Toast.makeText(getActivity(), "新增失敗" + e.toString(), Toast.LENGTH_LONG).show();
                             }
                         }
-
-                        //Toast.makeText(MainActivity.this,"新增食物成功",Toast.LENGTH_LONG).show();
-
-                        //btn_query的東西
-                        //quizas el if, else no sea necesario porque lo que quiero es que
-                        //la lista se actualice automaticamente
-
-
                     }
                 });
 
-                //取消的button.
-                dialog.setNegativeButton("取消", new DialogInterface.OnClickListener(){
+               /* change.setOnClickListener(new View.OnClickListener() {
                     @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
+                    public void onClick(View v) {
+                        if(ed_name.length()<1|| ed_price.length() < 1)
+
+                            Toast.makeText(getActivity(), "欄位請勿留空",Toast.LENGTH_SHORT).show();
+                        else{
+                            try{
+                                //shopping_list1. = ed_name.getText().toString();//use the database functions to update addDatabaseShoppingList()
+                                shopping_list1.food_price = ed_price.getText().toString();
+                                items.add("名字: "+ shopping_list1.food_name+"   價格: "+ shopping_list1.food_price+ "元");
+                                Toast.makeText(getActivity(),"更新書名"+ed_name.getText().toString()+"      價格"+ed_price.getText().toString(),Toast.LENGTH_SHORT).show();
+
+                                ed_name.setText("");
+                                ed_price.setText("");
+                            }catch (Exception e){
+                                Toast.makeText(getActivity(),"更新失敗:"+e.toString(),Toast.LENGTH_LONG).show();
+                            }
+                        }
+                    }
+                });*/
+
+                cancel.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
                         Toast.makeText(getActivity(), "取消", Toast.LENGTH_LONG).show();
+                        dialog.cancel();
                     }
                 });
 
 
-                dialog.show();
             }
         });
+
+
+
 
 
 
@@ -195,4 +270,8 @@ public class ShoppingListFragment extends Fragment {
     public void onDestroy(){
         super.onDestroy();
     }
+
+
+
+
 }
