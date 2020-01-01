@@ -20,7 +20,6 @@ import androidx.lifecycle.ViewModelProviders;
 import com.example.foodemerge.R;
 import java.util.ArrayList;
 import android.database.Cursor;
-import com.example.foodemerge.ui.SQL.MyDBHelper;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import android.widget.Toast;
@@ -37,10 +36,6 @@ public class FoodInfoFragment extends Fragment {
     private ListView search_list;
     private ArrayAdapter<String> adapter;
     private ArrayList<String> items = new ArrayList<>();
-
-    public SQLiteDatabase dbrw;
-
-    private Context context;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -68,37 +63,12 @@ public class FoodInfoFragment extends Fragment {
         proteinAmount_show=root.findViewById(R.id.proteinAmount_show);
         fatAmount_show=root.findViewById(R.id.fatAmount_show);
 
-
         adapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_list_item_1, items);
         search_list.setAdapter(adapter);
-
-        dbrw = new MyDBHelper(getActivity()).getWritableDatabase();
 
         text_food_info.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Cursor c;
-                if(text_food_info.length()<1)
-                    c = dbrw.rawQuery("SELECT * FROM myTable", null);
-                else
-                    c = dbrw.rawQuery("SELECT * FROM  myTable WHERE book LIKE '"+text_food_info.getText().toString()+"'",null);
-
-                c.moveToFirst();
-                items.clear();
-                Toast.makeText(context,"共有" + c.getCount() + "筆資料", Toast.LENGTH_SHORT).show();
-
-                for (int i = 0; i<c.getCount();i++){
-
-                    items.add("食物:"+ c.getString(0)
-                            +"\t\t\t\tCalories:"+ c.getString(1)
-                            +"proteinAmount:"+c.getString(2)
-                            +"fatAmount"+c.getString(3));
-                    c.moveToNext();
-                }//取資料
-
-                adapter.notifyDataSetChanged();
-
-                c.close();
 
             }//查詢資料庫
         });
@@ -108,25 +78,24 @@ public class FoodInfoFragment extends Fragment {
             public void onClick(View v) {
                 //切換到Food_data_toast.layout
 
-
-
             }
         });//新增資料庫,
 
+
+        //這段有問題需要修改，先註解掉
+        /*
         btn_asve.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String food_name = foodName.getText().toString();
-
-
-
-
 
             }
         });//儲存資料
+        */
+        //這段有問題需要修改，先註解掉
 
         return root;
     }
+
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
@@ -144,4 +113,6 @@ public class FoodInfoFragment extends Fragment {
         }
 
     }
+
+
 }
