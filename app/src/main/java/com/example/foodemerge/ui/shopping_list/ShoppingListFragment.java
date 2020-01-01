@@ -17,6 +17,11 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+<<<<<<< HEAD
+=======
+import android.widget.LinearLayout;
+import android.widget.ListAdapter;
+>>>>>>> 479975d01d26dee328c008c9bf529987dd788018
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -33,6 +38,7 @@ import com.example.foodemerge.R;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class ShoppingListFragment extends Fragment {
 
@@ -57,10 +63,14 @@ public class ShoppingListFragment extends Fragment {
                              ViewGroup container, Bundle savedInstanceState) {
         shoppingListViewModel =
                 ViewModelProviders.of(this).get(ShoppingListViewModel.class);
+<<<<<<< HEAD
 
 
         final View root = inflater.inflate(R.layout.fragment_shopping_list, container, false);
 
+=======
+        final View root = inflater.inflate(R.layout.fragment_shopping_list, container, false);
+>>>>>>> 479975d01d26dee328c008c9bf529987dd788018
         final TextView textView = root.findViewById(R.id.text_shopping_list);
         shoppingListViewModel.getText().observe(this, new Observer<String>() {
             @Override
@@ -177,6 +187,23 @@ public class ShoppingListFragment extends Fragment {
                         else {
                             try {
                                 //增加食物的功能
+<<<<<<< HEAD
+=======
+                                DatabaseForm shopping_list1 = new DatabaseForm();
+
+                                shopping_list1.food_name = ed_food.getText().toString();  //少了"getTextView"
+
+                                Log.e("FOOD_NAME : ", shopping_list1.food_name);
+                                items.add("名字: "+ shopping_list1.food_name);
+                                Toast.makeText(getActivity(), "新增食物" + ed_food.getText().toString(), /*+ "      價格" + ed_price.getText().toString(),*/ Toast.LENGTH_SHORT).show();
+
+                                ed_food.setText("");
+                                /*ed_price.setText("");*/
+                            } catch (Exception e) {
+                                Toast.makeText(getActivity(), "新增失敗" + e.toString(), Toast.LENGTH_LONG).show();
+                            }
+                        }
+>>>>>>> 479975d01d26dee328c008c9bf529987dd788018
 
 
                                 if (ed_price.length()>0){
