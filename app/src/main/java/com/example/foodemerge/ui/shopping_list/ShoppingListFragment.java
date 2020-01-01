@@ -16,6 +16,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -33,6 +34,7 @@ import com.example.foodemerge.R;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import static android.graphics.Color.BLACK;
 
@@ -57,7 +59,7 @@ public class ShoppingListFragment extends Fragment {
                              ViewGroup container, Bundle savedInstanceState) {
         shoppingListViewModel =
                 ViewModelProviders.of(this).get(ShoppingListViewModel.class);
-        View root = inflater.inflate(R.layout.fragment_shopping_list, container, false);
+        final View root = inflater.inflate(R.layout.fragment_shopping_list, container, false);
         final TextView textView = root.findViewById(R.id.text_shopping_list);
         shoppingListViewModel.getText().observe(this, new Observer<String>() {
             @Override
@@ -128,7 +130,7 @@ public class ShoppingListFragment extends Fragment {
                             try {
                                 //增加食物的功能
                                 DatabaseForm shopping_list1 = new DatabaseForm();
-                                shopping_list1.food_name = ed_food.toString();
+                                shopping_list1.food_name = ed_food.getText().toString();  //少了"getTextView"
                                 Log.e("FOOD_NAME : ", shopping_list1.food_name);
                                 items.add(shopping_list1.food_name);
                                 Toast.makeText(getActivity(), "新增食物" + ed_food.getText().toString(), /*+ "      價格" + ed_price.getText().toString(),*/ Toast.LENGTH_SHORT).show();
