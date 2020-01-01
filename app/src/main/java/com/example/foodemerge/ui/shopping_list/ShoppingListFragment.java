@@ -1,5 +1,6 @@
 package com.example.foodemerge.ui.shopping_list;
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -14,6 +15,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -32,13 +34,16 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
 
+import static android.graphics.Color.BLACK;
+
 public class ShoppingListFragment extends Fragment {
 
     private ShoppingListViewModel shoppingListViewModel;
     //若蘭加第一次
     private ListView listView;
-    private ArrayAdapter<String> adapter;
+    private ArrayAdapter<String > adapter;
     private ArrayList<String> items = new ArrayList<>();
+
 
     @Override
     public void onCreate(Bundle savedInstanceState){
@@ -63,8 +68,7 @@ public class ShoppingListFragment extends Fragment {
 
         //taking care of the list view
         listView = root.findViewById(R.id.listView);
-        //adapter for handling the database
-        adapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_list_item_1, items);
+        adapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_list_item_1, items);//adapter for handling the database
         listView.setAdapter(adapter);
 
         //creating the editText for the different  AlertDialog's
@@ -102,10 +106,13 @@ public class ShoppingListFragment extends Fragment {
                 final AlertDialog.Builder dialog = new AlertDialog.Builder(getActivity());
                 dialog.setTitle("新增食物");
 
+                //Creating a linear layout for the dialog
+                LinearLayout layout = new LinearLayout(getActivity());
+                layout.setOrientation(LinearLayout.VERTICAL);
+                layout.addView(ed_food);
+                layout.addView(ed_price);
 
-                dialog.setView(ed_food);
-
-                //dialog.setView(ed_price);
+                dialog.setView(layout);
 
                 //新增的button.新增之後,listview會直接更新
 
@@ -120,6 +127,10 @@ public class ShoppingListFragment extends Fragment {
                         else {
                             try {
                                 //增加食物的功能
+                                DatabaseForm shopping_list1 = new DatabaseForm();
+                                shopping_list1.food_name = ed_food.toString();
+                                Log.e("FOOD_NAME : ", shopping_list1.food_name);
+                                items.add(shopping_list1.food_name);
                                 Toast.makeText(getActivity(), "新增食物" + ed_food.getText().toString(), /*+ "      價格" + ed_price.getText().toString(),*/ Toast.LENGTH_SHORT).show();
 
                                 ed_food.setText("");
@@ -148,8 +159,6 @@ public class ShoppingListFragment extends Fragment {
                 });
 
 
-
-
                 dialog.show();
             }
         });
@@ -166,16 +175,16 @@ public class ShoppingListFragment extends Fragment {
 
 
         //測試SHOPPING_LIST資料庫提取資料，測試成功
-        ArrayList<DatabaseForm> shopping_list2 = DatabaseFunction.getInstance().getDatabaseShoppingList();  //取得剛剛儲存的資料
+        /*ArrayList<DatabaseForm> shopping_list2 = DatabaseFunction.getInstance().getDatabaseShoppingList();  //取得剛剛儲存的資料
         Log.e("dialog_foods ; " , String.format("%d" , shopping_list2.size()));
         //DatabaseForm dailog_food = dialog_foods.get(0);  //取第一筆資料
         DatabaseForm test_database_shopping_list = shopping_list2.get(shopping_list2.size()-1);  //取最後一筆資料
 
-        Log.e("TEST_SHOPPING_LIST2 : ", "food name : " + test_database_shopping_list.food_neme);
+        Log.e("TEST_SHOPPING_LIST2 : ", "food name : " + test_database_shopping_list.food_name);
         Log.e("TEST_SHOPPING_LIST2 : ", "food cals : " + test_database_shopping_list.food_cals);
         Log.e("TEST_SHOPPING_LIST2 : ", "food protein : " + test_database_shopping_list.food_protein);
         Log.e("TEST_SHOPPING_LIST2 : ", "food fat : " + test_database_shopping_list.food_fat);
-        Log.e("TEST_SHOPPING_LIST2 : ", "food carbs : " + test_database_shopping_list.food_carbs);
+        Log.e("TEST_SHOPPING_LIST2 : ", "food carbs : " + test_database_shopping_list.food_carbs);*/
         //測試SHOPPING_LIST資料庫提取資料，測試成功
 
 

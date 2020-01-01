@@ -53,7 +53,7 @@ public class MainActivity extends AppCompatActivity {
 
         //測試SHOPPING_LIST資料庫存取資料，測試成功
         DatabaseForm shopping_list1 = new DatabaseForm();
-        shopping_list1.food_neme = "apple";
+        shopping_list1.food_name = "apple";
         shopping_list1.food_cals = "100";
         shopping_list1.food_protein = "3.2";
         shopping_list1.food_fat = "0.2";
@@ -62,7 +62,7 @@ public class MainActivity extends AppCompatActivity {
         DatabaseFunction.getInstance().addDatabaseShoppingList(shopping_list1);
         DatabaseFunction.getInstance().saveDatabaseShoppingList();
 
-        Log.e("TEST_SHOPPING_LIST1 : ", "food name : " + shopping_list1.food_neme);
+        Log.e("TEST_SHOPPING_LIST1 : ", "food name : " + shopping_list1.food_name);
         Log.e("TEST_SHOPPING_LIST1 : ", "food cals : " + shopping_list1.food_cals);
         Log.e("TEST_SHOPPING_LIST1 : ", "food protein : " + shopping_list1.food_protein);
         Log.e("TEST_SHOPPING_LIST1 : ", "food fat : " + shopping_list1.food_fat);

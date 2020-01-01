@@ -3,7 +3,7 @@
 package com.example.foodemerge.Database;
 
 public class DatabaseForm {
-    public String food_neme;
+    public String food_name;//有修改名字.
     public String food_cals;
     public String food_protein;
     public String food_fat;

@@ -9,6 +9,7 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
+
 public class DatabaseFunction {
     private volatile static DatabaseFunction instance = null;
 
@@ -70,10 +71,12 @@ public class DatabaseFunction {
         return this.databaseShoppingList;
     }
 
+    //增加
     public void setDatabaseShoppingList(ArrayList<DatabaseForm> databaseShoppingList) {
         this.databaseShoppingList = databaseShoppingList;
     }
 
+    //修改
     public void addDatabaseShoppingList(DatabaseForm database) {
         if (this.databaseShoppingList == null){
             this.databaseShoppingList = new ArrayList<>();
