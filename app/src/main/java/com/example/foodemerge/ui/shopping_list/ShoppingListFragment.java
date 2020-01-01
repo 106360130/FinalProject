@@ -36,7 +36,6 @@ public class ShoppingListFragment extends Fragment {
     private ListView listView;
     private ArrayAdapter<String> adapter;
     private ArrayList<String> items = new ArrayList<>();
-    private SQLiteDatabase dbrw;
 
     @Override
     public void onCreate(Bundle savedInstanceState){
@@ -64,9 +63,6 @@ public class ShoppingListFragment extends Fragment {
         //adapter for handling the database
         adapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_list_item_1, items);
         listView.setAdapter(adapter);
-
-
-        dbrw = new MyDBHelper(getActivity()).getWritableDatabase();//取得資料庫實體
 
         //creating the editText for the different  AlertDialog's
         final EditText ed_food = new EditText(getActivity());//新EDIT TEXT讓使用者寫新食物的名字
@@ -120,7 +116,7 @@ public class ShoppingListFragment extends Fragment {
                             Toast.makeText(getActivity(), "欄位請勿留空", Toast.LENGTH_SHORT).show();
                         else {
                             try {
-                                dbrw.execSQL("INSERT INTO myTable(food, price) VALUES(?,?)", new Object[]{ed_food.getText().toString()/*, ed_price.getText().toString()*/});
+                                //增加食物的功能
                                 Toast.makeText(getActivity(), "新增食物" + ed_food.getText().toString(), /*+ "      價格" + ed_price.getText().toString(),*/ Toast.LENGTH_SHORT).show();
 
                                 ed_food.setText("");
@@ -135,25 +131,8 @@ public class ShoppingListFragment extends Fragment {
                         //btn_query的東西
                         //quizas el if, else no sea necesario porque lo que quiero es que
                         //la lista se actualice automaticamente
-                        Cursor c;
-                        if(ed_food.length()<1)
-                            c = dbrw.rawQuery("SELECT * FROM myTable", null);
-                        else
-                            c = dbrw.rawQuery("SELECT * FROM  myTable WHERE book LIKE '"+ed_food.getText().toString()+"'",null);
 
-                        c.moveToFirst();
-                        items.clear();
-                        Toast.makeText(getActivity(),"共有" + c.getCount() + "筆資料", Toast.LENGTH_SHORT).show();
 
-                        for (int i = 0; i<c.getCount();i++){
-
-                            items.add("食物:"+ c.getString(0)+"\t\t\t\t價格:"+ c.getString(1));
-                            c.moveToNext();
-                        }
-
-                        adapter.notifyDataSetChanged();
-
-                        c.close();
                     }
                 });
 
@@ -187,6 +166,5 @@ public class ShoppingListFragment extends Fragment {
     @Override
     public void onDestroy(){
         super.onDestroy();
-        dbrw.close();//資料庫不適用記得關閉
     }
 }
