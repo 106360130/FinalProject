@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -33,10 +34,12 @@ public class FoodInfoFragment extends Fragment {
     private Button btn_asve;
     private EditText foodName,caloriesAmount,proteinAmount,fatAmount;
     private TextView foodName_show,caloriesAmount_show,proteinAmount_show,fatAmount_show;
+    private String[] list = {"鉛筆","原子筆","鋼筆","毛筆","彩色筆"};
     private TextView text_food_info;
     private ListView search_list;
-    private ArrayAdapter<String> adapter;
-    private ArrayList<String> items = new ArrayList<>();
+    private ArrayAdapter<String> adapter;//共有幾筆資料的
+    private ArrayList<String> items = new ArrayList<>();//共有幾筆資料的
+    private ArrayAdapter<String> listAdapter;
 
     public SQLiteDatabase dbrw;
 
@@ -59,9 +62,9 @@ public class FoodInfoFragment extends Fragment {
         add = root.findViewById(R.id.add);
         search_list = root.findViewById(R.id.search_list);
         btn_asve=root.findViewById(R.id.btn_save);
-        foodName=root.findViewById(R.id.foodName_show);
-        caloriesAmount=root.findViewById(R.id.caloriesAmount_show);
-        proteinAmount=root.findViewById(R.id.proteinAmount_show);
+        foodName=root.findViewById(R.id.foodName);
+        caloriesAmount=root.findViewById(R.id.caloriesAmount);
+        proteinAmount=root.findViewById(R.id.proteinAmount);
         fatAmount=root.findViewById(R.id.fatAmount);
         foodName_show=root.findViewById(R.id.foodName_show);
         caloriesAmount_show=root.findViewById(R.id.caloriesAmount_show);
@@ -69,8 +72,8 @@ public class FoodInfoFragment extends Fragment {
         fatAmount_show=root.findViewById(R.id.fatAmount_show);
 
 
-        adapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_list_item_1, items);
-        search_list.setAdapter(adapter);
+      //  adapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_list_item_1, items);
+      //  search_list.setAdapter(adapter);
 
         dbrw = new MyDBHelper(getActivity()).getWritableDatabase();
 
@@ -116,18 +119,24 @@ public class FoodInfoFragment extends Fragment {
         btn_asve.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String food_name = foodName.getText().toString();
-
-
-
-
-
+                String food_name_show = foodName.getText().toString();
+                String caloriesAmount_show = caloriesAmount.getText().toString();
+                String proteinAmount_show = proteinAmount.getText().toString();
+                String fatAmount_show=fatAmount.getText().toString();
             }
         });//儲存資料
 
+        listAdapter = new ArrayAdapter(this,android.R.layout.simple_list_item_1,list);
+        search_list.setAdapter(listAdapter);
+        search_list.setOnItemClickListener(new AdapterView.OnItemClickListener(){
+            @Override
+            public void onItemClick()
+        });
         return root;
     }
 
+
+/*
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -144,4 +153,6 @@ public class FoodInfoFragment extends Fragment {
         }
 
     }
+
+ */
 }
