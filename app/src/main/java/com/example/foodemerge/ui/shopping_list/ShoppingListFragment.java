@@ -17,11 +17,6 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
-<<<<<<< HEAD
-=======
-import android.widget.LinearLayout;
-import android.widget.ListAdapter;
->>>>>>> 479975d01d26dee328c008c9bf529987dd788018
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -38,12 +33,11 @@ import com.example.foodemerge.R;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class ShoppingListFragment extends Fragment {
 
     private ShoppingListViewModel shoppingListViewModel;
-    //若蘭加第一次
+    //è‹¥è˜­åŠ ç¬¬ä¸€æ¬¡
     private ListView listView;
     private ArrayAdapter<String > adapter;
     private ArrayList<String> items = new ArrayList<>();
@@ -63,14 +57,10 @@ public class ShoppingListFragment extends Fragment {
                              ViewGroup container, Bundle savedInstanceState) {
         shoppingListViewModel =
                 ViewModelProviders.of(this).get(ShoppingListViewModel.class);
-<<<<<<< HEAD
 
 
         final View root = inflater.inflate(R.layout.fragment_shopping_list, container, false);
 
-=======
-        final View root = inflater.inflate(R.layout.fragment_shopping_list, container, false);
->>>>>>> 479975d01d26dee328c008c9bf529987dd788018
         final TextView textView = root.findViewById(R.id.text_shopping_list);
         shoppingListViewModel.getText().observe(this, new Observer<String>() {
             @Override
@@ -86,11 +76,11 @@ public class ShoppingListFragment extends Fragment {
 
         /*
         //creating the editText for the different  AlertDialog's
-        final EditText ed_food = new EditText(getActivity());//新EDIT TEXT讓使用者寫新食物的名字
-        ed_food.setInputType(InputType.TYPE_CLASS_TEXT);//輸入是TEXT
+        final EditText ed_food = new EditText(getActivity());//æ–°EDIT TEXTè®“ä½¿ç”¨è€…å¯«æ–°é£Ÿç‰©çš„å��å­—
+        ed_food.setInputType(InputType.TYPE_CLASS_TEXT);//è¼¸å…¥æ˜¯TEXT
 
-        final EditText ed_price = new EditText(getActivity());//新EDIT TEXT讓使用者寫新食物的價格
-        ed_price.setInputType(InputType.TYPE_CLASS_NUMBER);//輸入是個數字*/
+        final EditText ed_price = new EditText(getActivity());//æ–°EDIT TEXTè®“ä½¿ç”¨è€…å¯«æ–°é£Ÿç‰©çš„åƒ¹æ ¼
+        ed_price.setInputType(InputType.TYPE_CLASS_NUMBER);//è¼¸å…¥æ˜¯å€‹æ•¸å­—*/
 
         // Set an item click listener for ListView
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -183,46 +173,29 @@ public class ShoppingListFragment extends Fragment {
                     @Override
                     public void onClick(View v) {
                         if (ed_name.length() < 1 /*|| ed_price.length() < 1*/)
-                            Toast.makeText(getActivity(), "欄位請勿留空", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getActivity(), "æ¬„ä½�è«‹å‹¿ç•™ç©º", Toast.LENGTH_SHORT).show();
                         else {
                             try {
-                                //增加食物的功能
-<<<<<<< HEAD
-=======
-                                DatabaseForm shopping_list1 = new DatabaseForm();
-
-                                shopping_list1.food_name = ed_food.getText().toString();  //少了"getTextView"
-
-                                Log.e("FOOD_NAME : ", shopping_list1.food_name);
-                                items.add("名字: "+ shopping_list1.food_name);
-                                Toast.makeText(getActivity(), "新增食物" + ed_food.getText().toString(), /*+ "      價格" + ed_price.getText().toString(),*/ Toast.LENGTH_SHORT).show();
-
-                                ed_food.setText("");
-                                /*ed_price.setText("");*/
-                            } catch (Exception e) {
-                                Toast.makeText(getActivity(), "新增失敗" + e.toString(), Toast.LENGTH_LONG).show();
-                            }
-                        }
->>>>>>> 479975d01d26dee328c008c9bf529987dd788018
+                                //å¢žåŠ é£Ÿç‰©çš„åŠŸèƒ½
 
 
                                 if (ed_price.length()>0){
                                     shopping_list1.food_name = ed_name.getText().toString();
                                     shopping_list1.food_price = ed_price.getText().toString();
-                                    items.add("名字: "+ shopping_list1.food_name+"   價格: "+ shopping_list1.food_price+ "元");
+                                    items.add("å��å­—: "+ shopping_list1.food_name+"   åƒ¹æ ¼: "+ shopping_list1.food_price+ "å…ƒ");
                                 }else{
                                     shopping_list1.food_name = ed_name.getText().toString();
-                                    items.add("名字: "+ shopping_list1.food_name);
+                                    items.add("å��å­—: "+ shopping_list1.food_name);
                                 }
 
 
                                 dialog.dismiss();
-                                Toast.makeText(getActivity(), "新增食物" + ed_name.getText().toString(), /*+ "      價格" + ed_price.getText().toString(),*/ Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getActivity(), "æ–°å¢žé£Ÿç‰©" + ed_name.getText().toString(), /*+ "      åƒ¹æ ¼" + ed_price.getText().toString(),*/ Toast.LENGTH_SHORT).show();
 
                                 ed_name.setText("");
                                 ed_price.setText("");
                             } catch (Exception e) {
-                                Toast.makeText(getActivity(), "新增失敗" + e.toString(), Toast.LENGTH_LONG).show();
+                                Toast.makeText(getActivity(), "æ–°å¢žå¤±æ•—" + e.toString(), Toast.LENGTH_LONG).show();
                             }
                         }
                     }
@@ -233,18 +206,18 @@ public class ShoppingListFragment extends Fragment {
                     public void onClick(View v) {
                         if(ed_name.length()<1|| ed_price.length() < 1)
 
-                            Toast.makeText(getActivity(), "欄位請勿留空",Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getActivity(), "æ¬„ä½�è«‹å‹¿ç•™ç©º",Toast.LENGTH_SHORT).show();
                         else{
                             try{
                                 //shopping_list1. = ed_name.getText().toString();//use the database functions to update addDatabaseShoppingList()
                                 shopping_list1.food_price = ed_price.getText().toString();
-                                items.add("名字: "+ shopping_list1.food_name+"   價格: "+ shopping_list1.food_price+ "元");
-                                Toast.makeText(getActivity(),"更新書名"+ed_name.getText().toString()+"      價格"+ed_price.getText().toString(),Toast.LENGTH_SHORT).show();
+                                items.add("å��å­—: "+ shopping_list1.food_name+"   åƒ¹æ ¼: "+ shopping_list1.food_price+ "å…ƒ");
+                                Toast.makeText(getActivity(),"æ›´æ–°æ›¸å��"+ed_name.getText().toString()+"      åƒ¹æ ¼"+ed_price.getText().toString(),Toast.LENGTH_SHORT).show();
 
                                 ed_name.setText("");
                                 ed_price.setText("");
                             }catch (Exception e){
-                                Toast.makeText(getActivity(),"更新失敗:"+e.toString(),Toast.LENGTH_LONG).show();
+                                Toast.makeText(getActivity(),"æ›´æ–°å¤±æ•—:"+e.toString(),Toast.LENGTH_LONG).show();
                             }
                         }
                     }
@@ -253,7 +226,7 @@ public class ShoppingListFragment extends Fragment {
                 cancel.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Toast.makeText(getActivity(), "取消", Toast.LENGTH_LONG).show();
+                        Toast.makeText(getActivity(), "å�–æ¶ˆ", Toast.LENGTH_LONG).show();
                         dialog.cancel();
                     }
                 });
@@ -267,7 +240,7 @@ public class ShoppingListFragment extends Fragment {
 
 
 
-        /* refresh button 可能不會加
+        /* refresh button å�¯èƒ½ä¸�æœƒåŠ 
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -276,18 +249,18 @@ public class ShoppingListFragment extends Fragment {
         });*/
 
 
-        //測試SHOPPING_LIST資料庫提取資料，測試成功
-        /*ArrayList<DatabaseForm> shopping_list2 = DatabaseFunction.getInstance().getDatabaseShoppingList();  //取得剛剛儲存的資料
+        //æ¸¬è©¦SHOPPING_LISTè³‡æ–™åº«æ��å�–è³‡æ–™ï¼Œæ¸¬è©¦æˆ�åŠŸ
+        /*ArrayList<DatabaseForm> shopping_list2 = DatabaseFunction.getInstance().getDatabaseShoppingList();  //å�–å¾—å‰›å‰›å„²å­˜çš„è³‡æ–™
         Log.e("dialog_foods ; " , String.format("%d" , shopping_list2.size()));
-        //DatabaseForm dailog_food = dialog_foods.get(0);  //取第一筆資料
-        DatabaseForm test_database_shopping_list = shopping_list2.get(shopping_list2.size()-1);  //取最後一筆資料
+        //DatabaseForm dailog_food = dialog_foods.get(0);  //å�–ç¬¬ä¸€ç­†è³‡æ–™
+        DatabaseForm test_database_shopping_list = shopping_list2.get(shopping_list2.size()-1);  //å�–æœ€å¾Œä¸€ç­†è³‡æ–™
 
         Log.e("TEST_SHOPPING_LIST2 : ", "food name : " + test_database_shopping_list.food_name);
         Log.e("TEST_SHOPPING_LIST2 : ", "food cals : " + test_database_shopping_list.food_cals);
         Log.e("TEST_SHOPPING_LIST2 : ", "food protein : " + test_database_shopping_list.food_protein);
         Log.e("TEST_SHOPPING_LIST2 : ", "food fat : " + test_database_shopping_list.food_fat);
         Log.e("TEST_SHOPPING_LIST2 : ", "food carbs : " + test_database_shopping_list.food_carbs);*/
-        //測試SHOPPING_LIST資料庫提取資料，測試成功
+        //æ¸¬è©¦SHOPPING_LISTè³‡æ–™åº«æ��å�–è³‡æ–™ï¼Œæ¸¬è©¦æˆ�åŠŸ
 
 
         return root;

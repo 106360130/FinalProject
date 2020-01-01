@@ -6,16 +6,10 @@
 
     <View
         android:id="@+id/view"
-<<<<<<< HEAD
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@drawable/bg_view_round"
-=======
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
->>>>>>> 479975d01d26dee328c008c9bf529987dd788018
         android:alpha="0.5"
-        android:background="@drawable/bg_view_round"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintLeft_toLeftOf="parent"
