@@ -130,9 +130,11 @@ public class ShoppingListFragment extends Fragment {
                             try {
                                 //增加食物的功能
                                 DatabaseForm shopping_list1 = new DatabaseForm();
+
                                 shopping_list1.food_name = ed_food.getText().toString();  //少了"getTextView"
+
                                 Log.e("FOOD_NAME : ", shopping_list1.food_name);
-                                items.add(shopping_list1.food_name);
+                                items.add("名字: "+ shopping_list1.food_name);
                                 Toast.makeText(getActivity(), "新增食物" + ed_food.getText().toString(), /*+ "      價格" + ed_price.getText().toString(),*/ Toast.LENGTH_SHORT).show();
 
                                 ed_food.setText("");
