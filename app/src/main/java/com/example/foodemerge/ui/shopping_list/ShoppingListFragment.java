@@ -6,6 +6,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.text.InputType;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,6 +25,8 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
+import com.example.foodemerge.Database.DatabaseForm;
+import com.example.foodemerge.Database.DatabaseFunction;
 import com.example.foodemerge.R;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
@@ -160,6 +163,22 @@ public class ShoppingListFragment extends Fragment {
 
             }
         });*/
+
+
+        //測試SHOPPING_LIST資料庫提取資料，測試成功
+        ArrayList<DatabaseForm> shopping_list2 = DatabaseFunction.getInstance().getDatabaseShoppingList();  //取得剛剛儲存的資料
+        Log.e("dialog_foods ; " , String.format("%d" , shopping_list2.size()));
+        //DatabaseForm dailog_food = dialog_foods.get(0);  //取第一筆資料
+        DatabaseForm test_database_shopping_list = shopping_list2.get(shopping_list2.size()-1);  //取最後一筆資料
+
+        Log.e("TEST_SHOPPING_LIST2 : ", "food name : " + test_database_shopping_list.food_neme);
+        Log.e("TEST_SHOPPING_LIST2 : ", "food cals : " + test_database_shopping_list.food_cals);
+        Log.e("TEST_SHOPPING_LIST2 : ", "food protein : " + test_database_shopping_list.food_protein);
+        Log.e("TEST_SHOPPING_LIST2 : ", "food fat : " + test_database_shopping_list.food_fat);
+        Log.e("TEST_SHOPPING_LIST2 : ", "food carbs : " + test_database_shopping_list.food_carbs);
+        //測試SHOPPING_LIST資料庫提取資料，測試成功
+
+
         return root;
     }
 

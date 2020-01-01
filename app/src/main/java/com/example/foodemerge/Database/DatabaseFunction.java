@@ -11,8 +11,9 @@ import java.util.List;
 
 public class DatabaseFunction {
     private volatile static DatabaseFunction instance = null;
-    private ArrayList<DatabaseForm> database = new ArrayList<>();
 
+    //DATABASE_FOOD_INFO模組
+    private ArrayList<DatabaseForm> database = new ArrayList<>();
     String DATABASE_FOOD_INFO = "database_food_info";  //分類
 
     //功能模組，多一個分類就要再複製一次
@@ -58,6 +59,56 @@ public class DatabaseFunction {
         saveObjectSetting(DATABASE_FOOD_INFO, this.database);
     }
     //功能模組，多一個分類就要再複製一次
+    //DATABASE_FOOD_INFO模組
+
+    //DATABASE_SHOPPING_LIST模組
+    private ArrayList<DatabaseForm> databaseShoppingList = new ArrayList<>();
+    String DATABASE_SHOPPING_LIST = "database_food_info";  //分類
+
+    //功能模組，多一個分類就要再複製一次
+    public ArrayList<DatabaseForm> getDatabaseShoppingList() {
+        return this.databaseShoppingList;
+    }
+
+    public void setDatabaseShoppingList(ArrayList<DatabaseForm> databaseShoppingList) {
+        this.databaseShoppingList = databaseShoppingList;
+    }
+
+    public void addDatabaseShoppingList(DatabaseForm database) {
+        if (this.databaseShoppingList == null){
+            this.databaseShoppingList = new ArrayList<>();
+        }
+        this.databaseShoppingList.add(database);
+    }
+
+    public void deleteDatabaseShoppingList() {
+        MainApplication.clearSettings(DATABASE_FOOD_INFO);
+        this.databaseShoppingList = null;
+    }
+
+    public void readDatabaseShoppingList() {
+        String json = MainApplication.readSetting(DATABASE_FOOD_INFO);
+
+        try {
+            if (json != null) {
+                Gson gson = new Gson();
+                Type type = new TypeToken<List<DatabaseForm>>() {
+                }.getType();
+
+                this.databaseShoppingList = new ArrayList<>();
+                this.databaseShoppingList = gson.fromJson(json, type);
+            }
+        }catch (Exception e) {
+            MainApplication.clearSettings(DATABASE_FOOD_INFO);
+            this.databaseShoppingList = null;
+        }
+    }
+
+    public void saveDatabaseShoppingList() {
+        saveObjectSetting(DATABASE_FOOD_INFO, this.databaseShoppingList);
+    }
+    //功能模組，多一個分類就要再複製一次
+    //DATABASE_SHOPPING_LIST模組
 
 
 

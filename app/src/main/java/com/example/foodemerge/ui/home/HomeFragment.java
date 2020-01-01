@@ -27,6 +27,7 @@ public class HomeFragment extends Fragment {
                              ViewGroup container, Bundle savedInstanceState) {
 
         //測試資料庫提取資料，測試成功
+        /*
         ArrayList<DatabaseForm> dialog_foods = DatabaseFunction.getInstance().getDatabase();  //取得剛剛儲存的資料
         Log.e("dialog_foods ; " , String.format("%d" , dialog_foods.size()));
         //DatabaseForm dailog_food = dialog_foods.get(0);  //取第一筆資料
@@ -37,6 +38,7 @@ public class HomeFragment extends Fragment {
         Log.e("TEST_DATEBASE2 : ", "food protein : " + test_database2.food_protein);
         Log.e("TEST_DATEBASE2 : ", "food fat : " + test_database2.food_fat);
         Log.e("TEST_DATEBASE2 : ", "food carbs : " + test_database2.food_carbs);
+        */
         //測試資料庫提取資料，測試成功
 
 

@@ -32,6 +32,7 @@ public class MainActivity extends AppCompatActivity {
 
 
         //測試資料庫存取資料，測試成功
+        /*
         DatabaseForm test_database = new DatabaseForm();
         test_database.food_neme = "apple";
         test_database.food_cals = "100";
@@ -47,7 +48,26 @@ public class MainActivity extends AppCompatActivity {
         Log.e("TEST_DATEBASE : ", "food protein : " + test_database.food_protein);
         Log.e("TEST_DATEBASE : ", "food fat : " + test_database.food_fat);
         Log.e("TEST_DATEBASE : ", "food carbs : " + test_database.food_carbs);
+        */
         //測試資料庫存取資料，測試成功
+
+        //測試SHOPPING_LIST資料庫存取資料，測試成功
+        DatabaseForm shopping_list1 = new DatabaseForm();
+        shopping_list1.food_neme = "apple";
+        shopping_list1.food_cals = "100";
+        shopping_list1.food_protein = "3.2";
+        shopping_list1.food_fat = "0.2";
+        shopping_list1.food_carbs = "50";
+
+        DatabaseFunction.getInstance().addDatabaseShoppingList(shopping_list1);
+        DatabaseFunction.getInstance().saveDatabaseShoppingList();
+
+        Log.e("TEST_SHOPPING_LIST1 : ", "food name : " + shopping_list1.food_neme);
+        Log.e("TEST_SHOPPING_LIST1 : ", "food cals : " + shopping_list1.food_cals);
+        Log.e("TEST_SHOPPING_LIST1 : ", "food protein : " + shopping_list1.food_protein);
+        Log.e("TEST_SHOPPING_LIST1 : ", "food fat : " + shopping_list1.food_fat);
+        Log.e("TEST_SHOPPING_LIST1 : ", "food carbs : " + shopping_list1.food_carbs);
+        //測試SHOPPING_LIST資料庫存取資料，測試成功
 
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
