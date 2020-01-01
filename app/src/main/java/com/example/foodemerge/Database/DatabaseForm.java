@@ -9,6 +9,8 @@ public class DatabaseForm {
     public String food_fat;
     public String food_carbs;
 
+    public String food_price;  //shopping list用
+
     public DatabaseForm() {
 
     }
