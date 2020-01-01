@@ -29,9 +29,11 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        Log.e("TEST : ", "here!");
 
 
         //測試資料庫存取資料，測試成功
+        /*
         DatabaseForm test_database = new DatabaseForm();
         test_database.food_neme = "apple";
         test_database.food_cals = "100";
@@ -47,6 +49,7 @@ public class MainActivity extends AppCompatActivity {
         Log.e("TEST_DATEBASE : ", "food protein : " + test_database.food_protein);
         Log.e("TEST_DATEBASE : ", "food fat : " + test_database.food_fat);
         Log.e("TEST_DATEBASE : ", "food carbs : " + test_database.food_carbs);
+        */
         //測試資料庫存取資料，測試成功
 
 
