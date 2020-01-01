@@ -208,7 +208,7 @@
                 <!--"CardView"是卡片畫面-->
 
                 <androidx.cardview.widget.CardView
-                    android:id="@+id/havefood"
+                    android:id="@+id/haveFood"
                     android:layout_width="100dp"
                     android:layout_height="150dp"
                     android:layout_columnWeight = "1"
@@ -244,6 +244,7 @@
                 </androidx.cardview.widget.CardView>
 
                 <androidx.cardview.widget.CardView
+                    android:id="@+id/foodInfo"
                     android:layout_width="100dp"
                     android:layout_height="150dp"
                     android:layout_columnWeight = "1"
@@ -279,6 +280,7 @@
                 </androidx.cardview.widget.CardView>
 
                 <androidx.cardview.widget.CardView
+                    android:id="@+id/setting"
                     android:layout_width="100dp"
                     android:layout_height="150dp"
                     android:layout_columnWeight = "1"
@@ -314,6 +316,7 @@
                 </androidx.cardview.widget.CardView>
 
                 <androidx.cardview.widget.CardView
+                    android:id="@+id/instructions"
                     android:layout_width="100dp"
                     android:layout_height="150dp"
                     android:layout_columnWeight = "1"
