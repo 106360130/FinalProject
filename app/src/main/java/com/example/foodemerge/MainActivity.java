@@ -7,6 +7,8 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
+import com.example.foodemerge.Database.DatabaseForm;
+import com.example.foodemerge.Database.DatabaseFunction;
 import com.google.android.material.navigation.NavigationView;
 
 import androidx.drawerlayout.widget.DrawerLayout;
@@ -14,6 +16,7 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import android.util.Log;
 import android.view.Menu;
 
 public class MainActivity extends AppCompatActivity {
@@ -26,6 +29,26 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+
+        //測試資料庫存取資料，測試成功
+        DatabaseForm test_database = new DatabaseForm();
+        test_database.food_neme = "apple";
+        test_database.food_cals = "100";
+        test_database.food_protein = "3.2";
+        test_database.food_fat = "0.2";
+        test_database.food_carbs = "50";
+
+        DatabaseFunction.getInstance().addDatabase(test_database);
+        DatabaseFunction.getInstance().saveDatabase();
+
+        Log.e("TEST_DATEBASE : ", "food name : " + test_database.food_neme);
+        Log.e("TEST_DATEBASE : ", "food cals : " + test_database.food_cals);
+        Log.e("TEST_DATEBASE : ", "food protein : " + test_database.food_protein);
+        Log.e("TEST_DATEBASE : ", "food fat : " + test_database.food_fat);
+        Log.e("TEST_DATEBASE : ", "food carbs : " + test_database.food_carbs);
+        //測試資料庫存取資料，測試成功
+
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         NavigationView navigationView = findViewById(R.id.nav_view);
