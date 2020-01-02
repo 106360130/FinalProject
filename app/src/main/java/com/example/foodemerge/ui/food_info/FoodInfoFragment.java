@@ -156,14 +156,14 @@ public class FoodInfoFragment extends Fragment {
                         Log.e("INPUT :",food_fat);//除錯用，確認是否真的有存東西進去
                         //還沒存到database
 
-                        Toast.makeText(getActivity(),"食物:"+food_name+"  ,cals:"+food_cals+
-                              " \nprotein"+food_protein+"  ,fat"+food_fat+"加入成功",Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getActivity(),"食物:" + food_name + "加入成功",Toast.LENGTH_SHORT).show();
 
                         //list view上的文字可以點擊
 
 
                         Log.e("Hey!", " Here!");
                         items.add("名字 : " + food_name );
+                        adapter.notifyDataSetChanged();
                         //list view上的文字可以點擊
                         dialog.dismiss();  //把dialog關掉
 
