@@ -35,6 +35,7 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
 
+
         /*
         //DATABASE_FOOD_INFO，存取資料
         DatabaseForm test_database = new DatabaseForm();
@@ -53,6 +54,20 @@ public class MainActivity extends AppCompatActivity {
         Log.e("TEST_DATEBASE : ", "food fat : " + test_database.food_fat);
         Log.e("TEST_DATEBASE : ", "food carbs : " + test_database.food_carbs);
         //DATABASE_FOOD_INFO，存取資料
+
+        //DATABASE_FOOD_INFO，讀取資料
+        ArrayList<DatabaseForm> dialog_foods = DatabaseFunction.getInstance().getDatabase();  //取得剛剛儲存的資料
+        Log.e("dialog_foods ; " , String.format("%d" , dialog_foods.size()));
+
+        //DatabaseForm dailog_food = dialog_foods.get(0);  //取第一筆資料
+        DatabaseForm test_database2 = dialog_foods.get(dialog_foods.size()-1);  //取最後一筆資料
+
+        Log.e("TEST_DATEBASE2 : ", "food name : " + test_database2.food_name);
+        Log.e("TEST_DATEBASE2 : ", "food cals : " + test_database2.food_cals);
+        Log.e("TEST_DATEBASE2 : ", "food protein : " + test_database2.food_protein);
+        Log.e("TEST_DATEBASE2 : ", "food fat : " + test_database2.food_fat);
+        Log.e("TEST_DATEBASE2 : ", "food carbs : " + test_database2.food_carbs);
+        //DATABASE_FOOD_INFO，讀取資料
          */
 
 
@@ -63,6 +78,7 @@ public class MainActivity extends AppCompatActivity {
         test_database_shopping.food_name = "456";
         test_database_shopping.food_price = "200";
         test_database_shopping.food_EXP = "2011212";
+
         DatabaseFunction.getInstance().addDatabaseShoppingList(test_database_shopping);
         DatabaseFunction.getInstance().saveDatabaseShoppingList();
 
@@ -85,7 +101,8 @@ public class MainActivity extends AppCompatActivity {
         */
 
 
-        /*
+
+
         //DATABASE_HOME_FOOD，存取資料
         DatabaseForm test_database_home_food = new DatabaseForm();
         test_database_home_food.food_name = "456";
@@ -107,7 +124,7 @@ public class MainActivity extends AppCompatActivity {
         Log.e("TEST_HOME_FOOD2 : ", "food name : " + test_database_home_food22.food_name);
         Log.e("TEST_HOME_FOOD2 : ", "food EXP : " + test_database_home_food22.food_EXP);
         //DATABASE_HOME_FOOD，讀取資料
-        */
+        
 
 
         /*
@@ -123,9 +140,7 @@ public class MainActivity extends AppCompatActivity {
         Log.e("TEST_MONEY : ", "cost : " + test_database_money.cost);
         Log.e("TEST_MONEY : ", "balance : " + test_database_money.balance);
         //DATABASE_HOME_FOOD，存取資料
-        */
 
-        /*
         //DATABASE_HOME_FOOD，讀取資料
         ArrayList<DatabaseForm> test_database_money2 = DatabaseFunction.getInstance().getDatabaseMoney();  //取得剛剛儲存的資料
         Log.e("TEST_MONEY2 : " , "data : " + String.format("%d" , test_database_money2.size()));
@@ -136,8 +151,9 @@ public class MainActivity extends AppCompatActivity {
         Log.e("TEST_MONEY2 : ", "budget : " + test_database_money22.budget);
         Log.e("TEST_MONEY2 : ", "cost : " + test_database_money22.cost);
         Log.e("TEST_MONEY2 : ", "balance : " + test_database_money22.balance);
-         */
+
         //DATABASE_MONEY，讀取資料
+        */
 
 
 

@@ -292,8 +292,12 @@ public class DatabaseFunction {
         return instance;
     }
 
+    //每個database都要初始化
     private void initialize() {
         readDatabase();
+        readDatabaseShoppingList();
+        readDatabaseHomeFood();
+        readDatabaseMoney();
     }
 
     private <T> T readObjectSetting(String type_string, Class<T> classOfT) {
