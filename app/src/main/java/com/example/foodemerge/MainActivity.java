@@ -19,6 +19,8 @@ import androidx.appcompat.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 
+import java.util.ArrayList;
+
 public class MainActivity extends AppCompatActivity {
 
     private AppBarConfiguration mAppBarConfiguration;
@@ -30,11 +32,8 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-
-        //測試資料庫存取資料，測試成功
-
-
         /*
+        //DATABASE_FOOD_INFO，存取資料
         DatabaseForm test_database = new DatabaseForm();
         test_database.food_neme = "456";
         test_database.food_cals = "200";
@@ -50,12 +49,61 @@ public class MainActivity extends AppCompatActivity {
         Log.e("TEST_DATEBASE : ", "food protein : " + test_database.food_protein);
         Log.e("TEST_DATEBASE : ", "food fat : " + test_database.food_fat);
         Log.e("TEST_DATEBASE : ", "food carbs : " + test_database.food_carbs);
+        //DATABASE_FOOD_INFO，存取資料
         */
 
 
+        /*
+        //DATABASE_SHOPPING_LIST，存取資料
+        DatabaseForm test_database_shopping = new DatabaseForm();
+        test_database_shopping.food_name = "456";
+        test_database_shopping.food_price = "200";
+        test_database_shopping.food_EXP = "2011212";
+        DatabaseFunction.getInstance().addDatabaseShoppingList(test_database_shopping);
+        DatabaseFunction.getInstance().saveDatabaseShoppingList();
 
+        Log.e("TEST_SHOPPING_LIST : ", "food name : " + test_database_shopping.food_name);
+        Log.e("TEST_SHOPPING_LIST : ", "food price : " + test_database_shopping.food_price);
+        Log.e("TEST_SHOPPING_LIST : ", "food EXP : " + test_database_shopping.food_EXP);
+        //DATABASE_SHOPPING_LIST，存取資料
 
-        //測試資料庫存取資料，測試成功
+        //DATABASE_SHOPPING_LIST，讀取資料
+        ArrayList<DatabaseForm> test_database_shopping2 = DatabaseFunction.getInstance().getDatabaseShoppingList();  //取得剛剛儲存的資料
+        Log.e("TEST_SHOPPING_LIST2 : " , "data : " + String.format("%d" , test_database_shopping2.size()));
+
+        //DatabaseForm dailog_food = dialog_foods.get(0);  //取第一筆資料
+        DatabaseForm test_database_shopping22 = test_database_shopping2.get(test_database_shopping2.size()-1);  //取最後一筆資料
+
+        Log.e("TEST_SHOPPING_LIST2 : ", "food name : " + test_database_shopping22.food_name);
+        Log.e("TEST_SHOPPING_LIST2 : ", "food price : " + test_database_shopping22.food_price);
+        Log.e("TEST_SHOPPING_LIST2 : ", "food EXP : " + test_database_shopping22.food_EXP);
+        //DATABASE_SHOPPING_LIST，讀取資料
+        */
+
+        /*
+        //DATABASE_SHOPPING_LIST，存取資料
+        DatabaseForm test_database_home_food = new DatabaseForm();
+        test_database_home_food.food_name = "456";
+        test_database_home_food.food_EXP = "2011212";
+        DatabaseFunction.getInstance().addDatabaseHomeFood(test_database_home_food);
+        DatabaseFunction.getInstance().saveDatabaseHomeFood();
+
+        Log.e("TEST_HOME_FOOD : ", "food name : " + test_database_home_food.food_name);
+        Log.e("TEST_HOME_FOOD : ", "food EXP : " + test_database_home_food.food_EXP);
+        //DATABASE_SHOPPING_LIST，存取資料
+
+        //DATABASE_SHOPPING_LIST，讀取資料
+        ArrayList<DatabaseForm> test_database_home_food2 = DatabaseFunction.getInstance().getDatabaseHomeFood();  //取得剛剛儲存的資料
+        Log.e("TEST_HOME_FOOD2 : " , "data : " + String.format("%d" , test_database_home_food2.size()));
+
+        //DatabaseForm dailog_food = dialog_foods.get(0);  //取第一筆資料
+        DatabaseForm test_database_home_food22 = test_database_home_food2.get(test_database_home_food2.size()-1);  //取最後一筆資料
+
+        Log.e("TEST_HOME_FOOD2 : ", "food name : " + test_database_home_food22.food_name);
+        Log.e("TEST_HOME_FOOD2 : ", "food EXP : " + test_database_home_food22.food_EXP);
+        //DATABASE_SHOPPING_LIST，讀取資料
+        */
+
 
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
