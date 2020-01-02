@@ -1,3 +1,5 @@
+//可以切換fragment，但動畫需要修改
+
 package com.example.foodemerge.ui.home;
 
 import android.content.Intent;
@@ -34,7 +36,6 @@ import java.util.ArrayList;
 public class HomeFragment extends Fragment {
 
     private HomeViewModel homeViewModel;
-    public MainActivity mActivity;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
