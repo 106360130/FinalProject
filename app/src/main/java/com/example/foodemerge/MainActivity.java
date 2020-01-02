@@ -124,7 +124,7 @@ public class MainActivity extends AppCompatActivity {
         Log.e("TEST_HOME_FOOD2 : ", "food name : " + test_database_home_food22.food_name);
         Log.e("TEST_HOME_FOOD2 : ", "food EXP : " + test_database_home_food22.food_EXP);
         //DATABASE_HOME_FOOD，讀取資料
-        
+
 
 
         /*

@@ -36,6 +36,8 @@ public class FoodFragment extends Fragment {
             }
         });
 
+
+        /*
         //DATABASE_HOME_FOOD，讀取資料
         ArrayList<DatabaseForm> test_database_money2 = DatabaseFunction.getInstance().getDatabaseMoney();  //取得剛剛儲存的資料
         Log.e("TEST_MONEY2 : " , "data : " + String.format("%d" , test_database_money2.size()));
@@ -46,8 +48,9 @@ public class FoodFragment extends Fragment {
         Log.e("TEST_MONEY2 : ", "budget : " + test_database_money22.budget);
         Log.e("TEST_MONEY2 : ", "cost : " + test_database_money22.cost);
         Log.e("TEST_MONEY2 : ", "balance : " + test_database_money22.balance);
-
         //DATABASE_MONEY，讀取資料
+        */
+
 
 
 
