@@ -42,7 +42,7 @@ public class ShoppingListFragment extends Fragment {
     private ShoppingListViewModel shoppingListViewModel;
     //若蘭加第一次
     private ListView listView;
-    private ArrayList items = new ArrayList<String>();
+    private ArrayList<String> items = new ArrayList<String>();
     private EditText ed_name, ed_price;
     private Button btn_create, btn_delete, btn_change, cancel_delete, delete;
     TextView textSelected;
@@ -71,17 +71,13 @@ public class ShoppingListFragment extends Fragment {
             }
         });
 
-        Data[] transData = new Data[items.size()];
-        for(int i = 0; i<transData.length;i++){
-            transData[i] = new Data();
-            transData[i].name = items.get(i).toString();
-        }
 
-        CustomAdapter adapter = new CustomAdapter(transData, R.layout.trans_list);//adapter for handling the list
+        final View trans_list = inflater.inflate(R.layout.trans_list, container, false);
 
+        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(getActivity(),R.layout.trans_list,items);
         //taking care of the list view
         listView = root.findViewById(R.id.listView);
-        listView.setAdapter(adapter);
+        listView.setAdapter(arrayAdapter);
 
         /*
         //creating the editText for the different  AlertDialog's
@@ -96,14 +92,20 @@ public class ShoppingListFragment extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 // Get the selected item text from ListView
-                String selectedItem = (String) parent.getItemAtPosition(position);
-                textSelected.setText(selectedItem);
-                textSelected.setPaintFlags(textSelected.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+                TextView item = (TextView) view.findViewById(R.id.textView);
+                //item.setPaintFlags(textView.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+
+
+                item.setTextColor(Color.rgb(105, 105, 105));
+
+
+
             }
         });
 
+
         //adapter for changing the text color
-        ArrayAdapter colorAdapter = new ArrayAdapter<TextView>(getActivity(),android.R.layout.simple_list_item_1, items){
+        ArrayAdapter<String> colorAdapter = new ArrayAdapter<String>(getActivity(),android.R.layout.simple_list_item_1, items){
             @Override
             public View getView(int position, View convertView, ViewGroup parent){
                 // Get the Item from ListView
@@ -249,6 +251,7 @@ public class ShoppingListFragment extends Fragment {
         //測試SHOPPING_LIST資料庫提取資料，測試成功
 
 
+
         return root;
     }
 
@@ -257,44 +260,6 @@ public class ShoppingListFragment extends Fragment {
         super.onDestroy();
     }
 
-    class Data{
-        String name;
-    }
-
-    public class CustomAdapter extends BaseAdapter {
-        private ShoppingListFragment.Data[] data;
-        private int view;
-
-        public CustomAdapter(ShoppingListFragment.Data[] data , int view){
-            this.data = data;
-            this.view = view;
-        }
-
-        @Override
-        public int getCount() {
-            return data.length;
-        }
-
-        @Override
-        public Object getItem(int position) {
-            return data[position];
-        }
-
-        @Override
-        public long getItemId(int position) {
-            return 0;
-        }
-
-        @Override
-        public View getView(int position, View convertView, ViewGroup parent) {
-            //LayoutInflater inflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            convertView = getLayoutInflater().inflate(view,parent,false);
-            TextView name = convertView.findViewById(R.id.tv_list_item);
-            name.setText(data[position].name);
-
-            return convertView;
-        }
-    }
 
 
 }
