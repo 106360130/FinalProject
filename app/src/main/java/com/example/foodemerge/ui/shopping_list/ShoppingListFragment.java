@@ -33,7 +33,7 @@ import java.util.ArrayList;
 public class ShoppingListFragment extends Fragment {
 
     private ShoppingListViewModel shoppingListViewModel;
-    
+
     private ListView listView;
     private ArrayList<String> items = new ArrayList<String>();
     private EditText ed_name, ed_price;
