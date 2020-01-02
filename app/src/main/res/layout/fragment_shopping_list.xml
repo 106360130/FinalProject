@@ -8,8 +8,8 @@
         android:id="@+id/view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/bg_view_round"
         android:alpha="0.5"
+        android:background="@drawable/bg_view_round"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -44,6 +44,15 @@
         />
 
 
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/delete_this_list"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="60dp"
+        app:layout_constraintEnd_toEndOf="@+id/add_shopping_item"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/trash" />
+
     <ListView
         android:id="@+id/listView"
         android:layout_width="wrap_content"
@@ -56,7 +65,7 @@
 
     <TextView
         android:id="@+id/budget_num"
-        android:layout_marginLeft="30dp"
+        android:layout_marginLeft="20dp"
         android:layout_marginBottom="40dp"
         android:text="2501"
         android:textSize="30sp"
@@ -71,28 +80,26 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="-"
-        android:layout_marginLeft="16dp"
+        android:layout_marginLeft="5dp"
         android:layout_marginTop="6dp"
         android:textColor="#52BAFF"
         android:textSize="30sp"
-        app:layout_constraintLeft_toRightOf="@id/budget_num"
-        app:layout_constraintBottom_toBottomOf="@id/budget_num"/>
+        app:layout_constraintBottom_toBottomOf="@+id/budget_num"
+        app:layout_constraintStart_toEndOf="@+id/budget_num"/>
     <!--"layout_below"設定以甚麼為基準的意思-->
     <!--"layout_marginLeft"設定在基準左邊隔多少的意思-->
 
+
     <TextView
         android:id="@+id/cost_num"
-        android:layout_marginTop="6dp"
-        android:layout_marginLeft="16dp"
-        android:text="2000"
-        android:textSize="30sp"
-        android:textColor="#52BAFF"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintLeft_toRightOf="@id/subtraction"
-        app:layout_constraintBottom_toBottomOf="@id/subtraction"/>
-
-
+        android:layout_marginLeft="5dp"
+        android:text="2000"
+        android:textColor="#52BAFF"
+        android:textSize="30sp"
+        app:layout_constraintBottom_toBottomOf="@+id/subtraction"
+        app:layout_constraintStart_toEndOf="@+id/subtraction"/>
 
     <TextView
         android:id="@+id/equal"
@@ -101,9 +108,9 @@
         android:textColor="#52BAFF"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="16dp"
-        app:layout_constraintLeft_toRightOf="@id/cost_num"
-        app:layout_constraintBottom_toBottomOf="@id/cost_num"/>
+        android:layout_marginLeft="5dp"
+        app:layout_constraintBottom_toBottomOf="@+id/cost_num"
+        app:layout_constraintStart_toEndOf="@+id/cost_num"/>
 
     <TextView
         android:id="@+id/balance_num"
@@ -113,9 +120,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:layout_marginLeft="16dp"
-        app:layout_constraintLeft_toRightOf="@id/equal"
-        app:layout_constraintBottom_toBottomOf="@id/equal"/>
+        android:layout_marginLeft="5dp"
+        app:layout_constraintBottom_toBottomOf="@+id/equal"
+        app:layout_constraintStart_toEndOf="@+id/equal"/>
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -151,6 +159,11 @@
         app:layout_constraintLeft_toLeftOf="@id/balance_num"
         app:layout_constraintRight_toRightOf="@id/balance_num"/>
 
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"></LinearLayout>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/add_shopping_item"

@@ -37,12 +37,12 @@ import java.util.ArrayList;
 public class ShoppingListFragment extends Fragment {
 
     private ShoppingListViewModel shoppingListViewModel;
-    //è‹¥è˜­åŠ ç¬¬ä¸€æ¬¡
+    //若蘭加第一次
     private ListView listView;
     private ArrayAdapter<String > adapter;
     private ArrayList<String> items = new ArrayList<>();
     private EditText ed_name, ed_price;
-    private Button create, cancel, change, cancel_delete, delete;
+    private Button btn_create, btn_delete, btn_change, cancel_delete, delete;
 
 
     @Override
@@ -76,11 +76,11 @@ public class ShoppingListFragment extends Fragment {
 
         /*
         //creating the editText for the different  AlertDialog's
-        final EditText ed_food = new EditText(getActivity());//æ–°EDIT TEXTè®“ä½¿ç”¨è€…å¯«æ–°é£Ÿç‰©çš„å��å­—
-        ed_food.setInputType(InputType.TYPE_CLASS_TEXT);//è¼¸å…¥æ˜¯TEXT
+        final EditText ed_food = new EditText(getActivity());//新EDIT TEXT讓使用者寫新食物的名字
+        ed_food.setInputType(InputType.TYPE_CLASS_TEXT);//輸入是TEXT
 
-        final EditText ed_price = new EditText(getActivity());//æ–°EDIT TEXTè®“ä½¿ç”¨è€…å¯«æ–°é£Ÿç‰©çš„åƒ¹æ ¼
-        ed_price.setInputType(InputType.TYPE_CLASS_NUMBER);//è¼¸å…¥æ˜¯å€‹æ•¸å­—*/
+        final EditText ed_price = new EditText(getActivity());//新EDIT TEXT讓使用者寫新食物的價格
+        ed_price.setInputType(InputType.TYPE_CLASS_NUMBER);//輸入是個數字*/
 
         // Set an item click listener for ListView
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -88,35 +88,7 @@ public class ShoppingListFragment extends Fragment {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 // Get the selected item text from ListView
                 String selectedItem = (String) parent.getItemAtPosition(position);
-                final AlertDialog delete_dialog = new AlertDialog.Builder(getActivity()).create();
-                delete_dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-                delete_dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
-                delete_dialog.show();
 
-                View toast2 = View.inflate(getActivity(),R.layout.delete_food_toast,null);
-                if (toast2.getParent()!=null) {
-                    ((ViewGroup)toast2.getParent()).removeView(toast2);
-                }
-
-                delete_dialog.setContentView(toast2);
-
-                cancel_delete = delete_dialog.findViewById(R.id.cancel_delete);
-                delete = delete_dialog.findViewById(R.id.delete);
-
-                //lo del database
-                /*delete.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-
-                    }
-                });*/
-
-                cancel_delete.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        delete_dialog.dismiss();
-                    }
-                });
 
             }
         });
@@ -164,70 +136,69 @@ public class ShoppingListFragment extends Fragment {
 
                 ed_name = toast1.findViewById(R.id.ed_name);
                 ed_price = toast1.findViewById(R.id.ed_price);
-                create = toast1.findViewById(R.id.create);
-                cancel = toast1.findViewById(R.id.cancel);
-                change = toast1.findViewById(R.id.change);
+                btn_create = toast1.findViewById(R.id.create);
+                btn_delete = toast1.findViewById(R.id.btn_delete);
+                btn_change = toast1.findViewById(R.id.change);
 
                 final DatabaseForm shopping_list1 = new DatabaseForm();
-                create.setOnClickListener(new View.OnClickListener() {
+                btn_create.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         if (ed_name.length() < 1 /*|| ed_price.length() < 1*/)
-                            Toast.makeText(getActivity(), "æ¬„ä½�è«‹å‹¿ç•™ç©º", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getActivity(), "欄位請勿留空", Toast.LENGTH_SHORT).show();
                         else {
                             try {
-                                //å¢žåŠ é£Ÿç‰©çš„åŠŸèƒ½
+                                //增加食物的功能
 
 
                                 if (ed_price.length()>0){
                                     shopping_list1.food_name = ed_name.getText().toString();
                                     shopping_list1.food_price = ed_price.getText().toString();
-                                    items.add("å��å­—: "+ shopping_list1.food_name+"   åƒ¹æ ¼: "+ shopping_list1.food_price+ "å…ƒ");
+                                    items.add("名字: "+ shopping_list1.food_name+"   價格: "+ shopping_list1.food_price+ "元");
                                 }else{
                                     shopping_list1.food_name = ed_name.getText().toString();
-                                    items.add("å��å­—: "+ shopping_list1.food_name);
+                                    items.add("名字: "+ shopping_list1.food_name);
                                 }
 
 
                                 dialog.dismiss();
-                                Toast.makeText(getActivity(), "æ–°å¢žé£Ÿç‰©" + ed_name.getText().toString(), /*+ "      åƒ¹æ ¼" + ed_price.getText().toString(),*/ Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getActivity(), "新增食物" + ed_name.getText().toString(), /*+ "      價格" + ed_price.getText().toString(),*/ Toast.LENGTH_SHORT).show();
 
                                 ed_name.setText("");
                                 ed_price.setText("");
                             } catch (Exception e) {
-                                Toast.makeText(getActivity(), "æ–°å¢žå¤±æ•—" + e.toString(), Toast.LENGTH_LONG).show();
+                                Toast.makeText(getActivity(), "新增失敗" + e.toString(), Toast.LENGTH_LONG).show();
                             }
                         }
                     }
                 });
 
-               /* change.setOnClickListener(new View.OnClickListener() {
+               /* btn_change.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         if(ed_name.length()<1|| ed_price.length() < 1)
 
-                            Toast.makeText(getActivity(), "æ¬„ä½�è«‹å‹¿ç•™ç©º",Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getActivity(), "欄位請勿留空",Toast.LENGTH_SHORT).show();
                         else{
                             try{
                                 //shopping_list1. = ed_name.getText().toString();//use the database functions to update addDatabaseShoppingList()
                                 shopping_list1.food_price = ed_price.getText().toString();
-                                items.add("å��å­—: "+ shopping_list1.food_name+"   åƒ¹æ ¼: "+ shopping_list1.food_price+ "å…ƒ");
-                                Toast.makeText(getActivity(),"æ›´æ–°æ›¸å��"+ed_name.getText().toString()+"      åƒ¹æ ¼"+ed_price.getText().toString(),Toast.LENGTH_SHORT).show();
+                                items.add("名字: "+ shopping_list1.food_name+"   價格: "+ shopping_list1.food_price+ "元");
+                                Toast.makeText(getActivity(),"更新書名"+ed_name.getText().toString()+"      價格"+ed_price.getText().toString(),Toast.LENGTH_SHORT).show();
 
                                 ed_name.setText("");
                                 ed_price.setText("");
                             }catch (Exception e){
-                                Toast.makeText(getActivity(),"æ›´æ–°å¤±æ•—:"+e.toString(),Toast.LENGTH_LONG).show();
+                                Toast.makeText(getActivity(),"更新失敗:"+e.toString(),Toast.LENGTH_LONG).show();
                             }
                         }
                     }
                 });*/
 
-                cancel.setOnClickListener(new View.OnClickListener() {
+                btn_delete.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Toast.makeText(getActivity(), "å�–æ¶ˆ", Toast.LENGTH_LONG).show();
-                        dialog.cancel();
+
                     }
                 });
 
@@ -240,7 +211,7 @@ public class ShoppingListFragment extends Fragment {
 
 
 
-        /* refresh button å�¯èƒ½ä¸�æœƒåŠ 
+        /* refresh button 可能不會加
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -249,18 +220,18 @@ public class ShoppingListFragment extends Fragment {
         });*/
 
 
-        //æ¸¬è©¦SHOPPING_LISTè³‡æ–™åº«æ��å�–è³‡æ–™ï¼Œæ¸¬è©¦æˆ�åŠŸ
-        /*ArrayList<DatabaseForm> shopping_list2 = DatabaseFunction.getInstance().getDatabaseShoppingList();  //å�–å¾—å‰›å‰›å„²å­˜çš„è³‡æ–™
+        //測試SHOPPING_LIST資料庫提取資料，測試成功
+        /*ArrayList<DatabaseForm> shopping_list2 = DatabaseFunction.getInstance().getDatabaseShoppingList();  //取得剛剛儲存的資料
         Log.e("dialog_foods ; " , String.format("%d" , shopping_list2.size()));
-        //DatabaseForm dailog_food = dialog_foods.get(0);  //å�–ç¬¬ä¸€ç­†è³‡æ–™
-        DatabaseForm test_database_shopping_list = shopping_list2.get(shopping_list2.size()-1);  //å�–æœ€å¾Œä¸€ç­†è³‡æ–™
+        //DatabaseForm dailog_food = dialog_foods.get(0);  //取第一筆資料
+        DatabaseForm test_database_shopping_list = shopping_list2.get(shopping_list2.size()-1);  //取最後一筆資料
 
         Log.e("TEST_SHOPPING_LIST2 : ", "food name : " + test_database_shopping_list.food_name);
         Log.e("TEST_SHOPPING_LIST2 : ", "food cals : " + test_database_shopping_list.food_cals);
         Log.e("TEST_SHOPPING_LIST2 : ", "food protein : " + test_database_shopping_list.food_protein);
         Log.e("TEST_SHOPPING_LIST2 : ", "food fat : " + test_database_shopping_list.food_fat);
         Log.e("TEST_SHOPPING_LIST2 : ", "food carbs : " + test_database_shopping_list.food_carbs);*/
-        //æ¸¬è©¦SHOPPING_LISTè³‡æ–™åº«æ��å�–è³‡æ–™ï¼Œæ¸¬è©¦æˆ�åŠŸ
+        //測試SHOPPING_LIST資料庫提取資料，測試成功
 
 
         return root;
