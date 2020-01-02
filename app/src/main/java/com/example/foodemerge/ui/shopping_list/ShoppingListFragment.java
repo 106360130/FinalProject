@@ -41,7 +41,7 @@ import java.util.ArrayList;
 public class ShoppingListFragment extends Fragment {
 
     private ShoppingListViewModel shoppingListViewModel;
-    //若蘭加第一次
+   //若蘭加第一次
     private ListView listView;
     private ArrayList<String> items = new ArrayList<String>();
     private EditText ed_name, ed_price;

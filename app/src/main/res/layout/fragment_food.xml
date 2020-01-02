@@ -48,18 +48,18 @@ android:layout_height="match_parent">
        />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/add_shopping_item"
+        android:id="@+id/edit_home_food"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
         android:layout_marginRight="30dp"
         android:layout_marginBottom="30dp"
-        app:layout_constraintBottom_toTopOf="@id/add_food"
+        app:layout_constraintBottom_toTopOf="@id/add_home_food"
         app:layout_constraintRight_toRightOf="parent"
         app:srcCompat="@drawable/pencil" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/add_food"
+        android:id="@+id/add_home_food"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
