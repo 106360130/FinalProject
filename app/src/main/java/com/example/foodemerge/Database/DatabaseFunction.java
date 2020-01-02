@@ -57,6 +57,23 @@ public class DatabaseFunction {
     public void saveDatabase() {
         saveObjectSetting(DATABASE_FOOD_INFO, this.database);
     }
+
+    public void removeDatabase(String name) {
+        for( int i = 0 ; i < this.database.size() ; i++)
+        {
+            /*
+            if( database.get(i).food_neme.contains(name))  //包含
+            {
+                this.database.remove(i);
+            }
+            */
+            if( database.get(i).food_neme.compareTo(name) == 0)  //如果字串一樣就刪除
+            {
+                this.database.remove(i);
+            }
+        }
+
+    }
     //功能模組，多一個分類就要再複製一次
 
 

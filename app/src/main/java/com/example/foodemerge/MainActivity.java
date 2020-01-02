@@ -32,13 +32,15 @@ public class MainActivity extends AppCompatActivity {
 
 
         //測試資料庫存取資料，測試成功
+
+
         /*
         DatabaseForm test_database = new DatabaseForm();
-        test_database.food_neme = "apple";
-        test_database.food_cals = "100";
-        test_database.food_protein = "3.2";
-        test_database.food_fat = "0.2";
-        test_database.food_carbs = "50";
+        test_database.food_neme = "456";
+        test_database.food_cals = "200";
+        test_database.food_protein = "4.5";
+        test_database.food_fat = "0";
+        test_database.food_carbs = "55";
 
         DatabaseFunction.getInstance().addDatabase(test_database);
         DatabaseFunction.getInstance().saveDatabase();
@@ -49,6 +51,10 @@ public class MainActivity extends AppCompatActivity {
         Log.e("TEST_DATEBASE : ", "food fat : " + test_database.food_fat);
         Log.e("TEST_DATEBASE : ", "food carbs : " + test_database.food_carbs);
         */
+
+
+
+
         //測試資料庫存取資料，測試成功
 
 
