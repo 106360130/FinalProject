@@ -3,8 +3,10 @@ package com.example.foodemerge.ui.food_info;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -47,7 +49,7 @@ public class FoodInfoFragment extends Fragment {
     private ListView search_list;
     private ArrayAdapter<String> adapter;
     private ArrayList<String> items = new ArrayList<>();
-    private String food_neme, food_cals,food_protein,food_fat,food_carbs;
+    private String food_name, food_cals,food_protein,food_fat,food_carbs;
 
     private SQLiteDatabase dbrw;
 
@@ -67,6 +69,29 @@ public class FoodInfoFragment extends Fragment {
 
         add = root.findViewById(R.id.add);
         search_list = root.findViewById(R.id.search_list);
+        adapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_list_item_1, items);//adapter for handling the database
+        search_list.setAdapter(adapter);
+
+        ArrayAdapter<String> colorAdapter = new ArrayAdapter<String>(getActivity(),android.R.layout.simple_list_item_1, items){
+            @Override
+            public View getView(int position, View convertView, ViewGroup parent){
+                // Get the Item from ListView
+                View view = super.getView(position, convertView, parent);
+
+                // Initialize a TextView for ListView each Item
+                final TextView tv = (TextView) view.findViewById(android.R.id.text1);
+
+                // Set the text color of TextView (ListView Item)
+                tv.setTextColor(Color.WHITE);
+                tv.setTextSize(TypedValue.COMPLEX_UNIT_SP, 25.0F);
+
+                // Generate ListView Item using TextView
+                return view;
+            }
+        };
+
+        search_list.setAdapter(colorAdapter);
+
 
 
         TextView foodName_show=root.findViewById(R.id.foodName_show);
@@ -89,7 +114,7 @@ public class FoodInfoFragment extends Fragment {
 
                 for (int i = 0; i<c.getCount();i++){
 
-                    items.add("食物:"+food_neme+"  ,cals:"+food_cals+
+                    items.add("食物:"+food_name+"  ,cals:"+food_cals+
                             " \nprotein"+food_protein+"  ,fat"+food_fat+"加入成功");
                    // items.add(":"+ c.getString(0)+"\t\t\t\t價格:"+ c.getString(1));
                     c.moveToNext();
@@ -120,16 +145,27 @@ public class FoodInfoFragment extends Fragment {
                 btn_save.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        food_neme=foodName.getText().toString();
-                        food_cals=caloriesAmount.getText().toString();
-                        food_protein=proteinAmount.getText().toString();
-                        food_fat=fatAmount.getText().toString();//把輸入的資料存到database裡
-                        Log.e("INPUT :",food_neme);
+                        //還沒存到database
+                        food_name = foodName.getText().toString();
+                        food_cals = caloriesAmount.getText().toString();
+                        food_protein = proteinAmount.getText().toString();
+                        food_fat = fatAmount.getText().toString();//把輸入的資料存到database裡
+                        Log.e("INPUT :",food_name);
                         Log.e("INPUT :",food_cals);
                         Log.e("INPUT :",food_protein);
                         Log.e("INPUT :",food_fat);//除錯用，確認是否真的有存東西進去
-                        Toast.makeText(getActivity(),"食物:"+food_neme+"  ,cals:"+food_cals+
+                        //還沒存到database
+
+                        Toast.makeText(getActivity(),"食物:"+food_name+"  ,cals:"+food_cals+
                               " \nprotein"+food_protein+"  ,fat"+food_fat+"加入成功",Toast.LENGTH_SHORT).show();
+
+                        //list view上的文字可以點擊
+
+
+                        Log.e("Hey!", " Here!");
+                        items.add("名字 : " + food_name );
+                        //list view上的文字可以點擊
+                        dialog.dismiss();  //把dialog關掉
 
                         InputMethodManager imm = (InputMethodManager)getActivity().getSystemService(Context.INPUT_METHOD_SERVICE); imm.hideSoftInputFromWindow(fatAmount.getWindowToken(), 0);
                     }
