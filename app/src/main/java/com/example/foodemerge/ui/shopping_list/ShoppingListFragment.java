@@ -26,6 +26,7 @@ import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.annotation.NonNull;
+import androidx.annotation.UiThread;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
@@ -42,10 +43,11 @@ public class ShoppingListFragment extends Fragment {
     private ShoppingListViewModel shoppingListViewModel;
     //若蘭加第一次
     private ListView listView;
-    private ArrayList items = new ArrayList<String>();
+    private ArrayList<String> items = new ArrayList<String>();
     private EditText ed_name, ed_price;
     private Button btn_create, btn_delete, btn_change, cancel_delete, delete;
-    TextView textSelected;
+    private TextView textSelected, budget_num, cost_num, balance_num;
+    private int cost_record = 0, balance_record = 0;
 
     @Override
     public void onCreate(Bundle savedInstanceState){
@@ -54,7 +56,7 @@ public class ShoppingListFragment extends Fragment {
 
     }
 
-
+    @UiThread
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         shoppingListViewModel =
@@ -71,39 +73,28 @@ public class ShoppingListFragment extends Fragment {
             }
         });
 
-        Data[] transData = new Data[items.size()];
-        for(int i = 0; i<transData.length;i++){
-            transData[i] = new Data();
-            transData[i].name = items.get(i).toString();
-        }
 
-        CustomAdapter adapter = new CustomAdapter(transData, R.layout.trans_list);//adapter for handling the list
+        final View trans_list = inflater.inflate(R.layout.trans_list, container, false);
 
+        final ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(getActivity(),R.layout.trans_list,items);
         //taking care of the list view
         listView = root.findViewById(R.id.listView);
-        listView.setAdapter(adapter);
-
-        /*
-        //creating the editText for the different  AlertDialog's
-        final EditText ed_food = new EditText(getActivity());//新EDIT TEXT讓使用者寫新食物的名字
-        ed_food.setInputType(InputType.TYPE_CLASS_TEXT);//輸入是TEXT
-
-        final EditText ed_price = new EditText(getActivity());//新EDIT TEXT讓使用者寫新食物的價格
-        ed_price.setInputType(InputType.TYPE_CLASS_NUMBER);//輸入是個數字*/
+        listView.setAdapter(arrayAdapter);
 
         // Set an item click listener for ListView
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        //不會加了吧
+        /*listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 // Get the selected item text from ListView
-                String selectedItem = (String) parent.getItemAtPosition(position);
-                textSelected.setText(selectedItem);
-                textSelected.setPaintFlags(textSelected.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+                TextView item = (TextView) view.findViewById(R.id.tv_list_item);
+                item.setPaintFlags(item.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
             }
-        });
+        });*/
+
 
         //adapter for changing the text color
-        ArrayAdapter colorAdapter = new ArrayAdapter<TextView>(getActivity(),android.R.layout.simple_list_item_1, items){
+        ArrayAdapter<String> colorAdapter = new ArrayAdapter<String>(getActivity(),android.R.layout.simple_list_item_1, items){
             @Override
             public View getView(int position, View convertView, ViewGroup parent){
                 // Get the Item from ListView
@@ -148,6 +139,9 @@ public class ShoppingListFragment extends Fragment {
                 btn_create = toast1.findViewById(R.id.create);
                 btn_delete = toast1.findViewById(R.id.btn_delete);
                 btn_change = toast1.findViewById(R.id.change);
+                budget_num = root.findViewById(R.id.budget_num);
+                cost_num = root.findViewById(R.id.cost_num);
+                balance_num = root.findViewById(R.id.balance_num);
 
 
 
@@ -162,25 +156,32 @@ public class ShoppingListFragment extends Fragment {
                             try {
                                 //增加食物的功能
 
-
                                 if (ed_price.length()>0){
 
                                     shopping_list1.food_name = ed_name.getText().toString();
                                     shopping_list1.food_price = ed_price.getText().toString();
                                     Log.e("新增東西了嗎","food name : " + shopping_list1.food_name);
                                     items.add("名字: "+ shopping_list1.food_name+"   價格: "+ shopping_list1.food_price+ "元");
+                                    cost_record = cost_record + Integer.parseInt(ed_price.getText().toString());//加食物價格時,cost_record增加
+                                    balance_record = Integer.parseInt(budget_num.getText().toString()) - cost_record;
+                                    cost_num.setText(Integer.toString(cost_record));
+                                    balance_num.setText(Integer.toString(balance_record));
+
+
 
                                 }else{
                                     shopping_list1.food_name = ed_name.getText().toString();
                                     items.add("名字: "+ shopping_list1.food_name);
                                 }
 
+                                arrayAdapter.notifyDataSetChanged();
 
-                                dialog.dismiss();
+
                                 Toast.makeText(getActivity(), "新增食物" + ed_name.getText().toString(), /*+ "      價格" + ed_price.getText().toString(),*/ Toast.LENGTH_SHORT).show();
 
                                 ed_name.setText("");
                                 ed_price.setText("");
+                                dialog.dismiss();
                             } catch (Exception e) {
                                 Toast.makeText(getActivity(), "新增失敗" + e.toString(), Toast.LENGTH_LONG).show();
                             }
@@ -199,10 +200,16 @@ public class ShoppingListFragment extends Fragment {
                                 //shopping_list1. = ed_name.getText().toString();//use the database functions to update addDatabaseShoppingList()
                                 shopping_list1.food_price = ed_price.getText().toString();
                                 items.add("名字: "+ shopping_list1.food_name+"   價格: "+ shopping_list1.food_price+ "元");
-                                Toast.makeText(getActivity(),"更新書名"+ed_name.getText().toString()+"      價格"+ed_price.getText().toString(),Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getActivity(),"更新"+ed_name.getText().toString()+"      價格"+ed_price.getText().toString(),Toast.LENGTH_SHORT).show();
+                                cost_record = cost_record + Integer.parseInt(ed_price.getText().toString());//加食物價格時,cost_record增加
+                                balance_record = Integer.parseInt(budget_num.getText().toString()) - cost_record;
+                                cost_num.setText(Integer.toString(cost_record));
+                                balance_num.setText(Integer.toString(balance_record));
+
 
                                 ed_name.setText("");
                                 ed_price.setText("");
+                                arrayAdapter.notifyDataSetChanged();
                             }catch (Exception e){
                                 Toast.makeText(getActivity(),"更新失敗:"+e.toString(),Toast.LENGTH_LONG).show();
                             }
@@ -210,30 +217,37 @@ public class ShoppingListFragment extends Fragment {
                     }
                 });*/
 
-                btn_delete.setOnClickListener(new View.OnClickListener() {
+                /*btn_delete.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+                       //先看要刪掉甚麼
+
+                        if(要刪掉的東西.edit_price != null){
+                                cost_record = cost_record - Integer.parseInt(ed_price.getText().toString());//減掉要刪掉的東西的價格
+                                balance_record = Integer.parseInt(budget_num.getText().toString()) - cost_record;
+                                cost_num.setText(Integer.toString(cost_record));
+                                balance_num.setText(Integer.toString(balance_record));
+                        }
+
+                        //刪掉東西
 
                     }
-                });
+                });*/
+
+
 
 
             }
         });
 
-
-
-
-
-
-        /* refresh button 可能不會加
-        button.setOnClickListener(new View.OnClickListener() {
+        FloatingActionButton come_back_home = root.findViewById(R.id.come_back_home);
+        come_back_home.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //把shopping_list1的東西全部搬到FoodFragment那邊
 
             }
-        });*/
-
+        });
 
         //測試SHOPPING_LIST資料庫提取資料，測試成功
         /*ArrayList<DatabaseForm> shopping_list2 = DatabaseFunction.getInstance().getDatabaseShoppingList();  //取得剛剛儲存的資料
@@ -249,52 +263,16 @@ public class ShoppingListFragment extends Fragment {
         //測試SHOPPING_LIST資料庫提取資料，測試成功
 
 
+
         return root;
     }
+
 
     @Override
     public void onDestroy(){
         super.onDestroy();
     }
 
-    class Data{
-        String name;
-    }
-
-    public class CustomAdapter extends BaseAdapter {
-        private ShoppingListFragment.Data[] data;
-        private int view;
-
-        public CustomAdapter(ShoppingListFragment.Data[] data , int view){
-            this.data = data;
-            this.view = view;
-        }
-
-        @Override
-        public int getCount() {
-            return data.length;
-        }
-
-        @Override
-        public Object getItem(int position) {
-            return data[position];
-        }
-
-        @Override
-        public long getItemId(int position) {
-            return 0;
-        }
-
-        @Override
-        public View getView(int position, View convertView, ViewGroup parent) {
-            //LayoutInflater inflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            convertView = getLayoutInflater().inflate(view,parent,false);
-            TextView name = convertView.findViewById(R.id.tv_list_item);
-            name.setText(data[position].name);
-
-            return convertView;
-        }
-    }
 
 
 }

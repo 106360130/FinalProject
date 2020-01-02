@@ -44,15 +44,6 @@
         />
 
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/delete_this_list"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="60dp"
-        app:layout_constraintEnd_toEndOf="@+id/add_shopping_item"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/trash" />
-
     <ListView
         android:id="@+id/listView"
         android:layout_width="wrap_content"
