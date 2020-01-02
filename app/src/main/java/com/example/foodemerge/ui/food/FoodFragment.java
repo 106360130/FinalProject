@@ -1,6 +1,7 @@
 package com.example.foodemerge.ui.food;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,6 +19,8 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
+import com.example.foodemerge.Database.DatabaseForm;
+import com.example.foodemerge.Database.DatabaseFunction;
 import com.example.foodemerge.R;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
@@ -27,6 +30,7 @@ public class FoodFragment extends Fragment {
 
     private EditText ed_name_home,ed_price_home;
     private Button change_home;
+
     //本來就有的
     private FoodViewModel foodViewModel;
 
@@ -46,6 +50,19 @@ public class FoodFragment extends Fragment {
                 textView.setText(s);
             }
         });
+
+
+        //DATABASE_HOME_FOOD，讀取資料
+        ArrayList<DatabaseForm> test_database_money2 = DatabaseFunction.getInstance().getDatabaseMoney();  //取得剛剛儲存的資料
+        Log.e("TEST_MONEY2 : " , "data : " + String.format("%d" , test_database_money2.size()));
+
+        //DatabaseForm dailog_food = dialog_foods.get(0);  //取第一筆資料
+        DatabaseForm test_database_money22 = test_database_money2.get(0);  //取第一筆資料
+
+        Log.e("TEST_MONEY2 : ", "budget : " + test_database_money22.budget);
+        Log.e("TEST_MONEY2 : ", "cost : " + test_database_money22.cost);
+        Log.e("TEST_MONEY2 : ", "balance : " + test_database_money22.balance);
+        //DATABASE_MONEY，讀取資料
 
         //taking care of the list view
             listView_homeFood = root.findViewById(R.id.listView);
@@ -93,6 +110,8 @@ public class FoodFragment extends Fragment {
                     */
             }
         });
+
+
 
 
 
