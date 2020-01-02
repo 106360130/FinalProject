@@ -3,7 +3,9 @@ package com.example.foodemerge.ui.shopping_list;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.graphics.Color;
+import android.graphics.Paint;
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.Gravity;
@@ -15,6 +17,7 @@ import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
@@ -39,11 +42,10 @@ public class ShoppingListFragment extends Fragment {
     private ShoppingListViewModel shoppingListViewModel;
     //若蘭加第一次
     private ListView listView;
-    private ArrayAdapter<String > adapter;
-    private ArrayList<String> items = new ArrayList<>();
+    private ArrayList items = new ArrayList<String>();
     private EditText ed_name, ed_price;
     private Button btn_create, btn_delete, btn_change, cancel_delete, delete;
-
+    TextView textSelected;
 
     @Override
     public void onCreate(Bundle savedInstanceState){
@@ -69,9 +71,16 @@ public class ShoppingListFragment extends Fragment {
             }
         });
 
+        Data[] transData = new Data[items.size()];
+        for(int i = 0; i<transData.length;i++){
+            transData[i] = new Data();
+            transData[i].name = items.get(i).toString();
+        }
+
+        CustomAdapter adapter = new CustomAdapter(transData, R.layout.trans_list);//adapter for handling the list
+
         //taking care of the list view
         listView = root.findViewById(R.id.listView);
-        adapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_list_item_1, items);//adapter for handling the database
         listView.setAdapter(adapter);
 
         /*
@@ -88,13 +97,13 @@ public class ShoppingListFragment extends Fragment {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 // Get the selected item text from ListView
                 String selectedItem = (String) parent.getItemAtPosition(position);
-
-
+                textSelected.setText(selectedItem);
+                textSelected.setPaintFlags(textSelected.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
             }
         });
 
         //adapter for changing the text color
-        ArrayAdapter<String> colorAdapter = new ArrayAdapter<String>(getActivity(),android.R.layout.simple_list_item_1, items){
+        ArrayAdapter colorAdapter = new ArrayAdapter<TextView>(getActivity(),android.R.layout.simple_list_item_1, items){
             @Override
             public View getView(int position, View convertView, ViewGroup parent){
                 // Get the Item from ListView
@@ -140,6 +149,9 @@ public class ShoppingListFragment extends Fragment {
                 btn_delete = toast1.findViewById(R.id.btn_delete);
                 btn_change = toast1.findViewById(R.id.change);
 
+
+
+
                 final DatabaseForm shopping_list1 = new DatabaseForm();
                 btn_create.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -152,9 +164,12 @@ public class ShoppingListFragment extends Fragment {
 
 
                                 if (ed_price.length()>0){
+
                                     shopping_list1.food_name = ed_name.getText().toString();
                                     shopping_list1.food_price = ed_price.getText().toString();
+                                    Log.e("新增東西了嗎","food name : " + shopping_list1.food_name);
                                     items.add("名字: "+ shopping_list1.food_name+"   價格: "+ shopping_list1.food_price+ "元");
+
                                 }else{
                                     shopping_list1.food_name = ed_name.getText().toString();
                                     items.add("名字: "+ shopping_list1.food_name);
@@ -242,7 +257,44 @@ public class ShoppingListFragment extends Fragment {
         super.onDestroy();
     }
 
+    class Data{
+        String name;
+    }
 
+    public class CustomAdapter extends BaseAdapter {
+        private ShoppingListFragment.Data[] data;
+        private int view;
+
+        public CustomAdapter(ShoppingListFragment.Data[] data , int view){
+            this.data = data;
+            this.view = view;
+        }
+
+        @Override
+        public int getCount() {
+            return data.length;
+        }
+
+        @Override
+        public Object getItem(int position) {
+            return data[position];
+        }
+
+        @Override
+        public long getItemId(int position) {
+            return 0;
+        }
+
+        @Override
+        public View getView(int position, View convertView, ViewGroup parent) {
+            //LayoutInflater inflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            convertView = getLayoutInflater().inflate(view,parent,false);
+            TextView name = convertView.findViewById(R.id.tv_list_item);
+            name.setText(data[position].name);
+
+            return convertView;
+        }
+    }
 
 
 }
