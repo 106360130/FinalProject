@@ -2,6 +2,7 @@ package com.example.foodemerge.ui.food_info;
 
 import android.content.Context;
 import android.content.DialogInterface;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Gravity;
@@ -10,13 +11,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
-
+import android.view.inputmethod.InputMethodManager;
 import androidx.annotation.Nullable;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
@@ -31,6 +33,8 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import android.widget.Toast;
 import android.content.Intent;
 
+import static android.content.Context.INPUT_METHOD_SERVICE;
+
 public class FoodInfoFragment extends Fragment {
 
     private AlertDialog dialog;
@@ -44,6 +48,8 @@ public class FoodInfoFragment extends Fragment {
     private ArrayAdapter<String> adapter;
     private ArrayList<String> items = new ArrayList<>();
     private String food_neme, food_cals,food_protein,food_fat,food_carbs;
+
+    private SQLiteDatabase dbrw;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -68,12 +74,30 @@ public class FoodInfoFragment extends Fragment {
         TextView proteinAmount_show=root.findViewById(R.id.proteinAmount_show);
         TextView fatAmount_show=root.findViewById(R.id.fatAmount_show);
 
-        adapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_list_item_1, items);
-        search_list.setAdapter(adapter);
-
         text_food_info.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Cursor c;
+                if(text_food_info.length()<1)
+                    c = dbrw.rawQuery("SELECT * FROM myTable", null);
+                else
+                    c = dbrw.rawQuery("SELECT * FROM  myTable WHERE book LIKE '"+text_food_info.getText().toString()+"'",null);
+
+                c.moveToFirst();
+                items.clear();
+                Toast.makeText(getActivity(),"共有" + c.getCount() + "筆資料", Toast.LENGTH_SHORT).show();
+
+                for (int i = 0; i<c.getCount();i++){
+
+                    items.add("食物:"+food_neme+"  ,cals:"+food_cals+
+                            " \nprotein"+food_protein+"  ,fat"+food_fat+"加入成功");
+                   // items.add(":"+ c.getString(0)+"\t\t\t\t價格:"+ c.getString(1));
+                    c.moveToNext();
+                }
+
+                adapter.notifyDataSetChanged();
+
+                c.close();
 
             }//查詢資料庫
         });
@@ -100,12 +124,14 @@ public class FoodInfoFragment extends Fragment {
                         food_cals=caloriesAmount.getText().toString();
                         food_protein=proteinAmount.getText().toString();
                         food_fat=fatAmount.getText().toString();//把輸入的資料存到database裡
-                        //Log.e("INPUT :",food_neme);
-                        //Log.e("INPUT :",food_cals);
-                        //Log.e("INPUT :",food_protein);
-                        //Log.e("INPUT :",food_fat);//除錯用，確認是否真的有存東西進去
+                        Log.e("INPUT :",food_neme);
+                        Log.e("INPUT :",food_cals);
+                        Log.e("INPUT :",food_protein);
+                        Log.e("INPUT :",food_fat);//除錯用，確認是否真的有存東西進去
                         Toast.makeText(getActivity(),"食物:"+food_neme+"  ,cals:"+food_cals+
-                              "  ,protein"+food_protein+"  ,fat"+food_fat+"加入成功",Toast.LENGTH_SHORT).show();
+                              " \nprotein"+food_protein+"  ,fat"+food_fat+"加入成功",Toast.LENGTH_SHORT).show();
+
+                        InputMethodManager imm = (InputMethodManager)getActivity().getSystemService(Context.INPUT_METHOD_SERVICE); imm.hideSoftInputFromWindow(fatAmount.getWindowToken(), 0);
                     }
                 });//儲存資料
             }
