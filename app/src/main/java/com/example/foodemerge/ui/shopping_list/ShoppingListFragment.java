@@ -33,7 +33,7 @@ import java.util.ArrayList;
 public class ShoppingListFragment extends Fragment {
 
     private ShoppingListViewModel shoppingListViewModel;
-    //若蘭加第一次
+    
     private ListView listView;
     private ArrayList<String> items = new ArrayList<String>();
     private EditText ed_name, ed_price;
@@ -72,18 +72,6 @@ public class ShoppingListFragment extends Fragment {
         //taking care of the list view
         listView = root.findViewById(R.id.listView);
         listView.setAdapter(arrayAdapter);
-
-        // Set an item click listener for ListView
-        //不會加了吧
-        /*listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                // Get the selected item text from ListView
-                TextView item = (TextView) view.findViewById(R.id.tv_list_item);
-                item.setPaintFlags(item.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
-            }
-        });*/
-
 
         //adapter for changing the text color
         ArrayAdapter<String> colorAdapter = new ArrayAdapter<String>(getActivity(),android.R.layout.simple_list_item_1, items){
@@ -181,80 +169,8 @@ public class ShoppingListFragment extends Fragment {
                     }
                 });
 
-               /* btn_change.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        if(ed_name.length()<1|| ed_price.length() < 1)
-
-                            Toast.makeText(getActivity(), "欄位請勿留空",Toast.LENGTH_SHORT).show();
-                        else{
-                            try{
-                                //shopping_list1. = ed_name.getText().toString();//use the database functions to update addDatabaseShoppingList()
-                                shopping_list1.food_price = ed_price.getText().toString();
-                                items.add("名字: "+ shopping_list1.food_name+"   價格: "+ shopping_list1.food_price+ "元");
-                                Toast.makeText(getActivity(),"更新"+ed_name.getText().toString()+"      價格"+ed_price.getText().toString(),Toast.LENGTH_SHORT).show();
-                                cost_record = cost_record + Integer.parseInt(ed_price.getText().toString());//加食物價格時,cost_record增加
-                                balance_record = Integer.parseInt(budget_num.getText().toString()) - cost_record;
-                                cost_num.setText(Integer.toString(cost_record));
-                                balance_num.setText(Integer.toString(balance_record));
-
-
-                                ed_name.setText("");
-                                ed_price.setText("");
-                                arrayAdapter.notifyDataSetChanged();
-                            }catch (Exception e){
-                                Toast.makeText(getActivity(),"更新失敗:"+e.toString(),Toast.LENGTH_LONG).show();
-                            }
-                        }
-                    }
-                });*/
-
-                /*btn_delete.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                       //先看要刪掉甚麼
-
-                        if(要刪掉的東西.edit_price != null){
-                                cost_record = cost_record - Integer.parseInt(ed_price.getText().toString());//減掉要刪掉的東西的價格
-                                balance_record = Integer.parseInt(budget_num.getText().toString()) - cost_record;
-                                cost_num.setText(Integer.toString(cost_record));
-                                balance_num.setText(Integer.toString(balance_record));
-                        }
-
-                        //刪掉東西
-
-                    }
-                });*/
-
-
-
-
             }
         });
-
-        FloatingActionButton come_back_home = root.findViewById(R.id.come_back_home);
-        come_back_home.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //把shopping_list1的東西全部搬到FoodFragment那邊
-
-            }
-        });
-
-        //測試SHOPPING_LIST資料庫提取資料，測試成功
-        /*ArrayList<DatabaseForm> shopping_list2 = DatabaseFunction.getInstance().getDatabaseShoppingList();  //取得剛剛儲存的資料
-        Log.e("dialog_foods ; " , String.format("%d" , shopping_list2.size()));
-        //DatabaseForm dailog_food = dialog_foods.get(0);  //取第一筆資料
-        DatabaseForm test_database_shopping_list = shopping_list2.get(shopping_list2.size()-1);  //取最後一筆資料
-
-        Log.e("TEST_SHOPPING_LIST2 : ", "food name : " + test_database_shopping_list.food_name);
-        Log.e("TEST_SHOPPING_LIST2 : ", "food cals : " + test_database_shopping_list.food_cals);
-        Log.e("TEST_SHOPPING_LIST2 : ", "food protein : " + test_database_shopping_list.food_protein);
-        Log.e("TEST_SHOPPING_LIST2 : ", "food fat : " + test_database_shopping_list.food_fat);
-        Log.e("TEST_SHOPPING_LIST2 : ", "food carbs : " + test_database_shopping_list.food_carbs);*/
-        //測試SHOPPING_LIST資料庫提取資料，測試成功
-
-
 
         return root;
     }
