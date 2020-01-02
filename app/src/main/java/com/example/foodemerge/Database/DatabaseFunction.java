@@ -9,6 +9,7 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
+
 public class DatabaseFunction {
     private volatile static DatabaseFunction instance = null;
 
@@ -273,7 +274,7 @@ public class DatabaseFunction {
     }
     //"DATABASE_MONEY"的功能模組
     //功能模組，多一個分類就要再複製一次
-
+    //DATABASE_FOOD_INFO模組
 
 
     //建構子，不要碰

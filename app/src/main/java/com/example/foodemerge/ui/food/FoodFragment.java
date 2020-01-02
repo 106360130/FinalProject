@@ -5,6 +5,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
@@ -16,14 +18,20 @@ import androidx.lifecycle.ViewModelProviders;
 import com.example.foodemerge.Database.DatabaseForm;
 import com.example.foodemerge.Database.DatabaseFunction;
 import com.example.foodemerge.R;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
 
 public class FoodFragment extends Fragment {
 
+    //本來就有的
     private FoodViewModel foodViewModel;
 
-    public View onCreateView(@NonNull LayoutInflater inflater,
+    private ListView listView_homeFood;
+    private ArrayAdapter<String > adapter_homeFood;
+    private ArrayList<String> items_homeFood = new ArrayList<>();
+
+        public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         foodViewModel =
                 ViewModelProviders.of(this).get(FoodViewModel.class);
@@ -36,6 +44,7 @@ public class FoodFragment extends Fragment {
             }
         });
 
+
         //DATABASE_HOME_FOOD，讀取資料
         ArrayList<DatabaseForm> test_database_money2 = DatabaseFunction.getInstance().getDatabaseMoney();  //取得剛剛儲存的資料
         Log.e("TEST_MONEY2 : " , "data : " + String.format("%d" , test_database_money2.size()));
@@ -46,11 +55,23 @@ public class FoodFragment extends Fragment {
         Log.e("TEST_MONEY2 : ", "budget : " + test_database_money22.budget);
         Log.e("TEST_MONEY2 : ", "cost : " + test_database_money22.cost);
         Log.e("TEST_MONEY2 : ", "balance : " + test_database_money22.balance);
-
         //DATABASE_MONEY，讀取資料
+
+        //taking care of the list view
+            listView_homeFood = root.findViewById(R.id.listView);
+            adapter_homeFood = new ArrayAdapter<>(getActivity(), android.R.layout.simple_list_item_1, items_homeFood);//adapter for handling the database
+            listView_homeFood.setAdapter(adapter_homeFood);
+
+
+            //需要增加功能
+        FloatingActionButton add_shopping_item = root.findViewById(R.id.add_shopping_item);
+        FloatingActionButton add_food = root.findViewById(R.id.add_food);
+            //需要增加功能
+
 
 
 
         return root;
-    }
+
+        }
 }

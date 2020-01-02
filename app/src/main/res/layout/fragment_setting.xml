@@ -32,7 +32,7 @@
 
 
     <EditText
-        android:id="@+id/ed_budget"
+        android:id="@+id/ed_name"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:ems="10"
@@ -54,13 +54,13 @@
         android:textSize="22sp"
         android:layout_marginTop="30dp"
         android:layout_marginLeft="10dp"
-        app:layout_constraintRight_toLeftOf="@+id/ed_budget"
-        app:layout_constraintStart_toEndOf="@+id/ed_budget"
+        app:layout_constraintRight_toLeftOf="@+id/ed_name"
+        app:layout_constraintStart_toEndOf="@+id/ed_name"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="@id/ed_budget"/>
+        app:layout_constraintBottom_toBottomOf="@id/ed_name"/>
 
     <EditText
-        android:id="@+id/ed_dayRemind"
+        android:id="@+id/ed_price"
         android:layout_width="275dp"
         android:layout_height="wrap_content"
         android:ems="10"
@@ -69,8 +69,8 @@
         android:textColor="#FFFFFF"
         android:textSize="22sp"
         android:layout_marginTop="30dp"
-        app:layout_constraintStart_toStartOf="@id/ed_budget"
-        app:layout_constraintTop_toBottomOf="@id/ed_budget"
+        app:layout_constraintStart_toStartOf="@id/ed_name"
+        app:layout_constraintTop_toBottomOf="@id/ed_name"
         />
 
     <TextView
@@ -81,9 +81,9 @@
         android:textSize="22sp"
         android:textColor="#FFFFFF"
         android:layout_marginLeft="10dp"
-        app:layout_constraintStart_toEndOf="@id/ed_dayRemind"
-        app:layout_constraintTop_toTopOf="@id/ed_dayRemind"
-        app:layout_constraintBottom_toBottomOf="@+id/ed_dayRemind"/>
+        app:layout_constraintStart_toEndOf="@id/ed_price"
+        app:layout_constraintTop_toTopOf="@id/ed_price"
+        app:layout_constraintBottom_toBottomOf="@+id/ed_price"/>
 
     <Button
         android:id="@+id/verify"
