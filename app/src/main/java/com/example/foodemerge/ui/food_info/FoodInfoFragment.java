@@ -50,8 +50,8 @@ public class FoodInfoFragment extends Fragment {
             }
         });
 
-        //資料庫提取資料，要顯示在listView
         /*
+        //資料庫提取資料，要顯示在listView
         ArrayList<DatabaseForm> dialog_foods = DatabaseFunction.getInstance().getDatabase();  //取得剛剛儲存的資料
         Log.e("dialog_foods ; " , String.format("%d" , dialog_foods.size()));
 
@@ -63,8 +63,10 @@ public class FoodInfoFragment extends Fragment {
         Log.e("TEST_DATEBASE2 : ", "food protein : " + test_database2.food_protein);
         Log.e("TEST_DATEBASE2 : ", "food fat : " + test_database2.food_fat);
         Log.e("TEST_DATEBASE2 : ", "food carbs : " + test_database2.food_carbs);
-        */
         //資料庫提取資料，要顯示在listView
+        */
+
+
 
         //刪除指定名字的字串
                 /*

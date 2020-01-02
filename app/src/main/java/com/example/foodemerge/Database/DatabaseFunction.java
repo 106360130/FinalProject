@@ -210,6 +210,71 @@ public class DatabaseFunction {
     //功能模組，多一個分類就要再複製一次
 
 
+    //"DATABASE_MONEY"的功能模組
+    private ArrayList<DatabaseForm> databaseMoney = new ArrayList<>();
+    String DATABASE_MONEY = "database_money";  //分類
+    public ArrayList<DatabaseForm> getDatabaseMoney() {
+        return this.databaseMoney;
+    }
+
+    public void setDatabaseMoney(ArrayList<DatabaseForm> databaseMoney) {
+        this.databaseMoney = databaseMoney;
+    }
+
+    public void addDatabaseMoney(DatabaseForm databaseMoney) {
+        if (this.databaseMoney == null){
+            this.databaseMoney = new ArrayList<>();
+        }
+        this.databaseMoney.add(databaseMoney);
+    }
+
+    public void deleteDatabaseMoney() {
+        MainApplication.clearSettings(DATABASE_MONEY);
+        this.databaseMoney = null;
+    }
+
+    public void readDatabaseMoney() {
+        String json = MainApplication.readSetting(DATABASE_MONEY);
+
+        try {
+            if (json != null) {
+                Gson gson = new Gson();
+                Type type = new TypeToken<List<DatabaseForm>>() {
+                }.getType();
+
+                this.databaseMoney = new ArrayList<>();
+                this.databaseMoney = gson.fromJson(json, type);
+            }
+        }catch (Exception e) {
+            MainApplication.clearSettings(DATABASE_MONEY);
+            this.databaseMoney = null;
+        }
+    }
+
+    public void saveDatabaseMoney() {
+        saveObjectSetting(DATABASE_MONEY, this.databaseMoney);
+    }
+
+    public void removeDatabaseMoney(String name) {
+        for( int i = 0 ; i < this.databaseMoney.size() ; i++)
+        {
+            /*
+            if( database.get(i).food_neme.contains(name))  //包含
+            {
+                this.database.remove(i);
+            }
+            */
+            if( databaseMoney.get(i).food_name.compareTo(name) == 0)  //如果字串一樣就刪除
+            {
+                this.databaseMoney.remove(i);
+            }
+        }
+
+    }
+    //"DATABASE_MONEY"的功能模組
+    //功能模組，多一個分類就要再複製一次
+
+
 
     //建構子，不要碰
     private DatabaseFunction() {

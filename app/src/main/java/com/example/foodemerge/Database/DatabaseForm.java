@@ -13,6 +13,10 @@ public class DatabaseForm {
 
     public String food_price;  //食物價錢
 
+    public String budget;  //預算
+    public String cost;  //花費
+    public String balance;  //結餘
+
     public DatabaseForm() {
 
     }
