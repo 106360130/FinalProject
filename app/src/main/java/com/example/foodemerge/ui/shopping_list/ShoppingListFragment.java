@@ -66,8 +66,8 @@ public class ShoppingListFragment extends Fragment {
             }
         });
 
-
         final View trans_list = inflater.inflate(R.layout.trans_list, container, false);
+
 
         final ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(getActivity(),R.layout.trans_list,items);
         //taking care of the list view
@@ -176,6 +176,52 @@ public class ShoppingListFragment extends Fragment {
 
                     
                 });
+
+                btn_change.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if(ed_name.length()<1|| ed_price.length() < 1)
+
+                            Toast.makeText(getActivity(), "欄位請勿留空",Toast.LENGTH_SHORT).show();
+                        else{
+                            try{
+                                ArrayList<DatabaseForm> get_shopping_list1 = DatabaseFunction.getInstance().getDatabaseShoppingList();
+
+                                shopping_list1.food_name = ed_name.getText().toString();//use the database functions to update addDatabaseShoppingList()
+                                shopping_list1.food_price = ed_price.getText().toString();
+                                items.add("名字: "+ shopping_list1.food_name+"   價格: "+ shopping_list1.food_price+ "元");
+                                Toast.makeText(getActivity(),"更新"+ed_name.getText().toString()+"      價格"+ed_price.getText().toString(),Toast.LENGTH_SHORT).show();
+                                cost_record = cost_record + Integer.parseInt(ed_price.getText().toString());//加食物價格時,cost_record增加
+                                balance_record = Integer.parseInt(budget_num.getText().toString()) - cost_record;
+                                cost_num.setText(Integer.toString(cost_record));
+                                balance_num.setText(Integer.toString(balance_record));
+
+
+                                ed_name.setText("");
+                                ed_price.setText("");
+                                arrayAdapter.notifyDataSetChanged();
+                            }catch (Exception e){
+                                Toast.makeText(getActivity(),"更新失敗:"+e.toString(),Toast.LENGTH_LONG).show();
+                            }
+                        }
+                    }
+                });
+                /*btn_delete.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                       //先看要刪掉甚麼
+
+                        if(要刪掉的東西.edit_price != null){
+                                cost_record = cost_record - Integer.parseInt(ed_price.getText().toString());//減掉要刪掉的東西的價格
+                                balance_record = Integer.parseInt(budget_num.getText().toString()) - cost_record;
+                                cost_num.setText(Integer.toString(cost_record));
+                                balance_num.setText(Integer.toString(balance_record));
+                        }
+
+                        //刪掉東西
+
+                    }
+                });*/
 
             }
         });
