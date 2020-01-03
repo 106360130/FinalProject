@@ -134,14 +134,17 @@ public class FoodInfoFragment extends Fragment {
                 dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);//切換到Food_data_toast.layout
                 dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);//切換到Food_data_toast.layout
                 dialog.show();//切換到Food_data_toast.layout
+
                 View view = View.inflate(getActivity(), R.layout.food_data_toast, null);//切換到Food_data_toast.layout
                 dialog.setContentView(view);//切換到Food_data_toast.layout
                 dialog.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE|WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM);//讓鍵盤可以點一下就跳出來
+
                 btn_save = view.findViewById(R.id.btn_save);//因為是alertDialog的view，所以要在這裡加，又因為是fragment的findViewById，所以前面要加自己分別的view
                 foodName=view.findViewById(R.id.foodName);
                 caloriesAmount=view.findViewById(R.id.caloriesAmount);
                 proteinAmount=view.findViewById(R.id.proteinAmount);
                 fatAmount=view.findViewById(R.id.fatAmount);
+
                 btn_save.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {

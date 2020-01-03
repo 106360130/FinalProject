@@ -30,6 +30,8 @@ public class FoodFragment extends Fragment {
                 textView.setText(s);
             }
         });
+
+
         return root;
     }
 }
