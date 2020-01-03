@@ -69,7 +69,7 @@ public class FoodInfoFragment extends Fragment {
 
 
         //刪除指定名字的字串
-                /*
+
                 ArrayList<DatabaseForm> look_food = DatabaseFunction.getInstance().getDatabase();
                 Log.e("LOOK_FOOD : ", String.format("%d", look_food.size()));
                 String remove_food = "beef";
@@ -78,7 +78,7 @@ public class FoodInfoFragment extends Fragment {
                 //DatabaseFunction.getInstance().setDatabase(look_food);
                 DatabaseFunction.getInstance().saveDatabase();
                 Log.e("NOW_FOOD : ", String.format("%d",look_food.size()));
-                */
+
         //刪除指定名字的字串
 
 
