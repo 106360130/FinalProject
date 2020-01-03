@@ -1,7 +1,9 @@
 package com.example.foodemerge.ui.food;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -34,9 +36,8 @@ public class FoodFragment extends Fragment {
     //本來就有的
     private FoodViewModel foodViewModel;
 
-    private ListView listView_homeFood;
-    private ArrayAdapter<String > adapter_homeFood;
-    private ArrayList<String> items_homeFood = new ArrayList<>();
+    private ListView home_food_listView;
+    private ArrayList<String> items = new ArrayList<>();
 
         public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -52,6 +53,7 @@ public class FoodFragment extends Fragment {
         });
 
 
+        /*
         //DATABASE_HOME_FOOD，讀取資料
         ArrayList<DatabaseForm> test_database_money2 = DatabaseFunction.getInstance().getDatabaseMoney();  //取得剛剛儲存的資料
         Log.e("TEST_MONEY2 : " , "data : " + String.format("%d" , test_database_money2.size()));
@@ -63,32 +65,74 @@ public class FoodFragment extends Fragment {
         Log.e("TEST_MONEY2 : ", "cost : " + test_database_money22.cost);
         Log.e("TEST_MONEY2 : ", "balance : " + test_database_money22.balance);
         //DATABASE_MONEY，讀取資料
+        */
 
-        //taking care of the list view
-            listView_homeFood = root.findViewById(R.id.listView);
-            adapter_homeFood = new ArrayAdapter<>(getActivity(), android.R.layout.simple_list_item_1, items_homeFood);//adapter for handling the database
-            listView_homeFood.setAdapter(adapter_homeFood);
+            //listView顯示要用
+            final View trans_list = inflater.inflate(R.layout.trans_list, container, false);
+            final ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(getActivity(),R.layout.trans_list,items);
+            home_food_listView = root.findViewById(R.id.home_food_list_view);
+            home_food_listView.setAdapter(arrayAdapter);
 
-        FloatingActionButton edit_home_food = root.findViewById(R.id.edit_home_food);
-        FloatingActionButton add_home_food = root.findViewById(R.id.add_home_food);
 
-        edit_home_food.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+            ArrayAdapter<String> colorAdapter = new ArrayAdapter<String>(getActivity(),android.R.layout.simple_list_item_1, items){
+                @Override
+                public View getView(int position, View convertView, ViewGroup parent){
+                    // Get the Item from ListView
+                    View view = super.getView(position, convertView, parent);
 
-                final AlertDialog dialog_home = new AlertDialog.Builder(getActivity()).create();
-                dialog_home.requestWindowFeature(Window.FEATURE_NO_TITLE);
-                dialog_home.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
-                dialog_home.show();
+                    // Initialize a TextView for ListView each Item
+                    final TextView tv = (TextView) view.findViewById(android.R.id.text1);
 
-                View toast_home_change = View.inflate(getActivity(),R.layout.dialog_home_change,null);
-                if (toast_home_change.getParent()!=null) {
-                    ((ViewGroup)toast_home_change.getParent()).removeView(toast_home_change);
+                    // Set the text color of TextView (ListView Item)
+                    tv.setTextColor(Color.WHITE);
+                    tv.setTextSize(TypedValue.COMPLEX_UNIT_SP, 18.0F);
+
+                    // Generate ListView Item using TextView
+                    return view;
                 }
+            };
+            home_food_listView.setAdapter(colorAdapter);
+            //listView顯示要用
 
-                ed_name_home = toast_home_change.findViewById(R.id.ed_name_home);
-                ed_price_home = toast_home_change.findViewById(R.id.ed_price_home);
-                change_home = toast_home_change.findViewById(R.id.change_home);
+            //listView顯示要用
+            ArrayList<DatabaseForm> home_food_now = DatabaseFunction.getInstance().getDatabaseHomeFood();  //取得剛剛儲存的資料
+            Log.e("home_food_now : " , String.format("%d" , home_food_now.size()));  //看現在有幾筆資料
+
+            for (int i = 0; i < home_food_now.size(); i++) {
+                DatabaseForm home_food_now2 = home_food_now.get(i);  //取每一筆資料
+
+                if (home_food_now2.food_name != null) {
+                    items.add("名字 : " + home_food_now2.food_name  + "    有效期限 : " + home_food_now2.food_EXP);
+                }
+            }
+            //listView顯示要用
+
+
+            //taking care of the list view
+            //home_food_listView = root.findViewById(R.id.listView);
+            //arrayAdapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_list_item_1, items);//adapter for handling the database
+           // home_food_listView.setAdapter(arrayAdapter);
+
+            FloatingActionButton edit_home_food = root.findViewById(R.id.edit_home_food);
+            FloatingActionButton add_home_food = root.findViewById(R.id.add_home_food);
+
+            edit_home_food.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    final AlertDialog dialog_home = new AlertDialog.Builder(getActivity()).create();
+                    dialog_home.requestWindowFeature(Window.FEATURE_NO_TITLE);
+                    dialog_home.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+                    dialog_home.show();
+
+                    View toast_home_change = View.inflate(getActivity(), R.layout.dialog_home_change, null);
+                    if (toast_home_change.getParent() != null) {
+                        ((ViewGroup) toast_home_change.getParent()).removeView(toast_home_change);
+                    }
+
+                    ed_name_home = toast_home_change.findViewById(R.id.ed_name_home);
+                    ed_price_home = toast_home_change.findViewById(R.id.ed_price_home);
+                    change_home = toast_home_change.findViewById(R.id.change_home);
                 /*
                         if(ed_name_home.length()<1|| ed_price_home.length() < 1)
 

@@ -1,11 +1,15 @@
 package com.example.foodemerge.ui.food_info;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
@@ -36,6 +40,8 @@ public class FoodInfoFragment extends Fragment {
     private Button search_on_net;  //網路上搜尋的按鈕
     String url;  //爬蟲的網址
     String want_search_food = "beef";
+    private ListView food_info_listView;  //listView顯示要用
+    private ArrayList<String> items = new ArrayList<String>();  //listView顯示要用
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -49,6 +55,35 @@ public class FoodInfoFragment extends Fragment {
                 textView.setText(s);
             }
         });
+
+        //listView顯示要用
+        final View trans_list = inflater.inflate(R.layout.trans_list, container, false);
+        final ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(getActivity(),R.layout.trans_list,items);
+        food_info_listView = root.findViewById(R.id.serch_list);
+        food_info_listView.setAdapter(arrayAdapter);
+
+
+        ArrayAdapter<String> colorAdapter = new ArrayAdapter<String>(getActivity(),android.R.layout.simple_list_item_1, items){
+            @Override
+            public View getView(int position, View convertView, ViewGroup parent){
+                // Get the Item from ListView
+                View view = super.getView(position, convertView, parent);
+
+                // Initialize a TextView for ListView each Item
+                final TextView tv = (TextView) view.findViewById(android.R.id.text1);
+
+                // Set the text color of TextView (ListView Item)
+                tv.setTextColor(Color.WHITE);
+                tv.setTextSize(TypedValue.COMPLEX_UNIT_SP, 18.0F);
+
+                // Generate ListView Item using TextView
+                return view;
+            }
+        };
+        //listView顯示要用
+
+        food_info_listView.setAdapter(colorAdapter);
+        //taking care of the list view
 
         /*
         //資料庫提取資料，要顯示在listView
@@ -66,20 +101,33 @@ public class FoodInfoFragment extends Fragment {
         //資料庫提取資料，要顯示在listView
         */
 
+        //listView顯示要用
+        ArrayList<DatabaseForm> food_info_now = DatabaseFunction.getInstance().getDatabase();  //取得剛剛儲存的資料
+        Log.e("food_info_now : " , String.format("%d" , food_info_now.size()));  //看現在有幾筆資料
+
+        for (int i = 0; i < food_info_now.size(); i++) {
+            DatabaseForm food_info_now2 = food_info_now.get(i);  //取每一筆資料
+
+            if (food_info_now2.food_name != null) {
+                items.add("名字 : " + food_info_now2.food_name  );
+            }
+        }
+        //listView顯示要用
 
 
+
+        /*
         //刪除指定名字的字串
-
-                ArrayList<DatabaseForm> look_food = DatabaseFunction.getInstance().getDatabase();
-                Log.e("LOOK_FOOD : ", String.format("%d", look_food.size()));
-                String remove_food = "beef";
-                DatabaseFunction.getInstance().removeDatabase(remove_food);
-                //look_food.remove(0);
-                //DatabaseFunction.getInstance().setDatabase(look_food);
-                DatabaseFunction.getInstance().saveDatabase();
-                Log.e("NOW_FOOD : ", String.format("%d",look_food.size()));
-
+        ArrayList<DatabaseForm> look_food = DatabaseFunction.getInstance().getDatabase();
+        Log.e("LOOK_FOOD : ", String.format("%d", look_food.size()));
+        String remove_food = "beef";
+        DatabaseFunction.getInstance().removeDatabase(remove_food);
+        //look_food.remove(0);
+        //DatabaseFunction.getInstance().setDatabase(look_food);
+        DatabaseFunction.getInstance().saveDatabase();
+        Log.e("NOW_FOOD : ", String.format("%d", look_food.size()));
         //刪除指定名字的字串
+        */
 
 
         search_on_net = root.findViewById(R.id.btn_search);

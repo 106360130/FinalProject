@@ -67,8 +67,6 @@ public class ShoppingListFragment extends Fragment {
         });
 
         final View trans_list = inflater.inflate(R.layout.trans_list, container, false);
-
-
         final ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(getActivity(),R.layout.trans_list,items);
         //taking care of the list view
         listView = root.findViewById(R.id.listView);
@@ -95,6 +93,36 @@ public class ShoppingListFragment extends Fragment {
 
         // DataBind ListView with items from ArrayAdapter
         listView.setAdapter(colorAdapter);
+
+        ArrayList<DatabaseForm> shopping_list_now = DatabaseFunction.getInstance().getDatabaseShoppingList();  //取得剛剛儲存的資料
+        Log.e("shopping_list_now : " , String.format("%d" , shopping_list_now.size()));  //看現在有幾筆資料
+
+
+        //DatabaseForm dailog_food = dialog_foods.get(0);  //取第一筆資料
+        //DatabaseForm shopping_list_now2 = shopping_list_now.get(shopping_list_now.size()-1);  //取最後一筆資料
+
+        /*
+        Log.e("TEST_DATEBASE2 : ", "food name : " + test_database2.food_name);
+        Log.e("TEST_DATEBASE2 : ", "food cals : " + test_database2.food_cals);
+        Log.e("TEST_DATEBASE2 : ", "food protein : " + test_database2.food_protein);
+        Log.e("TEST_DATEBASE2 : ", "food fat : " + test_database2.food_fat);
+        Log.e("TEST_DATEBASE2 : ", "food carbs : " + test_database2.food_carbs);
+        */
+
+
+        for (int i = 0; i < shopping_list_now.size(); i++) {
+            DatabaseForm shopping_list_now2 = shopping_list_now.get(i);  //取每一筆資料
+
+            if (shopping_list_now2.food_price != null) {
+                items.add("名字: " + shopping_list_now2.food_name + "   價格: " + shopping_list_now2.food_price);
+            } else {
+                items.add("名字: " + shopping_list_now2.food_name );
+            }
+
+        }
+
+
+
 
         FloatingActionButton add_shopping_item = root.findViewById(R.id.add_shopping_item);
         add_shopping_item.setOnClickListener(new View.OnClickListener() {
@@ -177,6 +205,7 @@ public class ShoppingListFragment extends Fragment {
                     
                 });
 
+                //修改資料，還沒寫完
                 btn_change.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -206,6 +235,9 @@ public class ShoppingListFragment extends Fragment {
                         }
                     }
                 });
+                //修改資料，還沒寫完
+
+                //刪除資料，還沒寫完
                 /*btn_delete.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -222,6 +254,7 @@ public class ShoppingListFragment extends Fragment {
 
                     }
                 });*/
+                //刪除資料，還沒寫完
 
             }
         });

@@ -35,6 +35,7 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
 
+        /*
         //DATABASE_FOOD_INFO，存取資料
         DatabaseForm test_database = new DatabaseForm();
         test_database.food_name = "456";
@@ -67,6 +68,7 @@ public class MainActivity extends AppCompatActivity {
         Log.e("TEST_DATEBASE2 : ", "food fat : " + test_database2.food_fat);
         Log.e("TEST_DATEBASE2 : ", "food carbs : " + test_database2.food_carbs);
         //DATABASE_FOOD_INFO，讀取資料
+        */
 
 
 
