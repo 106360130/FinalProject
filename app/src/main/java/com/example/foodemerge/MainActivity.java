@@ -43,8 +43,8 @@ public class MainActivity extends AppCompatActivity {
         test_database.food_fat = "0";
         test_database.food_carbs = "55";
 
-        DatabaseFunction.getInstance().addDatabase(test_database);
-        DatabaseFunction.getInstance().saveDatabase();
+        DatabaseFunction.getInstance().addDatabase(test_database);//add para agregar algo en donde ya habia algo
+        DatabaseFunction.getInstance().saveDatabase();//guardar lo q se agrego
 
         Log.e("TEST_DATEBASE : ", "food name : " + test_database.food_name);
         Log.e("TEST_DATEBASE : ", "food cals : " + test_database.food_cals);

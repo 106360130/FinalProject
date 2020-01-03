@@ -25,6 +25,7 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.example.foodemerge.Database.DatabaseForm;
+import com.example.foodemerge.Database.DatabaseFunction;
 import com.example.foodemerge.R;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
@@ -140,6 +141,11 @@ public class ShoppingListFragment extends Fragment {
 
                                     shopping_list1.food_name = ed_name.getText().toString();
                                     shopping_list1.food_price = ed_price.getText().toString();
+                                    //add
+                                    DatabaseFunction.getInstance().addDatabaseShoppingList(shopping_list1);
+                                    //save
+                                    DatabaseFunction.getInstance().saveDatabaseShoppingList();
+
                                     Log.e("新增東西了嗎","food name : " + shopping_list1.food_name);
                                     items.add("名字: "+ shopping_list1.food_name+"   價格: "+ shopping_list1.food_price+ "元");
                                     cost_record = cost_record + Integer.parseInt(ed_price.getText().toString());//加食物價格時,cost_record增加
@@ -167,11 +173,14 @@ public class ShoppingListFragment extends Fragment {
                             }
                         }
                     }
+
+                    
                 });
 
             }
         });
 
+        //delete esta en foodinfofragment.java
         return root;
     }
 
