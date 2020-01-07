@@ -126,15 +126,18 @@ public class DatabaseFunction {
     }
 
     public void removeDatabaseShoppingList(String name) {
+        String want_delet_food = name;
+
         for( int i = 0 ; i < this.databaseShoppingList.size() ; i++)
         {
+
             /*
             if( database.get(i).food_neme.contains(name))  //包含
             {
                 this.database.remove(i);
             }
             */
-            if( databaseShoppingList.get(i).food_name.compareTo(name) == 0)  //如果字串一樣就刪除
+            if( databaseShoppingList.get(i).food_name.compareTo(want_delet_food) == 0)  //如果字串一樣就刪除
             {
                 this.databaseShoppingList.remove(i);
             }

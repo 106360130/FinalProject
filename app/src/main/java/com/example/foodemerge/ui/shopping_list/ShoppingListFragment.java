@@ -98,18 +98,6 @@ public class ShoppingListFragment extends Fragment {
         Log.e("shopping_list_now : " , String.format("%d" , shopping_list_now.size()));  //看現在有幾筆資料
 
 
-        //DatabaseForm dailog_food = dialog_foods.get(0);  //取第一筆資料
-        //DatabaseForm shopping_list_now2 = shopping_list_now.get(shopping_list_now.size()-1);  //取最後一筆資料
-
-        /*
-        Log.e("TEST_DATEBASE2 : ", "food name : " + test_database2.food_name);
-        Log.e("TEST_DATEBASE2 : ", "food cals : " + test_database2.food_cals);
-        Log.e("TEST_DATEBASE2 : ", "food protein : " + test_database2.food_protein);
-        Log.e("TEST_DATEBASE2 : ", "food fat : " + test_database2.food_fat);
-        Log.e("TEST_DATEBASE2 : ", "food carbs : " + test_database2.food_carbs);
-        */
-
-
         for (int i = 0; i < shopping_list_now.size(); i++) {
             DatabaseForm shopping_list_now2 = shopping_list_now.get(i);  //取每一筆資料
 
@@ -120,8 +108,6 @@ public class ShoppingListFragment extends Fragment {
             }
 
         }
-
-
 
 
         FloatingActionButton add_shopping_item = root.findViewById(R.id.add_shopping_item);
@@ -205,7 +191,7 @@ public class ShoppingListFragment extends Fragment {
                     
                 });
 
-                //修改資料，還沒寫完
+                //修改資料，還沒寫完，變成是增加的功能，有Bug需要維修
                 btn_change.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -235,7 +221,7 @@ public class ShoppingListFragment extends Fragment {
                         }
                     }
                 });
-                //修改資料，還沒寫完
+                //修改資料，還沒寫完，變成是增加的功能，有Bug需要維修
 
                 //刪除資料，還沒寫完
                 /*btn_delete.setOnClickListener(new View.OnClickListener() {
@@ -258,8 +244,7 @@ public class ShoppingListFragment extends Fragment {
 
             }
         });
-
-        //delete esta en foodinfofragment.java
+        
         return root;
     }
 

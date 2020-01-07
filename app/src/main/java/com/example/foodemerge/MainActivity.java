@@ -74,9 +74,6 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-
-
-
         /*
         //DATABASE_SHOPPING_LIST，存取資料
         DatabaseForm test_database_shopping = new DatabaseForm();
@@ -103,10 +100,20 @@ public class MainActivity extends AppCompatActivity {
         Log.e("TEST_SHOPPING_LIST2 : ", "food price : " + test_database_shopping22.food_price);
         Log.e("TEST_SHOPPING_LIST2 : ", "food EXP : " + test_database_shopping22.food_EXP);
         //DATABASE_SHOPPING_LIST，讀取資料
+
+
+        //DATABASE_SHOPPING_LIST，刪除指定名字的字串，可以用
+        ArrayList<DatabaseForm> look_food = DatabaseFunction.getInstance().getDatabaseShoppingList();
+        Log.e("NOW_SHOPPING_LIST : ", String.format("%d", look_food.size()));
+        String remove_food = "123";
+        DatabaseFunction.getInstance().removeDatabaseShoppingList(remove_food);
+        //look_food.remove(0);
+        //DatabaseFunction.getInstance().setDatabase(look_food);
+        DatabaseFunction.getInstance().saveDatabaseShoppingList();
+        Log.e("NOW_SHOPPING_LIST : ", String.format("%d", look_food.size()));
+        //DATABASE_SHOPPING_LIST，刪除指定名字的字串，可以用
+
         */
-
-
-
 
 
 
