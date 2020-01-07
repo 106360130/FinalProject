@@ -61,6 +61,7 @@ public class FoodInfoFragment extends Fragment {
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
+
         foodInfoViewModel =
                 ViewModelProviders.of(this).get(FoodInfoViewModel.class);
         final View root = inflater.inflate(R.layout.fragment_food_info, container, false);
@@ -76,7 +77,7 @@ public class FoodInfoFragment extends Fragment {
         final View trans_list = inflater.inflate(R.layout.trans_list, container, false);
         final ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(getActivity(),R.layout.trans_list,items);
         food_info_listView = root.findViewById(R.id.serch_list);
-        food_info_listView.setAdapter(arrayAdapter);
+        food_info_listView.setAdapter(arrayAdapter);  //將自定義的layout塞進Dialog
 
 
 
@@ -97,10 +98,8 @@ public class FoodInfoFragment extends Fragment {
                 return view;
             }
         };
+        food_info_listView.setAdapter(colorAdapter);  //字體顏色、大小設定
         //listView顯示要用
-
-        food_info_listView.setAdapter(colorAdapter);
-
 
         //listView顯示要用
         ArrayList<DatabaseForm> food_info_now = DatabaseFunction.getInstance().getDatabase();  //取得剛剛儲存的資料
@@ -116,22 +115,6 @@ public class FoodInfoFragment extends Fragment {
             }
 
         //listView顯示要用
-
-
-        /*
-        //刪除指定名字的字串
-        ArrayList<DatabaseForm> look_food = DatabaseFunction.getInstance().getDatabase();
-        Log.e("LOOK_FOOD : ", String.format("%d", look_food.size()));
-        String remove_food = "beef";
-        DatabaseFunction.getInstance().removeDatabase(remove_food);
-        //look_food.remove(0);
-        //DatabaseFunction.getInstance().setDatabase(look_food);
-        DatabaseFunction.getInstance().saveDatabase();
-        Log.e("NOW_FOOD : ", String.format("%d", look_food.size()));
-        //刪除指定名字的字串
-        */
-
-
 
         search_on_net = root.findViewById(R.id.btn_search);
         search_on_net.setOnClickListener(new View.OnClickListener() {
@@ -276,17 +259,6 @@ public class FoodInfoFragment extends Fragment {
                 dialog_food_fat.setText(String.format("%s", food_info_have2.food_fat ));
                 dialog_food_carbs.setText(String.format("%s", food_info_have2.food_carbs ));
 
-                /*
-                Integer.valueOf(dailog_food.food_cals).intValue(),
-                        Integer.valueOf(dailog_food.food_carbs).intValue()
-                Integer.valueOf(dailog_food.food_fat).intValue(),
-                */
-                //Integer protein_num = Integer.valueOf(dailog_food.food_carbs).intValue();
-
-                String test_a = "12.3";  //因為字串是"小數"
-                Float i = Float.parseFloat(test_a);  //所以轉換的時候要用"浮點數"
-
-                //Log.e("fuck2",food_info_have2.food_carbs );
 
                 Log.e("LOOK_FOOD : ", food_info_have2.food_name);
                 Log.e("LOOK_FOOD : ", food_info_have2.food_cals);
@@ -294,11 +266,12 @@ public class FoodInfoFragment extends Fragment {
                 Log.e("LOOK_FOOD : ", food_info_have2.food_fat);
                 Log.e("LOOK_FOOD : ", food_info_have2.food_carbs);
 
-                //Integer i = Integer.valueOf(test_a).intValue();
 
+                //顯示要用"float"
                 Float num_protein = Float.parseFloat(food_info_have2.food_protein);
                 Float num_fat = Float.parseFloat(food_info_have2.food_fat);
                 Float num_carbs = Float.parseFloat(food_info_have2.food_carbs);
+                //顯示要用"float"
 
                 ArrayList<PieEntry> food_info_num2 = new ArrayList<>();  //曲線的種類
                 food_info_num2.add(new PieEntry( num_protein,"Protein"));  //"f"只是強制為"浮點數"而已
@@ -331,21 +304,6 @@ public class FoodInfoFragment extends Fragment {
                 //piechart的相關設定
 
 
-
-
-
-
-                //LayoutInflater inflater = LayoutInflater.from(MainActivity.this);
-                //final View vv = inflater.inflate(R.layout.test, null);
-                //new AlertDialog.Builder(MainActivity.this).setView(vv).show();
-
-                //View content_layout = LayoutInflater.from(MainActivity.this).inflate(R.layout.show_food_info, null );  //連接到自己的layout
-
-
-                //builder.setView(content_layout);  //將自訂的layout塞入"AlertDialog"
-                //builder.setTitle("123");  //設立"AlertDialog"的標題
-                //Log.e("TAG","123");  //除錯用
-
                 builder.show();  //顯示"AlertDialog"
 
             }
@@ -353,8 +311,6 @@ public class FoodInfoFragment extends Fragment {
 
         return root;
     }
-
-
 
 
     private static String convertStreamToString(InputStream is, String charsetName) throws IOException {
