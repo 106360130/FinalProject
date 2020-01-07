@@ -1,4 +1,6 @@
-//資料庫存取有問題
+//可以顯示營資訊
+//shopping list可以新增
+
 
 package com.example.foodemerge;
 
