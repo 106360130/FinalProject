@@ -244,7 +244,7 @@ public class ShoppingListFragment extends Fragment {
 
             }
         });
-        
+
         return root;
     }
 
