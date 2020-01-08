@@ -26,7 +26,7 @@
         <LinearLayout
             android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_marginTop="32dp"
@@ -47,44 +47,41 @@
 
                 <TextView
                     android:id="@+id/budget_num"
-                    android:layout_marginTop="6dp"
-                    android:layout_below="@+id/app_name"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginBottom="40dp"
                     android:text="2501"
                     android:textSize="30sp"
                     android:textColor="#52BAFF"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     app:layout_constraintTop_toBottomOf="@+id/app_name"
-                    app:layout_constraintLeft_toLeftOf="@+id/app_name" />
+                    app:layout_constraintLeft_toLeftOf="parent"/>
 
                 <TextView
                     android:id="@+id/subtraction"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="-"
-                    android:layout_marginLeft="16dp"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginTop="6dp"
                     android:textColor="#52BAFF"
                     android:textSize="30sp"
-                    app:layout_constraintTop_toTopOf="@+id/budget_num"
                     app:layout_constraintBottom_toBottomOf="@+id/budget_num"
-                    app:layout_constraintLeft_toRightOf="@+id/budget_num"/>
+                    app:layout_constraintStart_toEndOf="@+id/budget_num"/>
                 <!--"layout_below"設定以甚麼為基準的意思-->
                 <!--"layout_marginLeft"設定在基準左邊隔多少的意思-->
 
+
                 <TextView
                     android:id="@+id/cost_num"
-                    android:layout_marginTop="6dp"
-                    android:layout_marginLeft="16dp"
-                    android:text="2000"
-                    android:textSize="30sp"
-                    android:textColor="#52BAFF"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    app:layout_constraintTop_toTopOf="@+id/subtraction"
+                    android:layout_marginLeft="5dp"
+                    android:text="2000"
+                    android:textColor="#52BAFF"
+                    android:textSize="30sp"
                     app:layout_constraintBottom_toBottomOf="@+id/subtraction"
-                    app:layout_constraintLeft_toRightOf="@+id/subtraction"
-                    />
-
+                    app:layout_constraintStart_toEndOf="@+id/subtraction"/>
 
                 <TextView
                     android:id="@+id/equal"
@@ -93,10 +90,9 @@
                     android:textColor="#52BAFF"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="16dp"
-                    app:layout_constraintTop_toTopOf="@+id/cost_num"
+                    android:layout_marginLeft="5dp"
                     app:layout_constraintBottom_toBottomOf="@+id/cost_num"
-                    app:layout_constraintLeft_toRightOf="@+id/cost_num"/>
+                    app:layout_constraintStart_toEndOf="@+id/cost_num"/>
 
                 <TextView
                     android:id="@+id/balance_num"
@@ -105,14 +101,10 @@
                     android:textColor="#52BAFF"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/app_name"
-                    android:layout_toRightOf="@+id/equal"
-                    android:layout_marginLeft="16dp"
-                    app:layout_constraintTop_toTopOf="@+id/equal"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginLeft="5dp"
                     app:layout_constraintBottom_toBottomOf="@+id/equal"
-                    app:layout_constraintLeft_toRightOf="@+id/equal"
-                    />
-
+                    app:layout_constraintStart_toEndOf="@+id/equal"/>
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -208,7 +200,7 @@
                 <!--"CardView"是卡片畫面-->
 
                 <androidx.cardview.widget.CardView
-                    android:id="@+id/havefood"
+                    android:id="@+id/haveFood"
                     android:layout_width="100dp"
                     android:layout_height="150dp"
                     android:layout_columnWeight = "1"
@@ -244,6 +236,7 @@
                 </androidx.cardview.widget.CardView>
 
                 <androidx.cardview.widget.CardView
+                    android:id="@+id/foodInfo"
                     android:layout_width="100dp"
                     android:layout_height="150dp"
                     android:layout_columnWeight = "1"
@@ -279,6 +272,7 @@
                 </androidx.cardview.widget.CardView>
 
                 <androidx.cardview.widget.CardView
+                    android:id="@+id/setting"
                     android:layout_width="100dp"
                     android:layout_height="150dp"
                     android:layout_columnWeight = "1"
@@ -314,6 +308,7 @@
                 </androidx.cardview.widget.CardView>
 
                 <androidx.cardview.widget.CardView
+                    android:id="@+id/instructions"
                     android:layout_width="100dp"
                     android:layout_height="150dp"
                     android:layout_columnWeight = "1"
