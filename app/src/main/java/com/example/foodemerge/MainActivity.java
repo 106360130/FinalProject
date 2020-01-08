@@ -1,4 +1,6 @@
-//資料庫存取有問題
+//可以顯示營資訊
+//shopping list可以新增
+
 
 package com.example.foodemerge;
 
@@ -33,25 +35,26 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        Log.e("TEST : ", "here!");
+
 
         /*
         //DATABASE_FOOD_INFO，存取資料
         DatabaseForm test_database = new DatabaseForm();
-        test_database.food_name = "456";
-        test_database.food_cals = "200";
-        test_database.food_protein = "4.5";
+        test_database.food_name = "chicken";
+        test_database.food_cals = "100";
+        test_database.food_protein = "30";
         test_database.food_fat = "0";
-        test_database.food_carbs = "55";
+        test_database.food_carbs = "5.1";
 
-        DatabaseFunction.getInstance().addDatabase(test_database);
-        DatabaseFunction.getInstance().saveDatabase();
+        DatabaseFunction.getInstance().addDatabase(test_database);//add para agregar algo en donde ya habia algo
+        DatabaseFunction.getInstance().saveDatabase();//guardar lo q se agrego
 
         Log.e("TEST_DATEBASE : ", "food name : " + test_database.food_name);
         Log.e("TEST_DATEBASE : ", "food cals : " + test_database.food_cals);
         Log.e("TEST_DATEBASE : ", "food protein : " + test_database.food_protein);
         Log.e("TEST_DATEBASE : ", "food fat : " + test_database.food_fat);
         Log.e("TEST_DATEBASE : ", "food carbs : " + test_database.food_carbs);
-
         //DATABASE_FOOD_INFO，存取資料
 
         //DATABASE_FOOD_INFO，讀取資料
@@ -67,9 +70,7 @@ public class MainActivity extends AppCompatActivity {
         Log.e("TEST_DATEBASE2 : ", "food fat : " + test_database2.food_fat);
         Log.e("TEST_DATEBASE2 : ", "food carbs : " + test_database2.food_carbs);
         //DATABASE_FOOD_INFO，讀取資料
-         */
-
-
+        */
 
         /*
         //DATABASE_SHOPPING_LIST，存取資料
@@ -97,11 +98,24 @@ public class MainActivity extends AppCompatActivity {
         Log.e("TEST_SHOPPING_LIST2 : ", "food price : " + test_database_shopping22.food_price);
         Log.e("TEST_SHOPPING_LIST2 : ", "food EXP : " + test_database_shopping22.food_EXP);
         //DATABASE_SHOPPING_LIST，讀取資料
+
+
+        //DATABASE_SHOPPING_LIST，刪除指定名字的字串，可以用
+        ArrayList<DatabaseForm> look_food = DatabaseFunction.getInstance().getDatabaseShoppingList();
+        Log.e("NOW_SHOPPING_LIST : ", String.format("%d", look_food.size()));
+        String remove_food = "123";
+        DatabaseFunction.getInstance().removeDatabaseShoppingList(remove_food);
+        //look_food.remove(0);
+        //DatabaseFunction.getInstance().setDatabase(look_food);
+        DatabaseFunction.getInstance().saveDatabaseShoppingList();
+        Log.e("NOW_SHOPPING_LIST : ", String.format("%d", look_food.size()));
+        //DATABASE_SHOPPING_LIST，刪除指定名字的字串，可以用
+
         */
 
 
 
-
+        /*
         //DATABASE_HOME_FOOD，存取資料
         DatabaseForm test_database_home_food = new DatabaseForm();
         test_database_home_food.food_name = "456";
@@ -123,7 +137,8 @@ public class MainActivity extends AppCompatActivity {
         Log.e("TEST_HOME_FOOD2 : ", "food name : " + test_database_home_food22.food_name);
         Log.e("TEST_HOME_FOOD2 : ", "food EXP : " + test_database_home_food22.food_EXP);
         //DATABASE_HOME_FOOD，讀取資料
-        
+        */
+
 
 
         /*
@@ -154,24 +169,6 @@ public class MainActivity extends AppCompatActivity {
         //DATABASE_MONEY，讀取資料
         */
 
-
-        //測試SHOPPING_LIST資料庫存取資料，測試成功
-        DatabaseForm shopping_list1 = new DatabaseForm();
-        shopping_list1.food_name = "apple";
-        shopping_list1.food_cals = "100";
-        shopping_list1.food_protein = "3.2";
-        shopping_list1.food_fat = "0.2";
-        shopping_list1.food_carbs = "50";
-
-        DatabaseFunction.getInstance().addDatabaseShoppingList(shopping_list1);
-        DatabaseFunction.getInstance().saveDatabaseShoppingList();
-
-        Log.e("TEST_SHOPPING_LIST1 : ", "food name : " + shopping_list1.food_name);
-        Log.e("TEST_SHOPPING_LIST1 : ", "food cals : " + shopping_list1.food_cals);
-        Log.e("TEST_SHOPPING_LIST1 : ", "food protein : " + shopping_list1.food_protein);
-        Log.e("TEST_SHOPPING_LIST1 : ", "food fat : " + shopping_list1.food_fat);
-        Log.e("TEST_SHOPPING_LIST1 : ", "food carbs : " + shopping_list1.food_carbs);
-        //測試SHOPPING_LIST資料庫存取資料，測試成功
 
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);

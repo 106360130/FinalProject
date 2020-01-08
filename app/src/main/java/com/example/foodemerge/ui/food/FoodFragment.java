@@ -1,12 +1,15 @@
 package com.example.foodemerge.ui.food;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
+
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -30,8 +33,12 @@ import java.util.ArrayList;
 
 public class FoodFragment extends Fragment {
 
+    private EditText ed_name_home,ed_price_home;
+    private Button change_home;
+
     //本來就有的
     private FoodViewModel foodViewModel;
+
 
     private ListView listView_homeFood;
     private ArrayAdapter<String > adapter_homeFood;
@@ -39,6 +46,8 @@ public class FoodFragment extends Fragment {
     private EditText ed_name, ed_price;
     private Button btn_create, btn_delete, btn_change, cancel_delete, delete;
 
+    private ListView home_food_listView;
+    private ArrayList<String> items = new ArrayList<>();
 
         public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -54,7 +63,7 @@ public class FoodFragment extends Fragment {
         });
 
 
-
+        /*
         //DATABASE_HOME_FOOD，讀取資料
         ArrayList<DatabaseForm> test_database_money2 = DatabaseFunction.getInstance().getDatabaseMoney();  //取得剛剛儲存的資料
         Log.e("TEST_MONEY2 : " , "data : " + String.format("%d" , test_database_money2.size()));
@@ -66,19 +75,39 @@ public class FoodFragment extends Fragment {
         Log.e("TEST_MONEY2 : ", "cost : " + test_database_money22.cost);
         Log.e("TEST_MONEY2 : ", "balance : " + test_database_money22.balance);
         //DATABASE_MONEY，讀取資料
+        */
 
-        //taking care of the list view
-            listView_homeFood = root.findViewById(R.id.listView);
-            adapter_homeFood = new ArrayAdapter<>(getActivity(), android.R.layout.simple_list_item_1, items_homeFood);//adapter for handling the database
-            listView_homeFood.setAdapter(adapter_homeFood);
+            //listView顯示要用
+            final View trans_list = inflater.inflate(R.layout.trans_list, container, false);
+            final ArrayAdapter<String> adapter_homefood = new ArrayAdapter<>(getActivity(),R.layout.trans_list,items_homeFood);
+            home_food_listView = root.findViewById(R.id.home_food_list_view);
+            home_food_listView.setAdapter(adapter_homefood);
 
 
-            //需要增加功能
-        FloatingActionButton add_shopping_item = root.findViewById(R.id.add_shopping_item);
-        FloatingActionButton add_food = root.findViewById(R.id.add_food);
-            //需要增加功能
+            ArrayAdapter<String> colorAdapter = new ArrayAdapter<String>(getActivity(),android.R.layout.simple_list_item_1, items){
+                @Override
+                public View getView(int position, View convertView, ViewGroup parent){
+                    // Get the Item from ListView
+                    View view = super.getView(position, convertView, parent);
 
-        add_food.setOnClickListener(new View.OnClickListener() {
+                    // Initialize a TextView for ListView each Item
+                    final TextView tv = (TextView) view.findViewById(android.R.id.text1);
+
+                    // Set the text color of TextView (ListView Item)
+                    tv.setTextColor(Color.WHITE);
+                    tv.setTextSize(TypedValue.COMPLEX_UNIT_SP, 18.0F);
+
+                    // Generate ListView Item using TextView
+                    return view;
+                }
+            };
+            home_food_listView.setAdapter(colorAdapter);
+            //listView顯示要用
+
+
+
+            FloatingActionButton add_food = root.findViewById(R.id.add_home_food);
+            add_food.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 final AlertDialog dialog = new AlertDialog.Builder(getActivity()).create();
@@ -115,6 +144,7 @@ public class FoodFragment extends Fragment {
                         else {
                             try {
                                 //增加食物的功能
+
 
                                 if (ed_price.length()>0){
 

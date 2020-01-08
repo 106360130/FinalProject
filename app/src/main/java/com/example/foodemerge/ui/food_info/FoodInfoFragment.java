@@ -1,22 +1,41 @@
 package com.example.foodemerge.ui.food_info;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
+import android.util.TypedValue;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
+
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
+
 
 import androidx.annotation.Nullable;
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.example.foodemerge.Database.DatabaseForm;
 import com.example.foodemerge.Database.DatabaseFunction;
+import com.example.foodemerge.MainActivity;
 import com.example.foodemerge.R;
+import com.github.mikephil.charting.animation.Easing;
+import com.github.mikephil.charting.charts.PieChart;
+import com.github.mikephil.charting.components.Legend;
+import com.github.mikephil.charting.data.PieData;
+import com.github.mikephil.charting.data.PieDataSet;
+import com.github.mikephil.charting.data.PieEntry;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -30,57 +49,77 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
 
+
 public class FoodInfoFragment extends Fragment {
 
+    private AlertDialog dialog;
     private FoodInfoViewModel foodInfoViewModel;
+
     private Button search_on_net;  //網路上搜尋的按鈕
     String url;  //爬蟲的網址
     String want_search_food = "beef";
+    private ListView food_info_listView;  //listView顯示要用
+    private ArrayList<String> items = new ArrayList<String>();  //listView顯示要用
+    private Integer want_num;
+    private PieChart show_food_info_chart;
+    private TextView dialog_food_name, dialog_food_cals;
+    private TextView dialog_food_protein, dialog_food_fat, dialog_food_carbs;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
+
         foodInfoViewModel =
                 ViewModelProviders.of(this).get(FoodInfoViewModel.class);
         final View root = inflater.inflate(R.layout.fragment_food_info, container, false);
         final TextView textView = root.findViewById(R.id.text_food_info);
-        foodInfoViewModel.getText().observe(this, new Observer<String>() {
+        
+
+        //listView顯示要用
+        final View trans_list = inflater.inflate(R.layout.trans_list, container, false);
+        final ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(getActivity(),R.layout.trans_list,items);
+        food_info_listView = root.findViewById(R.id.serch_list);
+        food_info_listView.setAdapter(arrayAdapter);  //將自定義的layout塞進Dialog
+
+
+
+
+        ArrayAdapter<String> colorAdapter = new ArrayAdapter<String>(getActivity(),android.R.layout.simple_list_item_1, items){
             @Override
-            public void onChanged(@Nullable String s) {
-                textView.setText(s);
+            public View getView(int position, View convertView, ViewGroup parent){
+                // Get the Item from ListView
+                View view = super.getView(position, convertView, parent);
+
+                // Initialize a TextView for ListView each Item
+                final TextView tv = (TextView) view.findViewById(android.R.id.text1);
+
+                // Set the text color of TextView (ListView Item)
+                tv.setTextColor(Color.WHITE);
+
+                tv.setTextSize(TypedValue.COMPLEX_UNIT_SP, 18.0F);
+
+
+                // Generate ListView Item using TextView
+                return view;
             }
-        });
+        };
 
-        /*
-        //資料庫提取資料，要顯示在listView
-        ArrayList<DatabaseForm> dialog_foods = DatabaseFunction.getInstance().getDatabase();  //取得剛剛儲存的資料
-        Log.e("dialog_foods ; " , String.format("%d" , dialog_foods.size()));
+        food_info_listView.setAdapter(colorAdapter);  //字體顏色、大小設定
+        //listView顯示要用
 
-        //DatabaseForm dailog_food = dialog_foods.get(0);  //取第一筆資料
-        DatabaseForm test_database2 = dialog_foods.get(dialog_foods.size()-1);  //取最後一筆資料
-
-        Log.e("TEST_DATEBASE2 : ", "food name : " + test_database2.food_name);
-        Log.e("TEST_DATEBASE2 : ", "food cals : " + test_database2.food_cals);
-        Log.e("TEST_DATEBASE2 : ", "food protein : " + test_database2.food_protein);
-        Log.e("TEST_DATEBASE2 : ", "food fat : " + test_database2.food_fat);
-        Log.e("TEST_DATEBASE2 : ", "food carbs : " + test_database2.food_carbs);
-        //資料庫提取資料，要顯示在listView
-        */
+        //listView顯示要用
+        ArrayList<DatabaseForm> food_info_now = DatabaseFunction.getInstance().getDatabase();  //取得剛剛儲存的資料
+        Log.e("food_info_now : " , String.format("%d" , food_info_now.size()));  //看現在有幾筆資料
 
 
+            for (int i = 0; i < food_info_now.size(); i++) {
+                DatabaseForm food_info_now2 = food_info_now.get(i);  //取每一筆資料
 
-        //刪除指定名字的字串
-                /*
-                ArrayList<DatabaseForm> look_food = DatabaseFunction.getInstance().getDatabase();
-                Log.e("LOOK_FOOD : ", String.format("%d", look_food.size()));
-                String remove_food = "beef";
-                DatabaseFunction.getInstance().removeDatabase(remove_food);
-                //look_food.remove(0);
-                //DatabaseFunction.getInstance().setDatabase(look_food);
-                DatabaseFunction.getInstance().saveDatabase();
-                Log.e("NOW_FOOD : ", String.format("%d",look_food.size()));
-                */
-        //刪除指定名字的字串
+                if (food_info_now2.food_name != null) {
+                    items.add(food_info_now2.food_name  );
+                }
+            }
 
+        //listView顯示要用
 
         search_on_net = root.findViewById(R.id.btn_search);
         search_on_net.setOnClickListener(new View.OnClickListener() {
@@ -152,8 +191,134 @@ public class FoodInfoFragment extends Fragment {
             }
         });
 
+
+
+        food_info_listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Toast toast = Toast.makeText(getActivity(), arrayAdapter.getItem(position).toString(), Toast.LENGTH_LONG);
+                //顯示Toast
+                toast.show();
+
+                //DATABASE_FOOD_INFO，讀取資料
+                ArrayList<DatabaseForm> food_info_have = DatabaseFunction.getInstance().getDatabase();  //取得剛剛儲存的資料
+                Log.e("food_info_have : " , String.format("%d" , food_info_have.size()));
+
+                String search_food_info = arrayAdapter.getItem(position);
+
+                for( int i = 0 ; i < food_info_have.size() ; i++)
+                {
+                    DatabaseForm food_info_have2 = food_info_have.get(i);
+
+                    if( food_info_have2.food_name.compareTo(search_food_info) == 0)  //如果字串一樣就刪除
+                    {
+                        want_num = i;
+                        break;
+
+                    }
+                }
+
+                //DATABASE_FOOD_INFO，讀取資料
+                DatabaseForm food_info_have2 = food_info_have.get(want_num);
+
+                Log.e("TEST_DATEBASE2 : ", "food name : " + food_info_have2.food_name);
+                Log.e("TEST_DATEBASE2 : ", "food cals : " + food_info_have2.food_cals);
+                Log.e("TEST_DATEBASE2 : ", "food protein : " + food_info_have2.food_protein);
+                Log.e("TEST_DATEBASE2 : ", "food fat : " + food_info_have2.food_fat);
+                Log.e("TEST_DATEBASE2 : ", "food carbs : " + food_info_have2.food_carbs);
+                //DATABASE_FOOD_INFO，讀取資料
+
+
+                final AlertDialog builder = new AlertDialog.Builder(getActivity()).create();  //宣告
+                builder.requestWindowFeature(Window.FEATURE_NO_TITLE);
+                builder.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+                builder.show();
+
+                View view2 = View.inflate(getActivity(),R.layout.show_food_info, null);
+                if(view2.getParent() != null){
+                    ((ViewGroup)view2.getParent()).removeView(view2);
+                }
+
+                builder.setContentView(view2);
+                builder.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE|WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM);
+
+
+                //piechart的相關設定
+                show_food_info_chart = view2.findViewById(R.id.food_pie_chart2);
+                show_food_info_chart.setUsePercentValues(true);
+                show_food_info_chart.getDescription().setEnabled(false);
+                show_food_info_chart.setExtraOffsets(0,0,0,0);
+                show_food_info_chart.setDrawHoleEnabled(true);
+                show_food_info_chart.setHoleRadius(80);
+                show_food_info_chart.setDrawEntryLabels(false);
+
+                dialog_food_name = view2.findViewById(R.id.tv_food_name2);
+                dialog_food_cals = view2.findViewById(R.id.tv_cals2);
+                dialog_food_protein = view2.findViewById(R.id.tv_protein2);
+                dialog_food_fat = view2.findViewById(R.id.tv_fat2);
+                dialog_food_carbs = view2.findViewById(R.id.tv_carbs2);
+
+
+                dialog_food_name.setText(String.format("%s", food_info_have2.food_name ));
+                dialog_food_cals.setText(String.format("%s", food_info_have2.food_cals ));
+                dialog_food_protein.setText(String.format("%s", food_info_have2.food_protein ));
+                dialog_food_fat.setText(String.format("%s", food_info_have2.food_fat ));
+                dialog_food_carbs.setText(String.format("%s", food_info_have2.food_carbs ));
+
+
+                Log.e("LOOK_FOOD : ", food_info_have2.food_name);
+                Log.e("LOOK_FOOD : ", food_info_have2.food_cals);
+                Log.e("LOOK_FOOD : ", food_info_have2.food_protein);
+                Log.e("LOOK_FOOD : ", food_info_have2.food_fat);
+                Log.e("LOOK_FOOD : ", food_info_have2.food_carbs);
+
+
+                //顯示要用"float"
+                Float num_protein = Float.parseFloat(food_info_have2.food_protein);
+                Float num_fat = Float.parseFloat(food_info_have2.food_fat);
+                Float num_carbs = Float.parseFloat(food_info_have2.food_carbs);
+                //顯示要用"float"
+
+                ArrayList<PieEntry> food_info_num2 = new ArrayList<>();  //曲線的種類
+                food_info_num2.add(new PieEntry( num_protein,"Protein"));  //"f"只是強制為"浮點數"而已
+                food_info_num2.add(new PieEntry(num_fat, "Carbs"));
+                food_info_num2.add(new PieEntry(num_carbs,"Fat"));
+
+                show_food_info_chart.setCenterText(String.format("%s cal",food_info_have2.food_cals));
+                show_food_info_chart.setCenterTextColor(Color.BLACK);
+                show_food_info_chart.setCenterTextSize(20);
+                show_food_info_chart.animateY(1000, Easing.EasingOption.EaseInOutCubic);
+
+                PieDataSet show_food_setting1 = new PieDataSet(food_info_num2, "food_data");
+                show_food_setting1.setSliceSpace(3f);
+                show_food_setting1.setSelectionShift(0f);
+                ArrayList pie_chart_colors2 = new ArrayList();
+                pie_chart_colors2.add(Color.rgb(46, 139, 87));
+                pie_chart_colors2.add(Color.rgb(238, 44, 44));
+                pie_chart_colors2.add(Color.rgb(24, 116, 205));
+                show_food_setting1.setColors(pie_chart_colors2);
+
+                PieData show_food_setting2 = new PieData(show_food_setting1);
+                show_food_setting2.setValueTextSize(10f);
+                show_food_setting2.setValueTextColor(Color.BLACK);
+                show_food_setting2.setDrawValues(false);
+
+                show_food_info_chart.setData(show_food_setting2);
+
+                Legend show_food_info_legend = show_food_info_chart.getLegend();
+                show_food_info_legend.setEnabled(false);
+                //piechart的相關設定
+
+
+                builder.show();  //顯示"AlertDialog"
+
+            }
+        });
+
         return root;
     }
+
 
     private static String convertStreamToString(InputStream is, String charsetName) throws IOException {
         InputStreamReader isr;

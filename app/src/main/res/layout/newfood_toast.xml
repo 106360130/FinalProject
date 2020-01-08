@@ -5,12 +5,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <!--shoppling list 的 Dialog的自訂義layout-->
     <View
         android:id="@+id/view"
         android:layout_width="360dp"
         android:layout_height="250dp"
         android:layout_marginTop="30dp"
-        android:alpha="0.7"
         android:background="@drawable/bg_view_round"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
