@@ -156,11 +156,6 @@ public class FoodFragment extends Fragment {
         });
 
 
-
-
-
-
-
         return root;
 
         }

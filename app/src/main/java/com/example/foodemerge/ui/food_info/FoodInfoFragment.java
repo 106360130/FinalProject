@@ -195,6 +195,7 @@ public class FoodInfoFragment extends Fragment {
 
         food_info_listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
+
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Toast toast = Toast.makeText(getActivity(), arrayAdapter.getItem(position).toString(), Toast.LENGTH_LONG);
                 //顯示Toast
@@ -214,6 +215,7 @@ public class FoodInfoFragment extends Fragment {
                     {
                         want_num = i;
                         break;
+
                     }
                 }
 
