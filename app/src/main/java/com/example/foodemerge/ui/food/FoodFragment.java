@@ -86,10 +86,6 @@ public class FoodFragment extends Fragment {
                 btn_delete = toast1.findViewById(R.id.btn_delete);
                 btn_change = toast1.findViewById(R.id.change);
 
-
-
-
-
                 final DatabaseForm shopping_list_homeFood = new DatabaseForm();
                 btn_create.setOnClickListener(new View.OnClickListener() {
                     @Override
