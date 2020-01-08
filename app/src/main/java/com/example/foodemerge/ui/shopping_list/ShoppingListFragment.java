@@ -1,3 +1,5 @@
+//刪除後listview的沒有更新，是一個bug
+
 package com.example.foodemerge.ui.shopping_list;
 
 import android.graphics.Color;
@@ -43,18 +45,6 @@ public class ShoppingListFragment extends Fragment {
     private int cost_record = 0, balance_record = 0;
     private ArrayAdapter<String> arrayAdapter;
 
-    //目前沒有用
-    /*
-    @Override
-    public void onCreate(Bundle savedInstanceState){
-        super.onCreate(savedInstanceState);
-
-
-    }
-    */
-    //目前沒有用
-
-
     @UiThread
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -79,32 +69,6 @@ public class ShoppingListFragment extends Fragment {
         listView = root.findViewById(R.id.listView);
         listView.setAdapter(arrayAdapter);
         //第一個arrayAdapter
-
-        /*
-        //第二個arrayAdapter
-        //adapter for changing the text color
-        ArrayAdapter<String> colorAdapter = new ArrayAdapter<String>(getActivity(),android.R.layout.simple_list_item_1, items){
-            @Override
-            public View getView(int position, View convertView, ViewGroup parent){
-                // Get the Item from ListView
-                View view = super.getView(position, convertView, parent);
-
-                // Initialize a TextView for ListView each Item
-                final TextView tv = (TextView) view.findViewById(android.R.id.text1);
-
-                // Set the text color of TextView (ListView Item)
-                //tv.setTextColor(Color.WHITE);
-                tv.setTextSize(TypedValue.COMPLEX_UNIT_SP, 25.0F);
-
-                // Generate ListView Item using TextView
-                return view;
-            }
-        };
-        // DataBind ListView with items from ArrayAdapter
-        listView.setAdapter(colorAdapter);
-        //第二個arrayAdapter
-        */
-
 
 
         ArrayList<DatabaseForm> shopping_list_now = DatabaseFunction.getInstance().getDatabaseShoppingList();  //取得剛剛儲存的資料
@@ -151,22 +115,6 @@ public class ShoppingListFragment extends Fragment {
                 cost_num = root.findViewById(R.id.cost_num);
                 balance_num = root.findViewById(R.id.balance_num);
 
-
-                /*
-                //DATABASE_SHOPPING_LIST，存取資料
-                DatabaseForm test_database_shopping = new DatabaseForm();
-                test_database_shopping.food_name = "456";
-                test_database_shopping.food_price = "200";
-                test_database_shopping.food_EXP = "2011212";
-
-                DatabaseFunction.getInstance().addDatabaseShoppingList(test_database_shopping);
-                DatabaseFunction.getInstance().saveDatabaseShoppingList();
-
-                Log.e("TEST_SHOPPING_LIST : ", "food name : " + test_database_shopping.food_name);
-                Log.e("TEST_SHOPPING_LIST : ", "food price : " + test_database_shopping.food_price);
-                Log.e("TEST_SHOPPING_LIST : ", "food EXP : " + test_database_shopping.food_EXP);
-                //DATABASE_SHOPPING_LIST，存取資料
-                */
 
                 btn_create.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -227,39 +175,6 @@ public class ShoppingListFragment extends Fragment {
 
                 });
 
-                /*
-                //修改資料，還沒寫完，變成是增加的功能，有Bug需要維修
-                btn_change.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        if(ed_name.length()<1|| ed_price.length() < 1)
-
-                            Toast.makeText(getActivity(), "欄位請勿留空",Toast.LENGTH_SHORT).show();
-                        else{
-                            try{
-                                ArrayList<DatabaseForm> get_shopping_list1 = DatabaseFunction.getInstance().getDatabaseShoppingList();
-
-                                shopping_list1.food_name = ed_name.getText().toString();//use the database functions to update addDatabaseShoppingList()
-                                shopping_list1.food_price = ed_price.getText().toString();
-                                items.add("名字: "+ shopping_list1.food_name+"   價格: "+ shopping_list1.food_price+ "元");
-                                Toast.makeText(getActivity(),"更新"+ed_name.getText().toString()+"      價格"+ed_price.getText().toString(),Toast.LENGTH_SHORT).show();
-                                cost_record = cost_record + Integer.parseInt(ed_price.getText().toString());//加食物價格時,cost_record增加
-                                balance_record = Integer.parseInt(budget_num.getText().toString()) - cost_record;
-                                cost_num.setText(Integer.toString(cost_record));
-                                balance_num.setText(Integer.toString(balance_record));
-
-
-                                ed_name.setText("");
-                                ed_price.setText("");
-                                arrayAdapter.notifyDataSetChanged();
-                            }catch (Exception e){
-                                Toast.makeText(getActivity(),"更新失敗:"+e.toString(),Toast.LENGTH_LONG).show();
-                            }
-                        }
-                    }
-                });
-                //修改資料，還沒寫完，變成是增加的功能，有Bug需要維修
-                */
 
                 //DATABASE_SHOPPING_LIST，刪除指定名字的字串，可以用
                 ArrayList<DatabaseForm> look_food = DatabaseFunction.getInstance().getDatabaseShoppingList();
@@ -271,11 +186,6 @@ public class ShoppingListFragment extends Fragment {
                 DatabaseFunction.getInstance().saveDatabaseShoppingList();
                 Log.e("NOW_SHOPPING_LIST : ", String.format("%d", look_food.size()));
                 //DATABASE_SHOPPING_LIST，刪除指定名字的字串，可以用
-
-
-
-
-
 
 
                 //刪除資料，還沒寫完
