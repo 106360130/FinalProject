@@ -145,9 +145,6 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-        
-
-
         /*
         //DATABASE_MONEY，存取資料
         DatabaseForm test_database_money = new DatabaseForm();
