@@ -29,5 +29,29 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <ScrollView
+        android:layout_width="300dp"
+        android:layout_height="500dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+
+            <TextView
+                android:id="@+id/instructions_for_user"
+                android:layout_width="300dp"
+                android:layout_height="500dp"
+                android:textColor="@android:color/white"
+                android:textSize="20dp" />
+
+
+
+    </ScrollView>
+
+
+
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
