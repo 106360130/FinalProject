@@ -1,3 +1,5 @@
+//思考要加怎麼加"說明文字"
+
 package com.example.foodemerge.ui.instructions;
 
 import android.os.Bundle;
@@ -18,6 +20,7 @@ public class InstructionFragment extends Fragment {
 
     private InstructionViewModel instructionViewModel;
 
+
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         instructionViewModel =
@@ -30,6 +33,8 @@ public class InstructionFragment extends Fragment {
                 textView.setText(s);
             }
         });
+
+
         return root;
     }
 }

@@ -33,7 +33,6 @@ import java.util.ArrayList;
 
 public class FoodFragment extends Fragment {
 
-    //本來就有的
     private FoodViewModel foodViewModel;
     private ArrayAdapter<String> adapter_homefood;
     private ListView listView_homeFood;
@@ -54,6 +53,22 @@ public class FoodFragment extends Fragment {
                 textView.setText(s);
             }
         });
+
+
+        ArrayList<DatabaseForm> home_food_now = DatabaseFunction.getInstance().getDatabaseHomeFood();  //取得剛剛儲存的資料
+        Log.e("HOME_FOOD_NOW : " , String.format("%d" , home_food_now.size()));  //看現在有幾筆資料
+
+
+        for (int i = 0; i < home_food_now.size(); i++) {
+            DatabaseForm shopping_list_now2 = home_food_now.get(i);  //取每一筆資料
+
+            if (shopping_list_now2.food_price != null) {
+                items_homeFood.add("名字: " + shopping_list_now2.food_name + "   價格: " + shopping_list_now2.food_price);
+            } else {
+                items_homeFood.add("名字: " + shopping_list_now2.food_name );
+            }
+
+        }
 
         //listView顯示要用
         final View trans_list = inflater.inflate(R.layout.trans_list, container, false);
