@@ -16,6 +16,7 @@ import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -57,6 +58,9 @@ public class FoodInfoFragment extends Fragment {
 
     private AlertDialog dialog;
     private FoodInfoViewModel foodInfoViewModel;
+    private EditText ed_food_info_name, ed_food_info_cals, ed_food_info_protein, ed_food_info_fat, ed_food_info_carbs;
+    private Button btn_new_food_info, btn_cancel_add_food_info;
+
 
     private Button search_on_net;  //網路上搜尋的按鈕
     String url;  //爬蟲的網址
@@ -84,7 +88,7 @@ public class FoodInfoFragment extends Fragment {
         food_info_listView.setAdapter(arrayAdapter);  //將自定義的layout塞進Dialog
 
 
-        //可以跳出alarg dialog視窗
+        //可以跳出Alert Dialog視窗
         FloatingActionButton add_food_info = root.findViewById(R.id.add_food_info);
         add_food_info.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -102,9 +106,85 @@ public class FoodInfoFragment extends Fragment {
                 dialog.setContentView(toast1);
                 dialog.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE|WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM);
 
+                ed_food_info_name = toast1.findViewById(R.id.food_info_ed_name);
+                ed_food_info_cals = toast1.findViewById(R.id.food_info_ed_cals);
+                ed_food_info_protein = toast1.findViewById(R.id.food_info_ed_protein);
+                ed_food_info_fat = toast1.findViewById(R.id.food_info_ed_fat);
+                ed_food_info_carbs = toast1.findViewById(R.id.food_info_ed_carbs);
+                btn_new_food_info = toast1.findViewById(R.id.btn_add_new_food_info);
+                btn_cancel_add_food_info = toast1.findViewById(R.id.btn_cancel_add_new_food_info);
+
+                btn_new_food_info.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        DatabaseForm new_food_info = new DatabaseForm();  //宣告食物資訊的陣列
+
+
+                        //全部資訊都要有才可以新增
+                        if (ed_food_info_name.length() < 1) {
+                            Toast.makeText(getActivity(), "欄位請勿留空", Toast.LENGTH_SHORT).show();
+                        } else if (ed_food_info_cals.length() < 1) {
+                            Toast.makeText(getActivity(), "欄位請勿留空", Toast.LENGTH_SHORT).show();
+
+                        } else if (ed_food_info_protein.length() < 1) {
+                            Toast.makeText(getActivity(), "欄位請勿留空", Toast.LENGTH_SHORT).show();
+
+                        } else if (ed_food_info_fat.length() < 1) {
+                            Toast.makeText(getActivity(), "欄位請勿留空", Toast.LENGTH_SHORT).show();
+
+                        } else if (ed_food_info_carbs.length() < 1) {
+                            Toast.makeText(getActivity(), "欄位請勿留空", Toast.LENGTH_SHORT).show();
+
+                        } else {
+
+                            try {
+
+                                Log.e("NEW_FOOD_INFO : ", "food name : " + ed_food_info_name.getText().toString());
+                                Log.e("NEW_FOOD_INFO : ", "food cals : " + ed_food_info_cals.getText().toString());
+                                Log.e("NEW_FOOD_INFO : ", "food protein : " + ed_food_info_protein.getText().toString());
+                                Log.e("NEW_FOOD_INFO : ", "food fat : " + ed_food_info_fat.getText().toString());
+                                Log.e("NEW_FOOD_INFO : ", "food carbs : " + ed_food_info_carbs.getText().toString());
+
+
+                                new_food_info.food_name = ed_food_info_name.getText().toString();
+                                new_food_info.food_cals = ed_food_info_cals.getText().toString();
+                                new_food_info.food_protein = ed_food_info_protein.getText().toString();
+                                new_food_info.food_fat = ed_food_info_fat.getText().toString();
+                                new_food_info.food_carbs = ed_food_info_carbs.getText().toString();
+
+                                DatabaseFunction.getInstance().addDatabase(new_food_info);
+                                DatabaseFunction.getInstance().saveDatabase();
+
+                                //items.add( new_food_info.food_name);  //顯示在listView上
+                                Toast.makeText(getActivity(), "新增食物" + ed_food_info_name.getText().toString(), Toast.LENGTH_SHORT).show();
+                                items.add( ed_food_info_name.getText().toString() );
+
+                                dialog.dismiss();  //退出"dialog"
+                            } catch (Exception e) {
+                                Toast.makeText(getActivity(), "新增失敗" + e.toString(), Toast.LENGTH_LONG).show();
+                            }
+
+                        }
+                        //全部資訊都要有才可以新增
+
+                        arrayAdapter.notifyDataSetChanged();  //表示"陣列有改變"，要存儲在"arrayAdapter"裡
+
+
+                        //最後顯示增加有沒有成功
+                        ArrayList<DatabaseForm> food_info_database_changed = DatabaseFunction.getInstance().getDatabase();  //取得剛剛儲存的資料
+                        Log.e("FOOD_INFO_NOW : " , String.format("%d" , food_info_database_changed.size()));  //看現在有幾筆資料
+                        //最後顯示增加有沒有成功
+
+
+
+
+                    }
+                });
+
+
             }
         });
-        //可以跳出alarg dialog視窗
+        //可以跳出Alert Dialog視窗
 
 
 
