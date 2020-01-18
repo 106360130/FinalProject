@@ -1,3 +1,5 @@
+//等待增加加入資訊到資料庫
+
 package com.example.foodemerge.ui.food_info;
 
 import android.graphics.Color;
@@ -82,6 +84,7 @@ public class FoodInfoFragment extends Fragment {
         food_info_listView.setAdapter(arrayAdapter);  //將自定義的layout塞進Dialog
 
 
+        //可以跳出alarg dialog視窗
         FloatingActionButton add_food_info = root.findViewById(R.id.add_food_info);
         add_food_info.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -101,6 +104,7 @@ public class FoodInfoFragment extends Fragment {
 
             }
         });
+        //可以跳出alarg dialog視窗
 
 
 
