@@ -36,6 +36,7 @@ import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -79,6 +80,27 @@ public class FoodInfoFragment extends Fragment {
         final ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(getActivity(),R.layout.trans_list,items);
         food_info_listView = root.findViewById(R.id.serch_list);
         food_info_listView.setAdapter(arrayAdapter);  //將自定義的layout塞進Dialog
+
+
+        FloatingActionButton add_food_info = root.findViewById(R.id.add_food_info);
+        add_food_info.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                final AlertDialog dialog = new AlertDialog.Builder(getActivity()).create();
+                dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+                dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+                dialog.show();
+
+                View toast1 = View.inflate(getActivity(),R.layout.new_food_info_dialog, null);
+                if (toast1.getParent()!=null) {
+                    ((ViewGroup)toast1.getParent()).removeView(toast1);
+                }
+
+                dialog.setContentView(toast1);
+                dialog.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE|WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM);
+
+            }
+        });
 
 
 

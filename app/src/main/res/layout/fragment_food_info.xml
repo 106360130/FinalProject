@@ -77,14 +77,14 @@
 
     <!--這個加號按鈕要在了解-->
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/add"
+        android:id="@+id/add_food_info"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
         android:layout_margin="30dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:srcCompat="@android:drawable/ic_input_add" />
+        app:srcCompat="@drawable/plus2" />
     <!--"layout_margin"就是個邊緣相距離多少-->
     <!--"srcCompat"要再去改變成白色的-->
 

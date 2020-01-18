@@ -103,7 +103,6 @@ public class ShoppingListFragment extends Fragment {
 
 
                 dialog.setContentView(toast1);
-
                 dialog.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE|WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM);
 
                 ed_name = toast1.findViewById(R.id.ed_name);

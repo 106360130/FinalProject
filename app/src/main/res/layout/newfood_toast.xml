@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -36,7 +37,7 @@
         android:layout_marginBottom="8dp"
         android:text="名稱:"
         android:textColor="#FFFFFF"
-        android:textSize="25sp"
+        android:textSize="25dp"
         app:layout_constraintBottom_toBottomOf="@+id/ed_name"
         app:layout_constraintEnd_toStartOf="@+id/ed_name" />
 
@@ -48,7 +49,7 @@
         android:layout_marginBottom="4dp"
         android:text="價格:"
         android:textColor="#FFFFFF"
-        android:textSize="25sp"
+        android:textSize="25dp"
         app:layout_constraintBottom_toBottomOf="@+id/ed_price"
         app:layout_constraintEnd_toStartOf="@+id/ed_price"
         app:layout_constraintStart_toStartOf="@+id/view" />
@@ -82,7 +83,7 @@
         android:layout_height="wrap_content"
         android:text="元"
         android:textColor="#FFFFFF"
-        android:textSize="22sp"
+        android:textSize="25dp"
         app:layout_constraintBottom_toBottomOf="@+id/ed_price"
         app:layout_constraintStart_toEndOf="@id/ed_price"
         app:layout_constraintTop_toTopOf="@id/ed_price"
