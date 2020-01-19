@@ -1,4 +1,8 @@
-//等待增加加入資訊到資料庫
+//list的排版
+//"上網收尋"是當清單沒有時再去網上搜尋
+//點list中的其中一樣item可以直接顯示內容，按"編輯"可以修改內容
+//"搜尋的圖案"黑色要換成白色
+
 
 package com.example.foodemerge.ui.food_info;
 

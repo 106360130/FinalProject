@@ -1,3 +1,6 @@
+//home food要有"名字"跟"有效日期"
+//list顯示的是"所有字串"(item的增加後)
+//快到有效日期，字體變"紅色"
 package com.example.foodemerge.ui.food;
 
 import android.graphics.Color;
@@ -139,6 +142,53 @@ public class FoodFragment extends Fragment {
 
                     }
                 });
+
+                //刪除資料，還沒寫完
+                btn_delete.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        //先看要刪掉甚麼
+
+                        if (ed_name.length() < 1 ) {
+                            Toast.makeText(getActivity(), "欄位請勿留空", Toast.LENGTH_SHORT).show();
+                        } else {
+                            try {
+                                DatabaseFunction.getInstance().removeDatabaseHomeFood(ed_name.getText().toString());
+                                DatabaseFunction.getInstance().saveDatabaseHomeFood();
+
+                                Toast.makeText(getActivity(), "刪除食物" + ed_name.getText().toString(), Toast.LENGTH_SHORT).show();
+                                dialog.dismiss();  //退出"dialog"
+
+                            } catch (Exception e) {
+                                Toast.makeText(getActivity(), "刪除失敗" + e.toString(), Toast.LENGTH_LONG).show();
+                            }
+                        }
+
+                        adapter_homefood.notifyDataSetChanged();  //表示"陣列有改變"，要存儲在"arrayAdapter"裡
+
+                        //最後顯示增加有沒有成功
+                        ArrayList<DatabaseForm> home_food_changed = DatabaseFunction.getInstance().getDatabaseShoppingList();  //取得剛剛儲存的資料
+                        Log.e("SHOPPING_LIST_NOW : " , String.format("%d" , home_food_changed.size()));  //看現在有幾筆資料
+                        //最後顯示增加有沒有成功
+
+
+                        /*
+                        if(要刪掉的東西.edit_price != null){
+                                cost_record = cost_record - Integer.parseInt(ed_price.getText().toString());//減掉要刪掉的東西的價格
+                                balance_record = Integer.parseInt(budget_num.getText().toString()) - cost_record;
+                                cost_num.setText(Integer.toString(cost_record));
+                                balance_num.setText(Integer.toString(balance_record));
+                        }
+                        */
+
+                        //刪掉東西
+
+
+                    }
+                });
+                //刪除資料，還沒寫完
+
+
 
             }
         });

@@ -1,4 +1,10 @@
 //刪除後listview的沒有更新，是一個bug
+//刪除功能，按一下，變灰色的字，且一條線
+//按"購物車"時，灰色字的清單消失，轉移到home_food的資料庫(要出清單資訊，要"雙重確認"才送出)
+//點清單可以直接編輯食物內容
+//"修改"的功能
+//list的排版
+
 
 package com.example.foodemerge.ui.shopping_list;
 

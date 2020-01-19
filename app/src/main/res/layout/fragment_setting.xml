@@ -8,7 +8,7 @@
         android:id="@+id/view"
         android:layout_width="370dp"
         android:layout_height="250dp"
-        android:background="@drawable/bg_view_round"
+        android:background="@drawable/bg_black_view"
         android:alpha="0.7"
         android:layout_marginTop="30dp"
         app:layout_constraintTop_toTopOf="parent"

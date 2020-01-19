@@ -1,23 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:background="@android:color/white"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
 
 
+    <!--shoppling list 的 Dialog的自訂義layout-->
+    <View
+        android:id="@+id/white_view"
+        android:layout_width="360dp"
+        android:layout_height="230dp"
+        android:layout_margin="30dp"
+        android:background="@drawable/bg_white_view"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <com.github.mikephil.charting.charts.PieChart
         android:id="@+id/food_pie_chart2"
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:layout_marginLeft="30dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintBottom_toBottomOf="@id/white_view"
+        app:layout_constraintLeft_toLeftOf="@id/white_view"
+        app:layout_constraintTop_toTopOf="@id/white_view" />
 
     <TextView
         android:id="@+id/food_name"
@@ -25,10 +34,10 @@
         android:layout_height="wrap_content"
         android:text="Food : "
         android:textColor="@android:color/black"
-        android:textSize="15dp"
-        android:layout_marginTop="10dp"
+        android:textSize="20dp"
         android:layout_marginLeft="30dp"
-        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="20dp"
+        app:layout_constraintTop_toTopOf="@id/white_view"
         app:layout_constraintLeft_toRightOf="@id/food_pie_chart2"/>
 
     <TextView
@@ -37,8 +46,8 @@
         android:layout_height="wrap_content"
         android:text="Cals : "
         android:textColor="@android:color/black"
-        android:textSize="15dp"
-        android:layout_marginTop="20dp"
+        android:textSize="20dp"
+        android:layout_marginTop="15dp"
         app:layout_constraintLeft_toLeftOf="@id/food_name"
         app:layout_constraintTop_toBottomOf="@id/food_name"
         />
@@ -49,19 +58,20 @@
         android:layout_height="wrap_content"
         android:text="Protein : "
         android:textColor="#2E8B57"
-        android:textSize="15dp"
-        android:layout_marginTop="20dp"
+        android:textSize="20dp"
+        android:layout_marginTop="15dp"
         app:layout_constraintLeft_toLeftOf="@id/cals2"
-        app:layout_constraintTop_toBottomOf="@id/cals2" />
+        app:layout_constraintTop_toBottomOf="@id/cals2"
+        app:layout_constraintBottom_toTopOf="@id/fat2"/>
 
     <TextView
         android:id="@+id/fat2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Fat : "
-        android:textSize="15dp"
+        android:textSize="20dp"
         android:textColor="#EE2C2C"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="15dp"
         app:layout_constraintLeft_toLeftOf="@id/protein2"
         app:layout_constraintTop_toBottomOf="@id/protein2" />
 
@@ -72,12 +82,11 @@
         android:layout_height="wrap_content"
         android:text="Carbs : "
         android:textColor="#1874CD"
-        android:textSize="15dp"
-        android:layout_marginTop="20dp"
+        android:textSize="20dp"
+        android:layout_marginTop="15dp"
         android:layout_marginBottom="10dp"
         app:layout_constraintLeft_toLeftOf="@id/fat2"
         app:layout_constraintTop_toBottomOf="@id/fat2"
-        app:layout_constraintBottom_toBottomOf="parent"
         />
 
     <TextView
@@ -86,7 +95,7 @@
         android:layout_height="wrap_content"
         android:text="TextView"
         android:textColor="@android:color/black"
-        android:textSize="15dp"
+        android:textSize="20dp"
         android:layout_marginLeft="30dp"
         app:layout_constraintLeft_toRightOf="@id/food_name"
         app:layout_constraintTop_toTopOf="@id/food_name"
@@ -98,7 +107,7 @@
         android:layout_height="wrap_content"
         android:text="TextView"
         android:textColor="@android:color/black"
-        android:textSize="15dp"
+        android:textSize="20dp"
         app:layout_constraintTop_toTopOf="@id/cals2"
         app:layout_constraintBottom_toBottomOf="@+id/cals2"
         app:layout_constraintLeft_toLeftOf="@id/tv_food_name2"/>
@@ -109,7 +118,7 @@
         android:layout_height="wrap_content"
         android:text="TextView"
         android:textColor="@android:color/black"
-        android:textSize="15dp"
+        android:textSize="20dp"
         app:layout_constraintLeft_toLeftOf="@id/tv_cals2"
         app:layout_constraintTop_toTopOf="@id/protein2"
         app:layout_constraintBottom_toBottomOf="@+id/protein2"/>
@@ -120,7 +129,7 @@
         android:layout_height="wrap_content"
         android:text="TextView"
         android:textColor="@android:color/black"
-        android:textSize="15dp"
+        android:textSize="20dp"
         app:layout_constraintLeft_toLeftOf="@id/tv_protein2"
         app:layout_constraintTop_toTopOf="@id/fat2"
         app:layout_constraintBottom_toBottomOf="@+id/fat2"/>
@@ -131,7 +140,7 @@
         android:layout_height="wrap_content"
         android:text="TextView"
         android:textColor="@android:color/black"
-        android:textSize="15dp"
+        android:textSize="20dp"
         app:layout_constraintLeft_toLeftOf="@id/tv_fat2"
         app:layout_constraintTop_toTopOf="@id/carbs2"
         app:layout_constraintBottom_toBottomOf="@+id/carbs2"/>
