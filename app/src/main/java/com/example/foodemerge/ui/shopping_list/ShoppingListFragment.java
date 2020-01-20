@@ -4,6 +4,7 @@
 //點清單可以直接編輯食物內容
 //"修改"的功能
 //list的排版
+//空陣列的bug已經解決
 
 
 package com.example.foodemerge.ui.shopping_list;
@@ -78,19 +79,30 @@ public class ShoppingListFragment extends Fragment {
 
 
         ArrayList<DatabaseForm> shopping_list_now = DatabaseFunction.getInstance().getDatabaseShoppingList();  //取得剛剛儲存的資料
-        Log.e("shopping_list_now : " , String.format("%d" , shopping_list_now.size()));  //看現在有幾筆資料
 
 
-        for (int i = 0; i < shopping_list_now.size(); i++) {
-            DatabaseForm shopping_list_now2 = shopping_list_now.get(i);  //取每一筆資料
-
-            if (shopping_list_now2.food_price != null) {
-                items.add("名字: " + shopping_list_now2.food_name + "   價格: " + shopping_list_now2.food_price);
-            } else {
-                items.add("名字: " + shopping_list_now2.food_name );
-            }
-
+        if(shopping_list_now == null)  //一開始為空陣列，所以要先有判斷式
+        {
+            Log.e("shopping_list_now : " , "0");  //看現在有幾筆資料
         }
+        else
+        {
+            Log.e("shopping_list_now : " , String.format("%d" , shopping_list_now.size()));  //看現在有幾筆資料
+
+            for (int i = 0; i < shopping_list_now.size(); i++) {
+                DatabaseForm shopping_list_now2 = shopping_list_now.get(i);  //取每一筆資料
+
+                if (shopping_list_now2.food_price != null) {
+                    items.add("名字: " + shopping_list_now2.food_name + "   價格: " + shopping_list_now2.food_price);
+                } else {
+                    items.add("名字: " + shopping_list_now2.food_name );
+                }
+
+            }
+        }
+
+
+
 
 
         FloatingActionButton add_shopping_item = root.findViewById(R.id.add_shopping_item);

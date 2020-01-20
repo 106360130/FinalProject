@@ -1,12 +1,11 @@
 //home food要有"名字"跟"有效日期"
 //list顯示的是"所有字串"(item的增加後)
 //快到有效日期，字體變"紅色"
-package com.example.foodemerge.ui.food;
+//空物件的bug解決
+package com.example.foodemerge.ui.home_food;
 
-import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
-import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -34,9 +33,9 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
 
-public class FoodFragment extends Fragment {
+public class HomeFoodFragment extends Fragment {
 
-    private FoodViewModel foodViewModel;
+    private HomeFoodViewModel homeFoodViewModel;
     private ArrayAdapter<String> adapter_homefood;
     private ListView listView_homeFood;
     private ArrayList<String> items_homeFood = new ArrayList<>();
@@ -46,11 +45,11 @@ public class FoodFragment extends Fragment {
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        foodViewModel =
-                ViewModelProviders.of(this).get(FoodViewModel.class);
+        homeFoodViewModel =
+                ViewModelProviders.of(this).get(HomeFoodViewModel.class);
         View root = inflater.inflate(R.layout.fragment_food, container, false);
         final TextView textView = root.findViewById(R.id.text_food);
-        foodViewModel.getText().observe(this, new Observer<String>() {
+        homeFoodViewModel.getText().observe(this, new Observer<String>() {
             @Override
             public void onChanged(@Nullable String s) {
                 textView.setText(s);
@@ -59,19 +58,29 @@ public class FoodFragment extends Fragment {
 
 
         ArrayList<DatabaseForm> home_food_now = DatabaseFunction.getInstance().getDatabaseHomeFood();  //取得剛剛儲存的資料
-        Log.e("HOME_FOOD_NOW : " , String.format("%d" , home_food_now.size()));  //看現在有幾筆資料
-
-
-        for (int i = 0; i < home_food_now.size(); i++) {
-            DatabaseForm shopping_list_now2 = home_food_now.get(i);  //取每一筆資料
-
-            if (shopping_list_now2.food_price != null) {
-                items_homeFood.add("名字: " + shopping_list_now2.food_name + "   價格: " + shopping_list_now2.food_price);
-            } else {
-                items_homeFood.add("名字: " + shopping_list_now2.food_name );
-            }
-
+        if(home_food_now == null)  //一開始為空陣列，所以要先有判斷式
+        {
+            Log.e("HOME_FOOD_NOW : " , "0");  //看現在有幾筆資料
         }
+        else
+        {
+            Log.e("HOME_FOOD_NOW : " , String.format("%d" , home_food_now.size()));  //看現在有幾筆資料
+
+            for (int i = 0; i < home_food_now.size(); i++) {
+                DatabaseForm shopping_list_now2 = home_food_now.get(i);  //取每一筆資料
+
+                if (shopping_list_now2.food_price != null) {
+                    items_homeFood.add( shopping_list_now2.food_name + shopping_list_now2.food_price);
+                } else {
+                    items_homeFood.add( shopping_list_now2.food_name );
+                }
+
+            }
+        }
+
+
+
+
 
         //listView顯示要用
         final View trans_list = inflater.inflate(R.layout.trans_list, container, false);
@@ -120,13 +129,13 @@ public class FoodFragment extends Fragment {
                                     shopping_list_homeFood.food_name = ed_name.getText().toString();
                                     shopping_list_homeFood.food_price = ed_price.getText().toString();
                                     Log.e("新增東西了嗎", "food name : " + shopping_list_homeFood.food_name);
-                                    items_homeFood.add("名字: " + shopping_list_homeFood.food_name + "   價格: " + shopping_list_homeFood.food_price + "元");
+                                    items_homeFood.add( shopping_list_homeFood.food_name + shopping_list_homeFood.food_price);
                                     DatabaseFunction.getInstance().addDatabaseHomeFood(shopping_list_homeFood);
                                     DatabaseFunction.getInstance().saveDatabaseHomeFood();
 
                                 } else {
                                     shopping_list_homeFood.food_name = ed_name.getText().toString();
-                                    items_homeFood.add("名字: " + shopping_list_homeFood.food_name);
+                                    items_homeFood.add( shopping_list_homeFood.food_name);
                                 }
 
                                 Toast.makeText(getActivity(), "新增食物" + ed_name.getText().toString(), /*+ "      價格" + ed_price.getText().toString(),*/ Toast.LENGTH_SHORT).show();

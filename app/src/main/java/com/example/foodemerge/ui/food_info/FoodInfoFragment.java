@@ -218,8 +218,14 @@ public class FoodInfoFragment extends Fragment {
 
         //listView顯示要用
         ArrayList<DatabaseForm> food_info_now = DatabaseFunction.getInstance().getDatabase();  //取得剛剛儲存的資料
-        Log.e("food_info_now : " , String.format("%d" , food_info_now.size()));  //看現在有幾筆資料
 
+        if(food_info_now == null)  //一開始為空陣列，所以要先有判斷式
+        {
+            Log.e("FOOD_INFO_NOW : " , "0");  //看現在有幾筆資料
+        }
+        else
+        {
+            Log.e("FOOD_INFO_NOW : " , String.format("%d" , food_info_now.size()));  //看現在有幾筆資料
 
             for (int i = 0; i < food_info_now.size(); i++) {
                 DatabaseForm food_info_now2 = food_info_now.get(i);  //取每一筆資料
@@ -228,7 +234,7 @@ public class FoodInfoFragment extends Fragment {
                     items.add(food_info_now2.food_name  );
                 }
             }
-
+        }
         //listView顯示要用
 
         search_on_net = root.findViewById(R.id.btn_search);

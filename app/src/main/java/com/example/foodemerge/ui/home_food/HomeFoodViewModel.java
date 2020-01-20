@@ -1,14 +1,14 @@
-package com.example.foodemerge.ui.food;
+package com.example.foodemerge.ui.home_food;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-public class FoodViewModel extends ViewModel {
+public class HomeFoodViewModel extends ViewModel {
 
     private MutableLiveData<String> mText;
 
-    public FoodViewModel() {
+    public HomeFoodViewModel() {
         mText = new MutableLiveData<>();
         mText.setValue("This is food fragment");
     }
