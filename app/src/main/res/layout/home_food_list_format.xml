@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingTop="4dp"
+    android:paddingBottom="4dp"
+    >
+    <!--"padding"是用來設定"與邊緣距離"為多少-->
+
+    <TextView
+        android:id="@+id/home_food_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="食物名稱"
+        android:textSize="20dp"
+        android:textColor="@android:color/white"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"/>
+
+    <TextView
+        android:id="@+id/home_food_exp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="EXP : "
+        android:textSize="15dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintRight_toLeftOf="@id/home_food_exp_date"/>
+
+    <TextView
+        android:id="@+id/home_food_exp_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="有效日期"
+        android:textSize="15dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintRight_toRightOf="parent"/>
+
+
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

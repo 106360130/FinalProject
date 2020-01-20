@@ -2,6 +2,7 @@
 //list顯示的是"所有字串"(item的增加後)
 //快到有效日期，字體變"紅色"
 //空物件的bug解決
+//用自定義的xml檔來做list，會比較整齊
 package com.example.foodemerge.ui.home_food;
 
 import android.os.Bundle;
@@ -70,7 +71,7 @@ public class HomeFoodFragment extends Fragment {
                 DatabaseForm shopping_list_now2 = home_food_now.get(i);  //取每一筆資料
 
                 if (shopping_list_now2.food_price != null) {
-                    items_homeFood.add( shopping_list_now2.food_name + shopping_list_now2.food_price);
+                    items_homeFood.add( String.format("%-15s\t%-5s%-15s",shopping_list_now2.food_name,"EXP : ",shopping_list_now2.food_price) );
                 } else {
                     items_homeFood.add( shopping_list_now2.food_name );
                 }
